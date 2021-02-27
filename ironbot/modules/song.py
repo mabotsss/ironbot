@@ -107,8 +107,8 @@ async def _(event):
     if event.reply_to_msg_id:
         reply_to_id = await event.reply_to_msg_id
     reply = await event.get_reply_message()
-    if event.pattern_match.group(2):
-        query = event.pattern_match.group(2)
+    if event.pattern_match.group(1):
+        query = event.pattern_match.group(1)
     elif reply:
         if reply.message:
             query = reply.message
@@ -122,7 +122,7 @@ async def _(event):
         return await ironevent.edit(
             f"Sorry!. I can't find any related video/audio for `{query}`"
         )
-    cmd = event.pattern_match.group(1)
+    cmd = event.pattern_match.group(2)
     if cmd == "song":
         q = "128k"
     elif cmd == "song320":
