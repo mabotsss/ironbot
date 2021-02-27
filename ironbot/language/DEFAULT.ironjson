@@ -68,6 +68,21 @@
             "DISAPPROVE": "Izin untuk membuang PM telah dicabut.",
             "UNBLOCKED": "Blokir telah dihapus."
         },
+        "song": {
+            "GIVE_ME_SONG": "** Beri aku lagu! ** ` Pemakaian: .deez Judul lagu/youtube/spotify/soundcloud `",
+            "SEARCHING": "`Pencarian lagu...`",
+            "BLOCKED_DEEZER": "`Mmmh, pliss buka jangan block` @DeezerMusicBot",
+            "NOT_FOUND": "`Judul lagu yang anda cari tidak ada! zzzz Sorry.`",
+            "UPLOADED_WITH": "Mengunggah by @Ironuserbot",
+            "USAGE": "`Pemakaian:` `.song judul lagu/youtube url/spotify url`",
+            "SEARCHING_SPOT": "Pencarian dan pengunduhan lagu, harap tunggu!",
+            "DOWNLOADED": "`Download berhasil, harap tunggu.`",
+            "UPLOADING": "Mengupload lagu!",
+            "USAGE_PL": "`Pemakaian: .songpl spotify playlist url`",
+            "SEARCHING_PL": "`Mencari dan mengunduh daftar putar, harap tunggu!`",
+            "SENDING_SONGS": "Mengirim lagu! Lagu:",
+            "NOT_FOUND_PL": "`Playlist yang Anda cari tidak ditemukan! Maaf.`"
+        },
         "system_stats": {
             "NO_NEOFETCH": "`Pertama, muat modul neofetch!`",
             "VERSION": "IRONBOT Version",
