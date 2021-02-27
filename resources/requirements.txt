@@ -58,3 +58,4 @@ emoji-country-flag
 cairosvg
 imagedown
 validators
+pybase64>=0.4.0
