@@ -1,15 +1,15 @@
-from ironbot import BOT_USERNAME
-from ironbot.events import register
+from userbot import BOT_USERNAME
+from userbot.events import register
 
 # ██████ LANGUAGE CONSTANTS ██████ #
 
-from ironbot.language import get_value
+from userbot.language import get_value
 LANG = get_value("__helpme")
 
 # ████████████████████████████████ #
 
-@register(outgoing=True, pattern="^.bantuan|^.help")
-async def _(event):
+@register(outgoing=True, pattern="^.yard[iı]m|^.help")
+async def yardim(event):
     tgbotusername = BOT_USERNAME
     if tgbotusername is not None:
         results = await event.client.inline_query(
