@@ -193,7 +193,7 @@ async def download_video(event):
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
-        await event.edit(f"`{str(DE)}\nTessss`")
+        await event.edit(f"`{str(DE)}`")
         return
     except ContentTooShortError:
         await event.edit("`The download content was too short.`")
@@ -213,7 +213,7 @@ async def download_video(event):
         await event.edit("`Media is not available in the requested format.`")
         return
     except XAttrMetadataError as XAME:
-        await event.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}\nTesss2`")
+        await event.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
         return
     except ExtractorError:
         await event.edit("`There was an error during info extraction.`")
@@ -232,7 +232,7 @@ Song name - {}
 """.format(
         rip_data["title"], rip_data["uploader"]
     )
-    await event.edit(f"`{theupload}`")
+    await event.edit(f"`{theupload}\Tessss`")
     await bot.send_file(
         event.chat_id,
         f"{rip_data['id']}.mp3",
