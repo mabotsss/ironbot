@@ -59,9 +59,8 @@ AFKSTR = [
 ]
 
 UNAPPROVED_MSG = ("`Hey,` {mention}`! .\n\n`"
-                  "`Pemilik saya tidak memberi Anda izin kepada PM. `"
-                  "`Harap tunggu pemilik saya aktif, dia biasanya mengkonfirmasi PM.\n\n`"
-                  "`Sejauh yang saya tahu dia tidak mengizinkan orang untuk PM.`")
+                  "`Maboss @{me.username} lagi sibuk. `"
+                  "`Harap tunggu boss saya aktif, dia biasanya mengkonfirmasi PM.\n\n`")
 
 DB = connect("learning-data-root.check")
 CURSOR = DB.cursor()
