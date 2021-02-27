@@ -59,7 +59,7 @@ AFKSTR = [
 ]
 
 UNAPPROVED_MSG = ("`Hey,` {mention}`! .\n\n`"
-                  "`Maboss {bot.me.first_name} lagi sibuk. `"
+                  "`Maboss lagi sibuk. `"
                   "`Harap tunggu boss saya aktif, dia biasanya mengkonfirmasi PM.\n\n`")
 
 
