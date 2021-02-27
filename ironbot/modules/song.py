@@ -67,110 +67,32 @@ async def deezl(event):
             await event.delete()
 
 @register(outgoing=True, pattern="^.song(?: |$)(.*)")
-async def port_song(event):
-    if event.fwd_from:
-        return
-    
-    cmd = event.pattern_match.group(1)
-    if len(cmd) < 1:
-        await event.edit(LANG['UPLOADED_WITH']) 
-
-    reply_to_id = event.message.id
-    if event.reply_to_msg_id:
-        reply_to_id = event.reply_to_msg_id
-        
-    await event.edit(LANG['SEARCHING_SPOT'])  
-    dosya = os.getcwd() 
-    os.system(f"spotdl --song {cmd} -f {dosya}")
-    await event.edit(LANG['DOWNLOADED'])    
-
-    l = glob.glob("*.mp3")
-    if len(l) >= 1:
-        await event.edit(LANG['UPLOADING'])
-        await event.client.send_file(
-            event.chat_id,
-            l[0],
-            force_document=True,
-            allow_cache=False,
-            reply_to=reply_to_id
-        )
-        await event.delete()
-    else:
-        await event.edit(LANG['NOT_FOUND'])   
-        return 
-    os.system("rm -rf *.mp3")
-    subprocess.check_output("rm -rf *.mp3",shell=True)
-
-@register(outgoing=True, pattern="^.song2(?: |$)(.*)")
-async def _(event):
-    if event.fwd_from:
-        return
-    if event.reply_to_msg_id:
-        reply_to_id = await event.reply_to_msg_id
-    reply = await event.get_reply_message()
-    if event.pattern_match.group(1):
-        query = event.pattern_match.group(1)
-    elif reply:
-        if reply.message:
-            query = reply.message
-    else:
-        await event.edit("`What I am Supposed to find `")
-        return
-    iron = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-    ironevent = await event.edit("`wi8..! I am finding your song....`")
-    video_link = await yt_search(str(query))
-    if not url(video_link):
-        return await ironevent.edit(
-            f"Sorry!. I can't find any related video/audio for `{query}`"
-        )
-    cmd = event.pattern_match.group(1)
-    if cmd == "song":
-        q = "128k"
-    elif cmd == "song320":
-        q = "320k"
-    song_cmd = song_dl.format(QUALITY="128k", video_link=video_link)
-    # thumb_cmd = thumb_dl.format(video_link=video_link)
-    name_cmd = name_dl.format(video_link=video_link)
-    try:
-        iron = Get(iron)
-        await event.client(iron)
-    except BaseException:
-        pass
-   # stderr = (await _ironutils.runcmd(song_cmd))[1]
-    #if stderr:
-     #   return await ironevent.edit(f"**Error :** `{stderr}`")
-    #ironname, stderr = (await _ironutils.runcmd(name_cmd))[:2]
-   # if stderr:
-    #    return await ironevent.edit(f"**Error :** `{stderr}`")
-    # stderr = (await runcmd(thumb_cmd))[1]
-    #ironname = os.path.splitext(ironname)[0]
-    # if stderr:
-    #    return await ironevent.edit(f"**Error :** `{stderr}`")
-    song_file = Path(f"foryou.mp3")
-    if not os.path.exists(song_file):
-        return await ironevent.edit(
-            f"Sorry!. I can't find any related video/audio for `{query}`"
-        )
-    await ironevent.edit("`yeah..! i found something wi8..🥰`")
-    ironthumb = Path(f"foryou.jpg")
-    if not os.path.exists(ironthumb):
-        ironthumb = Path(f"foryou.webp")
-    elif not os.path.exists(ironthumb):
-        ironthumb = None
-
-    await event.client.send_file(
-        event.chat_id,
-        song_file,
-        force_document=False,
-        caption=query,
-        thumb=ironthumb,
-        supports_streaming=True,
-        reply_to=reply_to_id,
-    )
-    await ironevent.delete()
-    for files in (ironthumb, song_file):
-        if files and os.path.exists(files):
-            os.remove(files)
+async def FindMusicPleaseBot(event):
+    song = event.pattern_match.group(1)
+    chat = "@FindMusicPleaseBot"
+    if not song:
+        return await event.edit("```what should i search```")
+    await event.edit("```Getting Your Music```")
+    await asyncio.sleep(2)
+    async with bot.conversation(chat) as conv:
+        await event.edit("`Downloading...Please wait`")
+        try:
+            await conv.send_message(song)
+            response = await conv.get_response()
+            if response.text.startswith("Sorry"):
+                await bot.send_read_acknowledge(conv.chat_id)
+                return await event.edit(f"Sorry, can't find {song}")
+            await conv.get_response()
+            lavde = await conv.get_response()
+        except YouBlockedUserError:
+            await event.edit(
+                "```Please unblock``` @FindmusicpleaseBot``` and try again```"
+            )
+            return
+        await event.edit("`Sending Your Music...wait!!! 😉😎`")
+        await bot.send_file(event.chat_id, lavde)
+        await bot.send_read_acknowledge(conv.chat_id)
+    await event.delete()
 
 
 @register(outgoing=True, pattern="^.songpl ?(.*)")
