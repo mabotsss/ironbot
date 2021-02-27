@@ -154,10 +154,10 @@ async def songpl(event):
 
 @register(outgoing=True, pattern="^.lagu ?(.*)")
 async def download_video(event):
-    x = await event.edit("Searching...")
+    x = await event.edit("Mencari lagu...")
     url = event.pattern_match.group(1)
     if not url:
-        return await x.edit("**Error**\nUsage - `.song <song name>`")
+        return await event.edit("**Error**\nUsage - `.song <song name>`")
     search = SearchVideos(url, offset=1, mode="json", max_results=1)
     test = search.result()
     p = json.loads(test)
@@ -165,9 +165,9 @@ async def download_video(event):
     try:
         url = q[0]["link"]
     except BaseException:
-        return await x.edit("`No matching song found...`")
+        return await event.edit("`tidak ada yang cocok zzzz...`")
     type = "audio"
-    await event.edit(f"`Preparing to download {url}...`")
+    await x.edit(f"`Preparing to download {url}...`")
     if type == "audio":
         opts = {
             "format": "bestaudio",
@@ -189,7 +189,7 @@ async def download_video(event):
             "logtostderr": False,
         }
     try:
-        await event.edit("`Getting info...`")
+        await event.edit("`Mendapatkan informasi...`")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
@@ -219,7 +219,7 @@ async def download_video(event):
         await event.edit("`There was an error during info extraction.`")
         return
     except Exception as e:
-        await event.edit(f"{str(type(e)): {str(e)}}")
+        await event.edit(f"{str(type(e)): {str(e)}}\nTesssss")
         return
     try:
         sung = str(pybase64.b64decode("QHRodW5kZXJ1c2VyYm90"))[2:14]
@@ -237,7 +237,7 @@ Song name - {}
         event.chat_id,
         f"{rip_data['id']}.mp3",
         supports_streaming=True,
-        caption=f"📀 Song - {rip_data['title']}\n❤ dari Ironbot️\n",
+        caption=f"🎵 {rip_data['title']}\n❤ dari Ironbot️\n",
         attributes=[
             DocumentAttributeAudio(
                 duration=int(rip_data["duration"]),
