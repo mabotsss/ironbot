@@ -2,42 +2,42 @@
     "__IRONJSON__": true,
     "LANGUAGE": "Indonesia",
     "LANGCODE": "id",
-    "AUTHOR": "@upp4r/@selaxg/@willyshakespeare",
+    "AUTHOR": "IronbotDEV or t.me/ndourbae",
     "STRINGS": {
         "__plugin": {
-            "REPLY_FOR_PORT": "`Please give a file for Plugin-Port`",
-            "DOWNLOADING": "`File is downloading...`",
-            "UNIBORG": "`1. Type UniBorg found...`",
-            "TOO_MANY_PLUGIN": "`There is more than one plugin in this file, I cannot port it!`",
-            "UPLOADING": "`Port successful file is uploading...`",
-            "UNIBORG2": "2. Type UniBorg found...",
-            "UNIBORG3": "`3. Type UniBorg found...`",
-            "UNIBORG_NOT_FOUND": "`Uniborg plugin not found.`",
-            "PLIST_CHECKING": "`Getting plugins...`",
-            "PLIST": "**Here Are The Installed Plugins:**",
-            "TEMP_PLUGIN": "'Your plugins don't load permanently so I can't bring a list.`",
-            "REPLY_TO_FILE": "`Reply to the module file to be installed. '",
-            "NOT_FOUND_PLUGIN_CHANNEL": "`You have not set an Id for the plugins to be permanent. Your plugins can be deleted after restarting! '",
-            "PLUGIN_BUGGED": "`Upload failed! Plugin is wrong.\n\nError: `",
-            "PLUGIN_DESC": "This plugin is externally installed for your bot. Use:\n",
-            "PLUGIN_DOWNLOADED": "`Module installed successfully! you can start using %s.`",
-            "PLUGIN_WITHOUT_DESC": "This plugin has been upgraded externally. Usage: #COMMAND NOT FOUND#",
-            "PLUGIN_DESCLESS": "`Module installed successfully! But I couldn't find the command, sorry.`",
-            "PLUG_DESC": "This plugin is installed externally. Use:",
-            "PLUG_MESSAGE": "`Module installed successfully! you can start using %s.`",
-            "PREMOVE_GIVE_NAME": "`Please specify a plugin next to the command.`",
-            "PREMOVE_DELETING": "`Plugin Deleting...`",
-            "ALREADY_DELETED": "`The Plugin file has already deleted.`",
-            "NOT_FOUND_PLUGIN": "`Maybe there was such a plugin, maybe there wasn't. But it's definitely not right now.`",
-            "PLUG_DELETED": "`Plugin deleted successfully!` '**You need to restart operations to be implemented.**",
-            "IRON_PLUGIN_CAPTION": "This is a plugin of [Iron](https://t.me/IronUserBot)."
+            "REPLY_FOR_PORT": "`Tolong berikan file untuk Plugin-Port`",
+            "DOWNLOADING": "`File sedang di download...`",
+            "UNIBORG": "`1. Jenis UniBorg ditemukan...`",
+            "TOO_MANY_PLUGIN": "`Ada lebih dari satu plugin dalam file ini, saya tidak bisa mem-port-nya!`",
+            "UPLOADING": "`File berhasil diunggah...`",
+            "UNIBORG2": "2. Jenis UniBorg ditemukan...",
+            "UNIBORG3": "`3. Jenis UniBorg ditemukan...`",
+            "UNIBORG_NOT_FOUND": "`Uniborg plugin tidak ditemukan.`",
+            "PLIST_CHECKING": "`Mendapatkan info plugins...`",
+            "PLIST": "**Ini ada list plugin terinstall:**",
+            "TEMP_PLUGIN": "`Plugin Anda tidak dimuat secara permanen jadi saya tidak bisa menampilkan daftar.`",
+            "REPLY_TO_FILE": "`Balas file modul yang akan diinstal. `",
+            "NOT_FOUND_PLUGIN_CHANNEL": "`Anda belum menyetel Id untuk plugin menjadi permanen. Plugin Anda dapat dihapus setelah memulai ulang! `",
+            "PLUGIN_BUGGED": "`Upload gagal! Plugin salah.\n\nError: `",
+            "PLUGIN_DESC": "Plugin ini dipasang secara eksternal untuk bot Anda. Menggunakan:\n",
+            "PLUGIN_DOWNLOADED": "`Modul berhasil dipasang! Anda bisa mulai menggunakan %s.`",
+            "PLUGIN_WITHOUT_DESC": "Plugin ini telah ditingkatkan secara eksternal. Penggunaan: #COMMAND NOT FOUND#",
+            "PLUGIN_DESCLESS": "`Modul berhasil dipasang! Tetapi saya tidak dapat menemukan perintahnya, sorry.`",
+            "PLUG_DESC": "Plugin ini dipasang secara eksternal. Gunakan:",
+            "PLUG_MESSAGE": "`Modul berhasil dipasang! Anda bisa mulai menggunakan %s.`",
+            "PREMOVE_GIVE_NAME": "`Harap tentukan plugin di sebelah perintah.`",
+            "PREMOVE_DELETING": "`Menghapus plugin...`",
+            "ALREADY_DELETED": "`File Plugin telah dihapus.`",
+            "NOT_FOUND_PLUGIN": "`Mungkin ada plugin seperti itu, mungkin juga tidak. Tapi jelas tidak sekarang.`",
+            "PLUG_DELETED": "`Plugin berhasil dihapus!` '**Anda perlu memulai ulang operasi untuk diterapkan.**",
+            "IRON_PLUGIN_CAPTION": "Ini adalah plugin dari [Ironbot](https://t.me/freedom_reborn)."
         },
         "__iron": {
-            "NEED_PLUGIN": "Please specify an Iron module name.",
-            "NEED_MODULE": "Please specify which Iron module you want help for !!\nUse: .iron <module name>"
+            "NEED_PLUGIN": "`Tentukan nama modul Ironbot.`",
+            "NEED_MODULE": "`Harap tentukan modul Ironbot mana yang Anda ingin bantuannya !!\nPakai: .iron <nama modul>`"
         },
         "__helpme": {
-            "NO_BOT": "`The Bot doesn't work! Please set the Bot token and Username correctly. Module aborted.`"
+            "NO_BOT": "`Bot tidak berfungsi! Harap setel bot Token dan username bot dengan benar. Module dibatalkan.`"
         },
         "updater": {
             "DETECTING": "`Memeriksa pembaruan...`",
@@ -67,6 +67,17 @@
             "ALREADY": "`Pengguna sudah bisa mengirim PM.`",
             "DISAPPROVE": "Izin untuk membuang PM telah dicabut.",
             "UNBLOCKED": "Blokir telah dihapus."
+        },
+        "system_stats": {
+            "NO_NEOFETCH": "`Pertama, muat modul neofetch!`",
+            "VERSION": "IRONBOT Version",
+            "REVOUT": "Total perubahan",
+            "SEARCHING": "Mencari..",
+            "BIG": "`Daftar perubahan terlalu besar, Anda harus menampilkannya sebagai file.`",
+            "QUERY": "Pertanyaan",
+            "RESULT": "Hasil",
+            "NOT_FOUND": "Tidak ditemukan",
+            "EXAMPLE": "`Gunakan perintah .iron pip untuk melihat contoh.`"
         }
     }
 }
