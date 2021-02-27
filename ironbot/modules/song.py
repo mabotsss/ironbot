@@ -65,30 +65,73 @@ async def deezl(event):
             await event.client.send_message(event.chat_id, f"`{sarkilar.buttons[sira][0].text}` | " + LANG['UPLOADED_WITH'], file=sarki.message)
             await event.delete()
 
+
+@register(outgoing=True, pattern="^.song2(\d*|)(?: |$)(.*)")
+async def deezl(event):
+    if event.fwd_from:
+        return
+    sira = event.pattern_match.group(1)
+    if sira == '':
+        sira = 0
+    else:
+        sira = int(sira)
+
+    sarki = event.pattern_match.group(2)
+    if len(sarki) < 1:
+        if event.is_reply:
+            sarki = await event.get_reply_message().text
+        else:
+            await event.edit(LANG['GIVE_ME_SONG']) 
+
+    await event.edit(LANG['SEARCHING'])
+    chat = "@FindMusicPleaseBot"
+    async with bot.conversation(chat) as conv:
+        try:     
+            mesaj = await conv.send_message(str(randint(31,62)))
+            sarkilar = await conv.get_response()
+            await mesaj.edit(sarki)
+            sarkilar = await conv.get_response()
+        except YouBlockedUserError:
+            await event.reply(LANG['BLOCKED_DEEZER'])
+            return
+        await event.client.send_read_acknowledge(conv.chat_id)
+        if sarkilar.audio:
+            await event.client.send_read_acknowledge(conv.chat_id)
+            await event.client.send_message(event.chat_id, LANG['UPLOADED_WITH'], file=sarkilar.message)
+            await event.delete()
+        elif sarkilar.buttons[0][0].text == "No results":
+            await event.edit(LANG['NOT_FOUND'])
+        else:
+            await sarkilar.click(sira)
+            sarki = await conv.wait_event(events.NewMessage(incoming=True,from_users=442186886))
+            await event.client.send_read_acknowledge(conv.chat_id)
+            await event.client.send_message(event.chat_id, f"`{sarkilar.buttons[sira][0].text}` | " + LANG['UPLOADED_WITH'], file=sarki.message)
+            await event.delete()
+
+
 @register(outgoing=True, pattern="^.song(?: |$)(.*)")
 async def FindMusicPleaseBot(event):
     song = event.pattern_match.group(1)
     chat = "@FindMusicPleaseBot"
     if not song:
-        return await event.edit("```what should i search```")
-    await event.edit("```Getting Your Music```")
+        return await event.edit("```Apa yang harus saya cari?```")
+    await event.edit("```Mencari lagu...```")
     await asyncio.sleep(2)
     async with bot.conversation(chat) as conv:
-        await event.edit("`Downloading...Please wait`")
+        await event.edit("`Sabar....`")
         try:
             await conv.send_message(song)
             response = await conv.get_response()
             if response.text.startswith("Sorry"):
                 await bot.send_read_acknowledge(conv.chat_id)
-                return await event.edit(f"Sorry, can't find {song}")
+                return await event.edit(f"Sorry, tidak bisa nyari lagu yang judulnya {song}")
             await conv.get_response()
             lavde = await conv.get_response()
         except YouBlockedUserError:
             await event.edit(
-                "```Please unblock``` @FindmusicpleaseBot``` and try again```"
+                "```pliss unblock``` @FindmusicpleaseBot``` dan coba lagi```"
             )
             return
-        await event.edit("`Sending Your Music...wait!!! 😉😎`")
         await bot.send_file(event.chat_id, lavde)
         await bot.send_read_acknowledge(conv.chat_id)
     await event.delete()
