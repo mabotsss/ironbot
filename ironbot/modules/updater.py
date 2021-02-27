@@ -43,14 +43,13 @@ async def update_requirements():
 
 @register(outgoing=True, pattern=r"^\.update(?: |$)(.*)")
 async def upstream(ups):
-    ".update komutu ile botunun güncel olup olmadığını denetleyebilirsin."
     await ups.edit(LANG['DETECTING'])
     conf = ups.pattern_match.group(1)
     off_repo = UPSTREAM_REPO_URL
     force_update = False
 
     try:
-        txt = "`Güncelleme başarısız oldu! Bazı sorunlarla karşılaştık.`\n\n**LOG:**\n"
+        txt = "`Pembaharuan gagal! Kami mengalami beberapa masalah.`\n\n**LOG:**\n"
         repo = Repo()
     except NoSuchPathError as error:
         await ups.edit(f'{txt}\n`{error} {LANG["NOT_FOUND"]}.`')
@@ -99,15 +98,15 @@ async def upstream(ups):
         changelog_str = LANG['WAS_UPDATE'].format(ac_br, changelog)
         if len(changelog_str) > 4096:
             await ups.edit(LANG['BIG'])
-            file = open("degisiklikler.txt", "w+")
+            file = open("Perubahan.txt", "w+")
             file.write(changelog_str)
             file.close()
             await ups.client.send_file(
                 ups.chat_id,
-                "degisiklikler.txt",
+                "Perubahan.txt",
                 reply_to=ups.id,
             )
-            remove("degisiklikler.txt")
+            remove("Perubahan.txt")
         else:
             await ups.edit(changelog_str)
         await ups.respond(LANG['DO_UPDATE'])
@@ -168,7 +167,7 @@ async def upstream(ups):
         return
 
 CmdHelp('update').add_command(
-    'update', None, 'Botunuza siz kurduktan sonra herhangi bir güncelleme gelip gelmediğini kontrol eder.'
+    'update', None, 'Memeriksa pembaruan apa pun setelah Anda menginstal bot.'
 ).add_command(
-    'update now', None, 'Botunuzu günceller.'
+    'update now', None, 'Memperbarui bot Anda.'
 ).add()
