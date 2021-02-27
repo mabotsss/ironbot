@@ -1,8 +1,8 @@
 {
     "__IRONJSON__": true,
-    "LANGUAGE": "English",
-    "LANGCODE": "en",
-    "AUTHOR": "@upp4r/@selaxg/@willyshakespeare",
+    "LANGUAGE": "Indonesia",
+    "LANGCODE": "id",
+    "AUTHOR": "t.me/@ndourbae",
     "STRINGS": {
         "__plugin": {
             "REPLY_FOR_PORT": "`Please give a file for Plugin-Port`",

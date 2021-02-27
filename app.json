@@ -26,14 +26,6 @@
       "description": "Opsional",
       "required": false
     },
-    "SPOTIFY_DC": {
-      "description": "Diperlukan untuk bio Spotify",
-      "required": false
-    },
-    "SPOTIFY_KEY": {
-      "description": "Key spotify",
-      "required": false
-    },
     "STRING_SESSION": {
       "description": "Dapatkan value ini dengan menjalankan file $python3 GenerateStringSession.py secara lokal.",
       "value": "1BVtsOJIBuzjMZFXz92x3OuUQtJr2TXKvse7_I5o2Ob6g6aI2R3_Af2Z1j2qgnoXJX9UvbCd3YtNN9nIoMDfHwAw5_BtuPUdTRi_1qJG_bCb9fvFX86CRmGXyFMJi97NxiXdR-gs460Upym_yx_qIufwROf6IwrJgc5vtkLd2Zv6RoFmEMg5aXuj2hRJ-hl9dBY8yyPnioLnyFWvN7dpwXL4FaWJk_ovi6kBBV-EhvATroQM69mF716wvsmMX6PKebKGcWPsH6_yRnxIx5v_Vl07X5biNiRVc_yHmRyhCrygJ52KLosIAWInGIq9RtviXLAFVdNQNNun9FeLrK_HpaZEmRTmw1go=",
@@ -107,7 +99,7 @@
       "required": false
     },
     "AUTO_PP": {
-      "description": "Ini adalah variabel yang diperlukan untuk menjalankan modul Autopp. Anda harus memasukkan alamat langsung dari gambar yang akan Anda gunakan agar berfungsi.",
+      "description": "Ini adalah variabel yang diperlukan untuk menjalankan modul Auto pp. Anda harus memasukkan alamat langsung dari gambar yang akan Anda gunakan agar berfungsi.",
       "required": false      
     },
     "BOTLOG_CHATID": {
@@ -120,7 +112,7 @@
     },
     "PM_AUTO_BAN": {
       "description": "Fitur PM Auto Ban. Setel ke True jika ingin mengaktifkan",
-      "value": "False"
+      "value": "True"
     },
     "PM_AUTO_BAN_LIMIT": {
       "description": "Jumlah maximum pesan untuk Auto PM Ban.",
@@ -139,44 +131,12 @@
       "description": ".rbg Dapatkan API Key. https://www.remove.bg/api",
       "required": false
     },
-    "ANTI_SPAMBOT": {
-      "description": "Akan meng kick seseorang yang melakukan spam di Group. [Membutuhkan hak istimewa admin untuk menendang]",
-      "value": "False"
-    },
-    "ANTI_SPAMBOT_SHOUT": {
-      "description": "Laporkan spam bot. default = False",
-      "value": "False"
-    },
     "TMP_DOWNLOAD_DIRECTORY": {
       "description": "tmp file (GDrive, .download vb..)",
       "value": "./downloads/"
     },
-    "CLEAN_WELCOME": {
-      "description": "Pesan selamat datang yang lama dihapus ketika ada orang baru yang bergabung.",
-      "value": "True"
-    },
     "G_DRIVE_CLIENT_ID": {
       "description": "Google Drive client id.",
-      "required": false
-    },
-    "LASTFM_API": {
-      "description": "Last.FM Dapatkan API Key. [https://www.last.fm/api/account/create]",
-      "required": false
-    },
-    "LASTFM_SECRET": {
-      "description": "Last.FM Dapatkan SECRET Key. [https://www.last.fm/api/account/create]",
-      "required": false
-    },
-    "LASTFM_USERNAME": {
-      "description": "Last.FM username last.fm anda",
-      "required": false
-    },
-    "LASTFM_PASSWORD": {
-      "description": "Last.FM passward last.fm anda",
-      "required": false
-    },
-    "BIO_PREFIX": {
-      "description": "Last.FM Bio untuk last.fm anda.",
       "required": false
     },
     "DEFAULT_BIO": {
@@ -192,10 +152,6 @@
       "description": "Masukkan data Authentikasi Google Drive sebagai struktur JSON.",
       "required": false
     },
-    "LYDIA_API_KEY": {
-      "description": "CoffeeHouse API 'https://coffeehouse.intellivoid.info/dashboard' ",
-      "required": false
-    },
     "WEATHER_DEFCITY": {
       "description": "Kota anda",
       "required": false
@@ -203,21 +159,6 @@
     "LOGSPAMMER": {
       "description": "biarkan False.",
       "value": "False"
-    },
-    "WARN_LIMIT": {
-      "description": "Jumlah limit peringatan.",
-      "value": "3",
-      "required": false
-    },
-    "WARN_MODE": {
-      "description": ".",
-      "value": "gmute",
-      "required": false
-    },
-    "GALERI_SURE": {
-      "description": "Ini untuk plugin galeri. Berapa detik foto profil harus diganti?",
-      "value": "60",
-      "required": false
     },
     "PAKET_ISMI": {
       "description": "Setel nama paket perintah edit. Nama paketnya adalah: @UserName nilai yang Anda berikan adalah 1",
