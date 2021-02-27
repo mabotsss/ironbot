@@ -87,7 +87,7 @@ async def deezl(event):
     chat = "@FindMusicPleaseBot"
     async with bot.conversation(chat) as conv:
         try:     
-            mesaj = await conv.send_message(sira)
+            mesaj = await conv.send_message(sarki)
             sarkilar = await conv.get_response()
             await mesaj.edit(sarki)
             sarkilar = await conv.get_response()
