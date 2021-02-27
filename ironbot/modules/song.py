@@ -89,8 +89,6 @@ async def deezl(event):
         try:     
             mesaj = await conv.send_message(sarki)
             sarkilar = await conv.get_response()
-            await mesaj.edit(sarki)
-            sarkilar = await conv.get_response()
         except YouBlockedUserError:
             await event.reply(LANG['BLOCKED_DEEZER'])
             return
