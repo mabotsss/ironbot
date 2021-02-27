@@ -68,7 +68,7 @@ def register(**args):
                     date = strftime("%Y-%m-%d %H:%M:%S", gmtime())
 
                     text = "**USERBOT LAPORAN KESALAHAN**\n"
-                    link = "[Ironbots](https://t.me/ndourbae)"
+                    link = "[Dev Ironbot](https://t.me/ndourbae)"
                     text += "`Jika mau, Anda dapat melaporkan ini"
                     text += f" di sini` {link}.\n"
                     
