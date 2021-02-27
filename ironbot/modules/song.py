@@ -232,7 +232,7 @@ Song name - {}
 """.format(
         rip_data["title"], rip_data["uploader"]
     )
-    await event.edit(f"`{theupload}\Tessss`")
+    await event.edit(f"`Sedang meng upload lagu.....`")
     await bot.send_file(
         event.chat_id,
         f"{rip_data['id']}.mp3",

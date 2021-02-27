@@ -14,12 +14,12 @@
   "env": {
     "API_KEY": {
       "description": "Dapatkan value ini dari my.telegram.org.",
-      "value": "920892",
+      "value": "",
       "required": true
     },
     "API_HASH": {
       "description": "Dapatkan value ini dari my.telegram.org.",
-      "value": "9eb63773d94cba2d6263a9aea48f2313",
+      "value": "",
       "required": true
     },
     "PLUGIN_CHANNEL_ID": {
@@ -28,7 +28,7 @@
     },
     "STRING_SESSION": {
       "description": "Dapatkan value ini dengan menjalankan file $python3 GenerateStringSession.py secara lokal.",
-      "value": "1BVtsOJIBuzjMZFXz92x3OuUQtJr2TXKvse7_I5o2Ob6g6aI2R3_Af2Z1j2qgnoXJX9UvbCd3YtNN9nIoMDfHwAw5_BtuPUdTRi_1qJG_bCb9fvFX86CRmGXyFMJi97NxiXdR-gs460Upym_yx_qIufwROf6IwrJgc5vtkLd2Zv6RoFmEMg5aXuj2hRJ-hl9dBY8yyPnioLnyFWvN7dpwXL4FaWJk_ovi6kBBV-EhvATroQM69mF716wvsmMX6PKebKGcWPsH6_yRnxIx5v_Vl07X5biNiRVc_yHmRyhCrygJ52KLosIAWInGIq9RtviXLAFVdNQNNun9FeLrK_HpaZEmRTmw1go=",
+      "value": "",
       "required": true
     },
     "HEROKU_MEMEZ": {
@@ -38,12 +38,12 @@
     },
     "HEROKU_APIKEY": {
       "description": "Heroku API Key, 'https://dashboard.heroku.com/account' ",
-      "value": "91912dd6-3265-4dc0-8154-802df1e79f6e",
+      "value": "",
       "required": true
     },
     "HEROKU_APPNAME": {
       "description": "Tambahkan nama aplikasi Heroku di sini. samakan dengan nama aplikasi.",
-      "value": "ndotele",
+      "value": "",
       "required": true
     },
     "UPSTREAM_REPO_URL": {
@@ -86,12 +86,12 @@
     },
     "BOT_USERNAME": {
       "description": "Diperlukan agar fitur bot sebaris berfungsi. Di sini Anda harus menulis nama pengguna bot Anda (Contoh: @Ndobots). Jika Anda tidak memiliki bot, Anda dapat membuat bot dengan bantuan @BotFather.",
-      "value": "@xscrz_bot",
+      "value": "",
       "required": true  
     },
     "BOT_TOKEN": {
       "description": "Diperlukan agar fitur bot sebaris berfungsi. Anda harus menulis token bot Anda di sini. Jika Anda tidak memiliki bot, Anda dapat membuat bot dengan bantuan @BotFather.",
-      "value": "945587075:AAHsDey1vFpckzNwzapG3ZeRbkfyzgX2KJA",
+      "value": "",
       "required": true    
     },
     "GENIUS": {
@@ -167,7 +167,7 @@
     },
     "LANGUAGE": {
       "description": "Support bahasa ID/EN.",
-      "value": "EN",
+      "value": "ID",
       "required": true
     }
   },

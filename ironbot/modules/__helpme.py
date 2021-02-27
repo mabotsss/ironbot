@@ -9,7 +9,7 @@ LANG = get_value("__helpme")
 # ████████████████████████████████ #
 
 @register(outgoing=True, pattern="^.bantuan|^.help")
-async def yardim(event):
+async def _(event):
     tgbotusername = BOT_USERNAME
     if tgbotusername is not None:
         results = await event.client.inline_query(
