@@ -104,7 +104,8 @@ async def port_song(event):
 async def _(event):
     if event.fwd_from:
         return
-    reply_to_id = await event.reply_to_msg_id
+    if event.reply_to_msg_id:
+        reply_to_id = await event.reply_to_msg_id
     reply = await event.get_reply_message()
     if event.pattern_match.group(2):
         query = event.pattern_match.group(2)
