@@ -588,7 +588,7 @@
             "GIT_ERROR": "Git error",
             "NOT_GIT": "folder tidak terlihat seperti repositori git. \nNamun, Anda dapat mengatasi masalah ini dengan memperbarui bot secara paksa dengan perintah .update now..",
             "INVALID_BRANCH": "**[UPDATER]:**` Sepertinya Anda memodifikasi bot Anda menggunakan cabang/fork Anda sendiri.\nDari mana pembaruan akan ditarik?\n.Silakan gunakan bot dari repo resmi`",
-            "UPDATE": "\n`Bot` **telah update ke versi terbaru!** `Branch:` **{}**\n",
+            "UPDATE": "\n`Bot anda` **telah update ke versi terbaru!** `Branch:` **{}**\n",
             "WAS_UPDATE": "**{} pembaruan baru tersedia untuk!\n\nPerubahan:**\n`{}`",
             "BIG": "`Daftar perubahan terlalu besar, Anda harus melihatnya sebagai file.`",
             "DO_UPDATE": "`Untuk melakukan pembaruan gunakan perintah \'.update now\' .`",
