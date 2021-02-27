@@ -360,14 +360,14 @@
             "READ": "Here's what I can read:"
         },
         "pmpermit": {
-            "BLOCKED": "`You're spamming my owner's PM, I don't like.`\n`You are now BLOCKED and reported as SPAM, unless there are changes in the future..`",
-            "ERROR": "PM counter has gone crazy, please restart the bot.",
-            "BOTLOG_BLOCKED": " it was just a disappointment. He was blocked because he was keeping the PM busy.",
-            "NOTIFOFF": "'Users without pm permission were muted to send notifications!`",
-            "NOTIFON": "'Users without pm permission were allowed to send notifications!`",
-            "ALREADY": "`The user must already be able to send PM.`",
-            "DISAPPROVE": "'s permission to throw the PM was removed.",
-            "UNBLOCKED": "The block has been removed."
+            "BLOCKED": "`Anda mengirim spam ke PM pemilik saya, saya tidak suka.` \n`Anda sekarang DIBLOKIR dan dilaporkan sebagai SPAM, kecuali jika ada perubahan di masa mendatang..`",
+            "ERROR": "Penghitung PM sudah gila, silakan mulai ulang bot.",
+            "BOTLOG_BLOCKED": " itu hanya kekecewaan. Dia diblokir karena dia membuat PM sibuk.",
+            "NOTIFOFF": "`Pengguna tanpa izin pm dibungkam untuk mengirim pemberitahuan!`",
+            "NOTIFON": "`Pengguna tanpa izin pm diizinkan untuk mengirim pemberitahuan!`",
+            "ALREADY": "`Pengguna sudah bisa mengirim PM.`",
+            "DISAPPROVE": "Izin untuk membuang PM telah dicabut.",
+            "UNBLOCKED": "Blokir telah dihapus."
         },
         "profile": {
             "INVALID_MEDIA": "``` The media is not valid. ```",
@@ -538,23 +538,23 @@
             "IS_DATE": "date in country"
         },
         "updater": {
-            "DETECTING": "` Checking for updates ... `",
-            "FAILED": "Update failed! We ran into some problems.",
-            "NOT_FOUND": "folder not found.",
-            "GIT_ERROR": "Git error!",
-            "NOT_GIT": "folder does not look like a git repo. \nBut you can solve this problem by forcibly updating the bot with the .update now command.",
-            "INVALID_BRANCH": "**[UPDATER]: * * ` I think you've modified the Iron bot and you're using your own branch.\nThis confuses the Updater,\nWhere will the update be pulled?\nPlease use the Iron bot from the official repo.`",
-            "UPDATE": "\n`Your bot` **completely up to date!** `Branch:` **{}**\n",
-            "WAS_UPDATE": "New update available for ** {}!\n\nChanges: **\n ` {} `",
-            "BIG": "`The change list is too large, you should display it as a file.`",
-            "DO_UPDATE": "`Use the \".update now\" command to make the update. `",
-            "FORCE_UPDATE": "`The current stabil ironbot code is being forcibly synchronized... `",
-            "UPDATING": "`The bot is being updated ...`",
-            "INVALID_APPNAME": "`[HEROKU UPDATER] To use the updater, you must define the HEROKU_APPNAME variable.`",
-            "INVALID_HEROKU": "{}\n`Heroku variables are defined incorrectly or incomplete.`",
-            "HEROKU_UPDATING": "`[HEROKU UPDATER]\nYour ironbot is sure to get better :) This process takes a maximum of 10 minutes.`",
-            "ERRORS": "Errors here",
-            "SUCCESSFULLY": "`Update completed successfully!\nRebooting...`"
+            "DETECTING": "`Memeriksa pembaruan...`",
+            "FAILED": "Pembaharuan gagal! Kami mengalami beberapa masalah.",
+            "NOT_FOUND": "folder tidak ditemukan.",
+            "GIT_ERROR": "Git error",
+            "NOT_GIT": "folder tidak terlihat seperti repositori git. \nNamun, Anda dapat mengatasi masalah ini dengan memperbarui bot secara paksa dengan perintah .update now..",
+            "INVALID_BRANCH": "**[UPDATER]:**` Sepertinya Anda memodifikasi bot Anda menggunakan cabang/fork Anda sendiri.\nDari mana pembaruan akan ditarik?\n.Silakan gunakan bot dari repo resmi`",
+            "UPDATE": "\n`Bot anda` **telah update ke versi terbaru!** `Branch:` **{}**\n",
+            "WAS_UPDATE": "**{} pembaruan baru tersedia untuk!\n\nPerubahan:**\n`{}`",
+            "BIG": "`Daftar perubahan terlalu besar, Anda harus melihatnya sebagai file.`",
+            "DO_UPDATE": "`Untuk melakukan pembaruan gunakan perintah \'.update now\' .`",
+            "FORCE_UPDATE": "`Userbot stabil saat ini disinkronkan secara paksa...`",
+            "UPDATING": "`Memperbarui bot...`",
+            "INVALID_APPNAME": "`[HEROKU UPDATER] Untuk menggunakan pembaru HEROKU_APPNAME Anda harus menentukan variabel Anda.`",
+            "INVALID_HEROKU": "{}\n`Variabel Heroku salah atau kurang ditentukan.`",
+            "HEROKU_UPDATING": "`[HEROKU UPDATER]\nProses ini memakan waktu maksimal 2 menit.`",
+            "ERRORS": "Kesalahan ditemukan di sini",
+            "SUCCESSFULLY": "`Pembaruan berhasil diselesaikan! \nRebooting...`"
         },
         "upload_download": {
             "FILENAME": "File name",
