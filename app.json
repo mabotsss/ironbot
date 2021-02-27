@@ -160,11 +160,6 @@
       "description": "biarkan False.",
       "value": "False"
     },
-    "PAKET_ISMI": {
-      "description": "Setel nama paket perintah edit. Nama paketnya adalah: @UserName nilai yang Anda berikan adalah 1",
-      "value": "@ironbot",
-      "required": false
-    },
     "OTOMATIK_KATILMA": {
       "description": "Jika Anda tidak ingin bergabung dengan grup dan saluran Dukungan secara otomatis, ketik False.",
       "value": "True",
