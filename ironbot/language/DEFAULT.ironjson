@@ -49,7 +49,7 @@
             "UPDATE": "\n`Bot anda` **telah update ke versi terbaru!** `Branch:` **{}**\n",
             "WAS_UPDATE": "**{} pembaruan baru tersedia untuk!\n\nPerubahan:**\n`{}`",
             "BIG": "`Daftar perubahan terlalu besar, Anda harus melihatnya sebagai file.`",
-            "DO_UPDATE": "`Untuk melakukan pembaruan gunakan perintah \'.update now\' .`",
+            "DO_UPDATE": "`Untuk melakukan pembaruan gunakan perintah .update now .`",
             "FORCE_UPDATE": "`Userbot stabil saat ini disinkronkan secara paksa...`",
             "UPDATING": "`Memperbarui bot...`",
             "INVALID_APPNAME": "`[HEROKU UPDATER] Untuk menggunakan pembaru HEROKU_APPNAME Anda harus menentukan variabel Anda.`",
