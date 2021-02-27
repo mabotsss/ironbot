@@ -127,7 +127,7 @@ async def _(event):
         q = "128k"
     elif cmd == "song320":
         q = "320k"
-    song_cmd = song_dl.format(QUALITY=q, video_link=video_link)
+    song_cmd = song_dl.format(QUALITY="128k", video_link=video_link)
     # thumb_cmd = thumb_dl.format(video_link=video_link)
     name_cmd = name_dl.format(video_link=video_link)
     try:
