@@ -247,7 +247,7 @@ def butonlastir(sayfa, moduller):
             custom.Button.inline("🔸 " + pair, data=f"bilgi[{sayfa}]({pair})") for pair in pairs
         ])
 
-    butonlar.append([custom.Button.inline("◀️ Kembali", data=f"sayfa({(max_pages - 1) if sayfa == 0 else (sayfa - 1)})"), custom.Button.inline("Lanjut ▶️", data=f"sayfa({0 if sayfa == (max_pages - 1) else sayfa + 1})")])
+    butonlar.append([custom.Button.inline("◀️ Kembali", data=f"sayfa({(max_pages - 1) if sayfa == 0 else (sayfa - 1)})"), custom.Button.inline("-ᴄʟᴏꜱᴇ-", data="closes"), custom.Button.inline("Lanjut ▶️", data=f"sayfa({0 if sayfa == (max_pages - 1) else sayfa + 1})")])
     return [max_pages, butonlar]
 
 with bot:
@@ -280,7 +280,7 @@ with bot:
                 veriler = (butonlastir(0, sorted(CMD_HELP)))
                 result = await builder.article(
                     f"Harap Gunakan Hanya Dengan Perintah .help",
-                    text=f"**🐺 Ini adalah !** [Ironbot](https://t.me/ironbots) __Oke...__\n\n**Jumlah Modul Terpasang:** `{len(CMD_HELP)}`\n**Halaman:** 1/{veriler[0]}",
+                    text=f"**🐺 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/ironbots)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: 1/{veriler[0]}`",
                     buttons=veriler[1],
                     link_preview=False
                 )
@@ -301,7 +301,7 @@ with bot:
 Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak dapat mengelola bot orang lain! Semua detail penyiapan dijelaskan dari GitHub di bawah ini.""",
                     buttons=[
                         [custom.Button.url("Bergabunglah dengan Channel", "https://t.me/freedom_reborn"), custom.Button.url(
-                            "Grub :", "https://t.me/freedom_reborn")],
+                            "Grub", "https://t.me/freedom_reborn")],
                         [custom.Button.url(
                             "GitHub", "https://github.com/xscrprog/ironbot")]
                     ],
@@ -309,34 +309,63 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
                 )
             await event.answer([result] if result else None)
 
-        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"halaman\((.+?)\)")))
+        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"sayfa\((.+?)\)")))
         async def sayfa(event):
             if not event.query.user_id == uid: 
-                return await event.answer("❌ Hei! Jangan mencoba untuk mengedit pesan saya! Siapkan @ironbot untuk Anda sendiri.", cache_time=0, alert=True)
+                return await event.answer("Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
             sayfa = int(event.data_match.group(1).decode("UTF-8"))
             veriler = butonlastir(sayfa, CMD_HELP)
             await event.edit(
-                f"**🐺 Ini adalah !** [Iron](https://t.me/freedom_reborn) __Oke...__\n\n**Jumlah modul terpasang:** `{len(CMD_HELP)}`\n**Halaman:** {sayfa + 1}/{veriler[0]}",
+                f"**🐺 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/freedom_reborn)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: {sayfa + 1}/{veriler[0]}`",
                 buttons=veriler[1],
                 link_preview=False
             )
-        
+            
+            
+        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"closes")))
+        async def closes(event):
+            if event.query.user_id == uid:
+               buttons = [    
+                   Button.inline("📗ᴍᴇɴᴜ", data="opensss"),
+                   custom.Button.url("❤ᴅᴇᴠ", "https://t.me/ndourbae"),
+                ]
+               await event.edit(
+                   f"`ᴍᴇɴᴜ ᴅɪ ᴛᴜᴛᴜᴘ\nᴛᴏᴛᴀʟ ᴘʟᴜɢɪɴ : {len(CMD_HELP)}`",
+                   buttons=buttons,
+                   link_preview=False,
+                )
+            else:
+                reply_pop_up_alert = "❌  Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣."
+                await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
+
+        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"opensss")))
+        async def opensss(event):
+            if not event.query.user_id == uid:
+                return await event.answer("❌ Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
+            veriler = (butonlastir(0, sorted(CMD_HELP)))
+            await event.edit(
+                f"**🐺 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/freedom_reborn)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: 1/{veriler[0]}`",
+                buttons=veriler[1],
+                link_preview=False
+            )           
+            
+            
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"bilgi\[(\d*)\]\((.*)\)")))
         async def bilgi(event):
             if not event.query.user_id == uid: 
-                return await event.answer("❌  Hei! Jangan mencoba untuk mengedit pesan saya! Siapkan @ironbot untuk Anda sendiri.", cache_time=0, alert=True)
+                return await event.answer("Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
 
             sayfa = int(event.data_match.group(1).decode("UTF-8"))
             komut = event.data_match.group(2).decode("UTF-8")
             try:
-                butonlar = [custom.Button.inline("🔹 " + cmd[0], data=f"perintah[{komut}[{sayfa}]]({cmd[0]})") for cmd in CMD_HELP_BOT[komut]['commands'].items()]
+                butonlar = [custom.Button.inline("🔹 " + cmd[0], data=f"komut[{komut}[{sayfa}]]({cmd[0]})") for cmd in CMD_HELP_BOT[komut]['commands'].items()]
             except KeyError:
                 return await event.answer("❌ Tidak ada deskripsi tertulis untuk modul ini.", cache_time=0, alert=True)
 
             butonlar = [butonlar[i:i + 2] for i in range(0, len(butonlar), 2)]
-            butonlar.append([custom.Button.inline("◀️ Kembali", data=f"halaman({sayfa})")])
+            butonlar.append([custom.Button.inline("◀️ Kembali", data=f"sayfa({sayfa})")])
             await event.edit(
-                f"**📗 Mengajukan:** `{komut}`\n**🔢 Jumlah Perintah:** `{len(CMD_HELP_BOT[komut]['commands'])}`",
+                f"**📗 Tips untuk:** `{komut}`\n**🔢 Jumlah Perintah:** `{len(CMD_HELP_BOT[komut]['commands'])}`",
                 buttons=butonlar,
                 link_preview=False
             )
@@ -344,13 +373,13 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"komut\[(.*)\[(\d*)\]\]\((.*)\)")))
         async def komut(event):
             if not event.query.user_id == uid: 
-                return await event.answer("❌ Hei! Jangan mencoba untuk mengedit pesan saya! Siapkan @ironbot untuk Anda sendiri.", cache_time=0, alert=True)
+                return await event.answer("Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
 
             cmd = event.data_match.group(1).decode("UTF-8")
             sayfa = int(event.data_match.group(2).decode("UTF-8"))
             komut = event.data_match.group(3).decode("UTF-8")
 
-            result = f"**📗 Mengajukan:** `{cmd}`\n"
+            result = f"**📗 Tips untuk:** `{cmd}`\n"
             if CMD_HELP_BOT[cmd]['info']['info'] == '':
                 if not CMD_HELP_BOT[cmd]['info']['warning'] == '':
                     result += f"**⬇️ Official:** {'✅' if CMD_HELP_BOT[cmd]['info']['official'] else '❌'}\n"
@@ -377,7 +406,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
 
             await event.edit(
                 result,
-                buttons=[custom.Button.inline("◀️ Kembali", data=f"informasi[{sayfa}]({cmd})")],
+                buttons=[custom.Button.inline("◀️ Kembali", data=f"bilgi[{sayfa}]({cmd})")],
                 link_preview=False
             )
     except Exception as e:
