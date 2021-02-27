@@ -15,7 +15,7 @@ from math import ceil
 
 load_dotenv("config.env")
 
-# Bot günlükleri kurulumu:
+# Bot 
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
 ASYNC_POOL = []
@@ -51,13 +51,13 @@ if not LANGUAGE in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
     LANGUAGE = "DEFAULT"
     
     
-ASENA_VERSION = "v3.0.7"
+IRON_VERSION = "v3.0.7"
 
 API_KEY = os.environ.get("API_KEY", None)
 API_HASH = os.environ.get("API_HASH", None)
 
 SILINEN_PLUGIN = {}
-# UserBot Session String
+
 STRING_SESSION = os.environ.get("STRING_SESSION", None)
 
 BOTLOG_CHATID = int(os.environ.get("BOTLOG_CHATID", None))
@@ -74,11 +74,11 @@ HEROKU_APIKEY = os.environ.get("HEROKU_APIKEY", None)
 
 UPSTREAM_REPO_URL = os.environ.get(
     "UPSTREAM_REPO_URL",
-    "https://github.com/phaticusthiccy/AsenaUserBotDuplicated")
+    "https://github.com/mabotsss/ironbot.git")
 
 CONSOLE_LOGGER_VERBOSE = sb(os.environ.get("CONSOLE_LOGGER_VERBOSE", "False"))
 
-DB_URI = os.environ.get("DATABASE_URL", "sqlite:///asena.db")
+DB_URI = os.environ.get("DATABASE_URL", "sqlite:///iron.db")
 
 OCR_SPACE_API_KEY = os.environ.get("OCR_SPACE_API_KEY", None)
 
@@ -163,12 +163,12 @@ PM_AUTO_BAN_LIMIT = int(os.environ.get("PM_AUTO_BAN_LIMIT", 4))
 SPOTIFY_DC = os.environ.get("SPOTIFY_DC", None)
 SPOTIFY_KEY = os.environ.get("SPOTIFY_KEY", None)
 
-PAKET_ISMI = os.environ.get("PAKET_ISMI", "@AsenaUserBot Paketi")
+PAKET_ISMI = os.environ.get("PAKET_ISMI", "@Ironbots")
 
 OTOMATIK_KATILMA = sb(os.environ.get("OTOMATIK_KATILMA", "True"))
 
 PATTERNS = os.environ.get("PATTERNS", ".;!,")
-WHITELIST = get('https://gitlab.com/Quiec/asen/-/raw/master/whitelist.json').json()
+WHITELIST = get('https://raw.githubusercontent.com/mabotsss/ironbot/master/resources/whitelist.json').json()
 
 if not os.path.exists('bin'):
     os.mkdir('bin')
@@ -195,7 +195,7 @@ else:
 if os.path.exists("learning-data-root.check"):
     os.remove("learning-data-root.check")
 else:
-    LOGS.info("Braincheck dosyası yok, getiriliyor...")
+    LOGS.info("Loading...")
 
 URL = 'https://raw.githubusercontent.com/quiec/databasescape/master/learning-data-root.check'
 with open('learning-data-root.check', 'wb') as load:
@@ -232,7 +232,7 @@ else:
     tgbot = None
 
 def butonlastir(sayfa, moduller):
-    Satir = 5
+    Satir = 4
     Kolon = 2
     
     moduller = sorted([modul for modul in moduller if not modul.startswith("_")])
