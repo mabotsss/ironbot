@@ -58,10 +58,6 @@ AFKSTR = [
     "Aku tidak di sini sekarang .... \n tapi jika aku ... \n \n bukankah itu bagus?",
 ]
 
-UNAPPROVED_MSG = ("`Hey,` {mention}`! .\n\n`"
-                  "`Maboss @{me.username} lagi sibuk. `"
-                  "`Harap tunggu boss saya aktif, dia biasanya mengkonfirmasi PM.\n\n`")
-
 DB = connect("learning-data-root.check")
 CURSOR = DB.cursor()
 CURSOR.execute("""SELECT * FROM BRAIN1""")
@@ -135,6 +131,7 @@ def extractCommands(file):
 try:
     bot.start()
     idim = bot.get_me().id
+    me2 = bot.get_me()
     ironbl = requests.get('https://gitlab.com/Quiec/asen/-/raw/master/asen.json').json()
     if idim in ironbl:
         bot.disconnect()
@@ -225,6 +222,10 @@ async def FotoDegistir (foto):
 
 for module_name in ALL_MODULES:
     imported_module = import_module("ironbot.modules." + module_name)
+
+UNAPPROVED_MSG = ("`Hey,` {mention}`! .\n\n`"
+                  "`Maboss @{me2.username} lagi sibuk. `"
+                  "`Harap tunggu boss saya aktif, dia biasanya mengkonfirmasi PM.\n\n`")
 
 
 LOGS.info(f"""
