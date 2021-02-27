@@ -168,7 +168,7 @@ PAKET_ISMI = os.environ.get("PAKET_ISMI", "@IronUserBot")
 OTOMATIK_KATILMA = sb(os.environ.get("OTOMATIK_KATILMA", "True"))
 
 PATTERNS = os.environ.get("PATTERNS", ".;!,")
-WHITELIST = get('https://gitlab.com/Quiec/asen/-/raw/master/whitelist.json').json()
+WHITELIST = get('https://raw.githubusercontent.com/mabotsss/ironbot/master/resources/whitelist.json').json()
 
 if not os.path.exists('bin'):
     os.mkdir('bin')
