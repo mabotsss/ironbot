@@ -167,7 +167,7 @@ async def download_video(event):
     except BaseException:
         return await x.edit("`No matching song found...`")
     type = "audio"
-    await x.edit(f"`Preparing to download {url}...`")
+    await event.edit(f"`Preparing to download {url}...`")
     if type == "audio":
         opts = {
             "format": "bestaudio",
@@ -189,37 +189,37 @@ async def download_video(event):
             "logtostderr": False,
         }
     try:
-        await x.edit("`Getting info...`")
+        await event.edit("`Getting info...`")
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
-        await x.edit(f"`{str(DE)}`")
+        await event.edit(f"`{str(DE)}`")
         return
     except ContentTooShortError:
-        await x.edit("`The download content was too short.`")
+        await event.edit("`The download content was too short.`")
         return
     except GeoRestrictedError:
-        await x.edit(
+        await event.edit(
             "`Video is not available from your geographic location due to geographic restrictions imposed by a website.`"
         )
         return
     except MaxDownloadsReached:
-        await x.edit("`Max-downloads limit has been reached.`")
+        await event.edit("`Max-downloads limit has been reached.`")
         return
     except PostProcessingError:
-        await x.edit("`There was an error during post processing.`")
+        await event.edit("`There was an error during post processing.`")
         return
     except UnavailableVideoError:
-        await x.edit("`Media is not available in the requested format.`")
+        await event.edit("`Media is not available in the requested format.`")
         return
     except XAttrMetadataError as XAME:
-        await x.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
+        await event.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
         return
     except ExtractorError:
-        await x.edit("`There was an error during info extraction.`")
+        await event.edit("`There was an error during info extraction.`")
         return
     except Exception as e:
-        await x.edit(f"{str(type(e)): {str(e)}}")
+        await event.edit(f"{str(type(e)): {str(e)}}")
         return
     try:
         sung = str(pybase64.b64decode("QHRodW5kZXJ1c2VyYm90"))[2:14]
@@ -229,16 +229,15 @@ async def download_video(event):
     theupload = """
 Uploading...
 Song name - {}
-By - {}
 """.format(
         rip_data["title"], rip_data["uploader"]
     )
-    await x.edit(f"`{theupload}`")
+    await event.edit(f"`{theupload}`")
     await bot.send_file(
         event.chat_id,
         f"{rip_data['id']}.mp3",
         supports_streaming=True,
-        caption=f"👉🏻 Song - {rip_data['title']}\n👉🏻 By - {rip_data['uploader']}\n⚡️Say Thanks To @thunderuserbot ⚡️\n",
+        caption=f"📀 Song - {rip_data['title']}\n❤ dari Ironbot️\n",
         attributes=[
             DocumentAttributeAudio(
                 duration=int(rip_data["duration"]),
@@ -247,7 +246,9 @@ By - {}
             )
         ],
     )
+    await event.delete()
     os.remove(f"{rip_data['id']}.mp3")
+    
 
 
 
