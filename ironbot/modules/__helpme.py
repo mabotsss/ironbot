@@ -1,9 +1,9 @@
-from userbot import BOT_USERNAME
-from userbot.events import register
+from ironbot import BOT_USERNAME
+from ironbot.events import register
 
 # ██████ LANGUAGE CONSTANTS ██████ #
 
-from userbot.language import get_value
+from ironbot.language import get_value
 LANG = get_value("__helpme")
 
 # ████████████████████████████████ #
