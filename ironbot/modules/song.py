@@ -142,18 +142,18 @@ async def _(event):
    # if stderr:
     #    return await ironevent.edit(f"**Error :** `{stderr}`")
     # stderr = (await runcmd(thumb_cmd))[1]
-    ironname = os.path.splitext(ironname)[0]
+    #ironname = os.path.splitext(ironname)[0]
     # if stderr:
     #    return await ironevent.edit(f"**Error :** `{stderr}`")
-    song_file = Path(f"{ironname}.mp3")
+    song_file = Path(f"foryou.mp3")
     if not os.path.exists(song_file):
         return await ironevent.edit(
             f"Sorry!. I can't find any related video/audio for `{query}`"
         )
     await ironevent.edit("`yeah..! i found something wi8..🥰`")
-    ironthumb = Path(f"{ironname}.jpg")
+    ironthumb = Path(f"foryou.jpg")
     if not os.path.exists(ironthumb):
-        ironthumb = Path(f"{ironname}.webp")
+        ironthumb = Path(f"foryou.webp")
     elif not os.path.exists(ironthumb):
         ironthumb = None
 
