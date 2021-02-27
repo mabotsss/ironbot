@@ -66,46 +66,6 @@ async def deezl(event):
             await event.delete()
 
 
-@register(outgoing=True, pattern="^.song2(\d*|)(?: |$)(.*)")
-async def deezl(event):
-    if event.fwd_from:
-        return
-    sira = event.pattern_match.group(1)
-    if sira == '':
-        sira = 0
-    else:
-        sira = int(sira)
-
-    sarki = event.pattern_match.group(2)
-    if len(sarki) < 1:
-        if event.is_reply:
-            sarki = await event.get_reply_message().text
-        else:
-            await event.edit(LANG['GIVE_ME_SONG']) 
-
-    await event.edit(LANG['SEARCHING'])
-    chat = "@FindMusicPleaseBot"
-    async with bot.conversation(chat) as conv:
-        try:     
-            mesaj = await conv.send_message(sarki)
-            sarkilar = await conv.get_response()
-        except YouBlockedUserError:
-            await event.reply(LANG['BLOCKED_DEEZER'])
-            return
-        await event.client.send_read_acknowledge(conv.chat_id)
-        if sarkilar.audio:
-            await event.client.send_read_acknowledge(conv.chat_id)
-            await event.client.send_message(event.chat_id, LANG['UPLOADED_WITH'], file=sarkilar.message)
-            await event.delete()
-        elif sarkilar.buttons[0][0].text == "No results":
-            await event.edit(LANG['NOT_FOUND'])
-        else:
-            await sarkilar.click(sira)
-            sarki = await conv.wait_event(events.NewMessage(incoming=True,from_users=442186886))
-            await event.client.send_read_acknowledge(conv.chat_id)
-            await event.client.send_message(event.chat_id, f"`{sarkilar.buttons[sira][0].text}` | " + LANG['UPLOADED_WITH'], file=sarki.message)
-            await event.delete()
-
 
 @register(outgoing=True, pattern="^.song(?: |$)(.*)")
 async def FindMusicPleaseBot(event):
