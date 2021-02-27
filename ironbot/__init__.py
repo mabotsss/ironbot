@@ -428,7 +428,6 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
         )
         quit(1)
 
-
 SON_GORULME = 0
 COUNT_MSG = 0
 USERS = {}
