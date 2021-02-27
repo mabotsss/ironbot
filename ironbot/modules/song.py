@@ -155,7 +155,7 @@ async def songpl(event):
 @register(outgoing=True, pattern="^.lagu ?(.*)")
 async def download_video(event):
     x = await event.edit("Searching...")
-    url = thundrgang.pattern_match.group(1)
+    url = event.pattern_match.group(1)
     if not url:
         return await x.edit("**Error**\nUsage - `.song <song name>`")
     search = SearchVideos(url, offset=1, mode="json", max_results=1)
@@ -235,7 +235,7 @@ By - {}
     )
     await x.edit(f"`{theupload}`")
     await bot.send_file(
-        thundrgang.chat_id,
+        event.chat_id,
         f"{rip_data['id']}.mp3",
         supports_streaming=True,
         caption=f"👉🏻 Song - {rip_data['title']}\n👉🏻 By - {rip_data['uploader']}\n⚡️Say Thanks To @thunderuserbot ⚡️\n",
