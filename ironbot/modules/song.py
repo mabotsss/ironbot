@@ -102,14 +102,13 @@ async def port_song(event):
 
 @register(outgoing=True, pattern="^.song2(?: |$)(.*)")
 async def _(event):
-    global q
     if event.fwd_from:
         return
     if event.reply_to_msg_id:
         reply_to_id = await event.reply_to_msg_id
     reply = await event.get_reply_message()
-    if event.pattern_match.group(1):
-        query = event.pattern_match.group(1)
+    if event.pattern_match.group(2):
+        query = event.pattern_match.group(2)
     elif reply:
         if reply.message:
             query = reply.message
