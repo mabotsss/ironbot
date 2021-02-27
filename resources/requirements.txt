@@ -28,7 +28,9 @@ pylast==4.1.0
 pySmartDL
 python-barcode
 python-dotenv
+Pillow
 youtube-dl
+youtube-search-python
 pytz
 qrcode
 requests>=2.18.4
