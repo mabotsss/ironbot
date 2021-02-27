@@ -135,12 +135,12 @@ async def _(event):
         await event.client(iron)
     except BaseException:
         pass
-    stderr = (await _ironutils.runcmd(song_cmd))[1]
-    if stderr:
-        return await ironevent.edit(f"**Error :** `{stderr}`")
-    ironname, stderr = (await _ironutils.runcmd(name_cmd))[:2]
-    if stderr:
-        return await ironevent.edit(f"**Error :** `{stderr}`")
+   # stderr = (await _ironutils.runcmd(song_cmd))[1]
+    #if stderr:
+     #   return await ironevent.edit(f"**Error :** `{stderr}`")
+    #ironname, stderr = (await _ironutils.runcmd(name_cmd))[:2]
+   # if stderr:
+    #    return await ironevent.edit(f"**Error :** `{stderr}`")
     # stderr = (await runcmd(thumb_cmd))[1]
     ironname = os.path.splitext(ironname)[0]
     # if stderr:
