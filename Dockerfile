@@ -1,4 +1,5 @@
 FROM nandoscrz/ironbots:7.0
+RUN apt update && apt upgrade -y && pip install --upgrade pip
 RUN git clone https://github.com/mabotsss/ironbot /root/ironbot
 WORKDIR /root/ironbot/
 RUN pip3 install -r resources/requirements.txt
