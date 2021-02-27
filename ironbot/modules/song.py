@@ -116,7 +116,7 @@ async def _(event):
         await event.edit("`What I am Supposed to find `")
         return
     iron = base64.b64decode("QUFBQUFGRV9vWjVYVE5fUnVaaEtOdw==")
-    ironevent = await edit_or_reply(event, "`wi8..! I am finding your song....`")
+    ironevent = await event.edit("`wi8..! I am finding your song....`")
     video_link = await yt_search(str(query))
     if not url(video_link):
         return await ironevent.edit(
