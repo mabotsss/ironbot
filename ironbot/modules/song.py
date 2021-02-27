@@ -153,7 +153,7 @@ async def songpl(event):
 
 
 @register(outgoing=True, pattern="^.lagu ?(.*)")
-async def download_video(thundrgang):
+async def download_video(event):
     x = await event.edit("Searching...")
     url = thundrgang.pattern_match.group(1)
     if not url:
