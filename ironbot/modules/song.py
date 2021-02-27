@@ -193,7 +193,7 @@ async def download_video(event):
         with YoutubeDL(opts) as rip:
             rip_data = rip.extract_info(url)
     except DownloadError as DE:
-        await event.edit(f"`{str(DE)}`")
+        await event.edit(f"`{str(DE)}\nTessss`")
         return
     except ContentTooShortError:
         await event.edit("`The download content was too short.`")
@@ -213,13 +213,13 @@ async def download_video(event):
         await event.edit("`Media is not available in the requested format.`")
         return
     except XAttrMetadataError as XAME:
-        await event.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}`")
+        await event.edit(f"`{XAME.code}: {XAME.msg}\n{XAME.reason}\nTesss2`")
         return
     except ExtractorError:
         await event.edit("`There was an error during info extraction.`")
         return
     except Exception as e:
-        await event.edit(f"{str(type(e)): {str(e)}}\nTesssss")
+        await event.edit(f"{str(type(e)): {str(e)}}")
         return
     try:
         sung = str(pybase64.b64decode("QHRodW5kZXJ1c2VyYm90"))[2:14]
