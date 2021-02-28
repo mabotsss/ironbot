@@ -35,7 +35,7 @@ DIZCILIK_STR = [
 
 AFKSTR = [
     "Aku sedang terburu-buru sekarang, tidak bisakah kau mengirimiku pesan nanti? Aku akan kembali juga.",
-    "Orang yang Anda panggil tidak dapat menjawab telepon sekarang. Anda dapat meninggalkan pesan Anda dengan tarif Anda sendiri setelah nada. Biaya pesan 49 kurus. \ N`biiiiiiiiiiiiiiiiiiiiiiiiiiip`!",
+    "Orang yang Anda panggil tidak dapat menjawab telepon sekarang. Anda dapat meninggalkan pesan Anda dengan tarif Anda sendiri setelah nada. Biaya pesan 49 kurus. \n`biiiiiiiiiiiiiiiiiiiiiiiiiiip`!",
     "Aku akan kembali dalam beberapa menit. Tapi jika tidak ... tunggu lebih lama.",
     "Saya tidak di sini sekarang, saya mungkin di tempat lain.",
     "Mawar itu merah \nMawar berwarna biru \nTinggalkan aku pesan \nDan aku akan menghubungi kamu kembali.",
@@ -49,10 +49,10 @@ AFKSTR = [
     "Saya bergerak ke arah berikut \n <----",
     "Silakan tinggalkan pesan dan buat saya merasa lebih penting daripada sebelumnya.",
     "Pemilik saya tidak ada di sini, jadi berhentilah menulis kepada saya.",
-    "Jika aku ada di sini, \nAku akan memberitahumu di mana aku berada. \ N \nTapi bukan aku, \ ketika aku kembali tanyakan padaku ...",
-    "Aku pergi! \nAku tidak tahu kapan aku akan kembali! \ NSaya berharap beberapa menit!",
+    "Jika aku ada di sini, \nAku akan memberitahumu di mana aku berada. \n\nTapi bukan aku, \nketika aku kembali tanyakan padaku ...",
+    "Aku pergi! \nAku tidak tahu kapan aku akan kembali! \n Saya berharap beberapa menit!",
     "Pemilik saya tidak tersedia sekarang. Jika Anda memberikan nama, nomor dan alamat Anda, saya dapat mengirimkannya kepadanya dan begitu dia kembali.",
-    "Maaf, pemilik saya tidak ada di sini. Anda dapat berbicara dengan saya sampai dia datang. \ Ndia akan kembali kepada Anda nanti.",
+    "Maaf, pemilik saya tidak ada di sini. Anda dapat berbicara dengan saya sampai dia datang. \n dia akan kembali kepada Anda nanti.",
     "Saya yakin Anda mengharapkan pesan!",
     "Hidup ini terlalu singkat, ada banyak hal yang harus dilakukan ... \nAku melakukan salah satunya ...",
     "Aku tidak di sini sekarang .... \n tapi jika aku ... \n \n bukankah itu bagus?",
@@ -60,7 +60,7 @@ AFKSTR = [
 
 UNAPPROVED_MSG = ("`Hey,` {mention}`! .\n\n`"
                   "`Maboss lagi sibuk. `"
-                  "`Harap tunggu boss saya aktif, dia biasanya mengkonfirmasi PM.\n\n`")
+                  "`Harap tunggu boss saya aktif dan membalas pesan ini.\n\n`")
 
 
 DB = connect("learning-data-root.check")
@@ -140,16 +140,13 @@ try:
     if idim in ironbl:
         bot.disconnect()
 
-    # ChromeDriver'ı Ayarlayalım #
     try:
         chromedriver_autoinstaller.install()
     except:
         pass
     
-    # Galeri için değerler
     GALERI = {}
 
-    # PLUGIN MESAJLARI AYARLIYORUZ
     PLUGIN_MESAJLAR = {}
     ORJ_PLUGIN_MESAJLAR = {"alive": "`🐺 Ironbots Aktif.`", "afk": f"`{str(choice(AFKSTR))}`", "kickme": "`byebyee `🤠", "pm": UNAPPROVED_MSG, "dızcı": str(choice(DIZCILIK_STR)), "ban": "{mention}`, terlarang!`", "mute": "{mention}`, meredam!`", "approve": "{mention}`, Anda dapat mengirimi saya pesan!`", "disapprove": "{mention}`, Anda tidak diizinkan untuk mengirim pesan!`", "block": "{mention}`, Anda diblokir!`"}
 

@@ -70,7 +70,7 @@ async def bot_ver(event):
                          "`")
     else:
         await event.edit(
-            "Tanrı Türk'ü Korusun 🐺"
+            "Ironbots 🐺"
         )
 
 
@@ -148,6 +148,33 @@ async def amialive(e):
             await e.respond(PLUGIN_MESAJLAR['alive'], reply_to=e.message.reply_to_msg_id)
         else:
             await e.respond(PLUGIN_MESAJLAR['alive'])
+
+
+@register(outgoing=True, pattern="^.on$")
+async def ironalive(alive):
+    if alive.fwd_from:
+        return
+    await alive.get_chat()
+    pm_caption = (
+         "╭━━━━━━| 𝙸𝚁𝙾𝙽𝙱𝙾𝚃 |━━━━━━╮\n"
+        f"┣[•👤 `USER     :` {bot.me.first_name}\n"
+        f"┣▰▱▰▱▰▱▰▱▰▱▰▱▰▱\n"
+        f"┣[•🤖 `Iron Ver : {IRON_VERSION} ➰`\n"
+        f"┣[•🐍 `Python.  : v.{python_version()} ➰`\n"
+        f"┣[•⚙️ `Telethon : v.{version.__version__} ➰`\n"
+        f"┣[•💡 `Base on  : {len(CMD_HELP)} ➰`\n"
+        f"┣[•🕒 `Uptime.  : {me.id} ➰`\n"
+        f"╰━━━━━━━━━━━━━━━━━━━━╯\n"
+    )
+    
+    await borg.send_message(
+        alive.chat_id,
+        pm_caption,
+        reply_to=alive.message.reply_to_msg_id,
+        force_document=False,
+        silent=True,
+    )
+    await alive.delete()
 
 
 CmdHelp('system_stats').add_command(
