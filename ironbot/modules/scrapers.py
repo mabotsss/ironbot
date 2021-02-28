@@ -326,9 +326,9 @@ CmdHelp('scrapers').add_command(
 ).add_command(
     'yt', '<teks>', 'Melakukan pencarian di YouTube.'
 ).add_command(
-    'ripaudio', '<koneksi>', 'mengunduh youtube audio dari (atau situs lain).'
+    'ripaudio', '<url>', 'mengunduh youtube audio dari (atau situs lain).'
 ).add_command(
-    'ripvideo', '<bağlantı>', 'mengunduh youtube video dari (atau situs lain).'
+    'ripvideo', '<url>', 'mengunduh youtube video dari (atau situs lain).'
 ).add_info(
     '[Situs yang didukung oleh perintah rip.](https://ytdl-org.github.io/youtube-dl/supportedsites.html)'
 ).add()
