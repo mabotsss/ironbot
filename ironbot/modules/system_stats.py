@@ -3,7 +3,7 @@ from asyncio.subprocess import PIPE as asyncPIPE
 from platform import uname
 from shutil import which
 from os import remove
-from ironbot import CMD_HELP, IRON_VERSION
+from ironbot import CMD_HELP, IRON_VERSION, bot
 from ironbot.events import register
 from ironbot.main import PLUGIN_MESAJLAR
 from telethon import version

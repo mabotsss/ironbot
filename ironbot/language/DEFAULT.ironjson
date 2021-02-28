@@ -56,7 +56,7 @@
             "INVALID_HEROKU": "{}\n`Variabel Heroku salah atau kurang ditentukan.`",
             "HEROKU_UPDATING": "`[IRONBOT UPDATER]\nProses ini memakan waktu maksimal 2 menit.`",
             "ERRORS": "Kesalahan ditemukan di sini",
-            "SUCCESSFULLY": "`Pembaruan berhasil diselesaikan! \nRebooting...`"
+            "SUCCESSFULLY": "`Pembaruan berhasil diselesaikan! \nSedang merestart bot...`"
         },
         "pmpermit": {
             "BLOCKED": "`Anda mengirim spam ke PM pemilik saya, saya tidak suka.` \n`Anda sekarang DIBLOKIR dan dilaporkan sebagai SPAM, kecuali jika ada perubahan di masa mendatang..`",
