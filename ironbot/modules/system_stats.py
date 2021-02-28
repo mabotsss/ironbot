@@ -152,13 +152,13 @@ async def amialive(e):
 
 @register(outgoing=True, pattern="^.on$")
 async def ironalive(alive):
-    me = await alive.client.get_me()
     if alive.fwd_from:
         return
+    me = await alive.client.get_me()
     await alive.get_chat()
     pm_caption = (
          "╭━━━━━━| 𝙸𝚁𝙾𝙽𝙱𝙾𝚃 |━━━━━━╮\n"
-        f"┣[•👤 `USER     :` {bot.me.first_name}\n"
+        f"┣[•👤 `USER     :` {me.first_name}\n"
         f"┣▰▱▰▱▰▱▰▱▰▱▰▱▰▱\n"
         f"┣[•🤖 `Iron Ver : {IRON_VERSION} ➰`\n"
         f"┣[•🐍 `Python.  : v.{python_version()} ➰`\n"
