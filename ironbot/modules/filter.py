@@ -2,6 +2,7 @@ from asyncio import sleep
 from re import search, IGNORECASE, escape
 from ironbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 from ironbot.events import register
+from ironbot.cmdhelp import CmdHelp
 
 
 @register(incoming=True, disable_edited=True, disable_errors=True)
