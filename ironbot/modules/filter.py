@@ -91,7 +91,6 @@ async def remove_a_filter(r_handler):
 
 @register(outgoing=True, pattern="^.rmfilters (.*)")
 async def kick_marie_filter(event):
-        Marie(or her clones) filters from a chat. """
     bot_type = event.pattern_match.group(1).lower()
     if bot_type not in ["marie", "rose"]:
         return await event.edit("`Bot itu belum didukung!`")
