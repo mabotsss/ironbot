@@ -147,42 +147,8 @@ async def pipcheck(pip):
     else:
         await pip.edit(LANG['EXAMPLE'])
 
-@register(outgoing=True, pattern="^.alive$")
-async def amialive(e):
-    me = await e.client.get_me()
-    if type(PLUGIN_MESAJLAR['alive']) == str:
-        await e.edit(PLUGIN_MESAJLAR['alive'].format(
-            telethon=version.__version__,
-            python=python_version(),
-            iron=IRON_VERSION,
-            plugin=len(CMD_HELP),
-            id=me.id,
-            username='@' + me.username if me.username else f'[{me.first_name}](tg://user?id={me.id})',
-            first_name=me.first_name,
-            last_name=me.last_name if me.last_name else '',
-            mention=f'[{me.first_name}](tg://user?id={me.id})'
-        ))
-    else:
-        await e.delete()
-        if not PLUGIN_MESAJLAR['alive'].text == '':
-            PLUGIN_MESAJLAR['alive'].text = PLUGIN_MESAJLAR['alive'].text.format(
-                telethon=version.__version__,
-                python=python_version(),
-                iron=IRON_VERSION,
-                plugin=len(CMD_HELP),
-                id=me.id,
-                username='@' + me.username if me.username else f'[{me.first_name}](tg://user?id={me.id})',
-                first_name=me.first_name,
-                last_name=me.last_name if me.last_name else '',
-                mention=f'[{me.first_name}](tg://user?id={me.id})'
-            )
-        if e.is_reply:
-            await e.respond(PLUGIN_MESAJLAR['alive'], reply_to=e.message.reply_to_msg_id)
-        else:
-            await e.respond(PLUGIN_MESAJLAR['alive'])
 
-
-@register(outgoing=True, pattern="^.on$")
+@register(outgoing=True, pattern="^.alive$|^.on$")
 async def ironalive(alive):
     if alive.fwd_from:
         return
@@ -191,15 +157,16 @@ async def ironalive(alive):
     await alive.get_chat()
     pm_caption = (
          "╭━━━━━━| 𝙸𝚁𝙾𝙽𝙱𝙾𝚃 |━━━━━━╮\n"
-        f"┣[•👤 `USER     :` {me.first_name}\n"
+        f"┣[•👤 `USER     :` [{me.first_name}](tg://user?id={me.id})\n"
         f"┣▰▱▰▱▰▱▰▱▰▱▰▱▰▱\n"
-        f"┣[•🤖 `Iron Ver : {IRON_VERSION} ➰`\n"
-        f"┣[•🐍 `Python.  : v.{python_version()} ➰`\n"
-        f"┣[•⚙️ `Telethon : v.{version.__version__} ➰`\n"
-        f"┣[•💡 `Base on  : master ➰`\n"
-        f"┣[•📍 `Plugin.   : {len(CMD_HELP)} ➰`\n"
-        f"┣[•🕒 `Uptime.  : {uptime} ➰`\n"
+        f"┣[•🤖 `Iron Ver : {IRON_VERSION} `\n"
+        f"┣[•🐍 `Python.  : v.{python_version()} `\n"
+        f"┣[•⚙️ `Telethon : v.{version.__version__} `\n"
+        f"┣[•💡 `Base on  : master `\n"
+        f"┣[•📍 `Plugin.  : {len(CMD_HELP)} `\n"
+        f"┣[•🕒 `Uptime.  : {uptime} `\n"
         f"╰━━━━━━━━━━━━━━━━━━━━╯\n"
+         "`🔵 IRONBOT SUDAH AKTIF 🔵`\n"
     )
     
     await bot.send_message(
