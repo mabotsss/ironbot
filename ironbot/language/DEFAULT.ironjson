@@ -39,6 +39,12 @@
         "__helpme": {
             "NO_BOT": "`Bot tidak berfungsi! Harap setel bot Token dan username bot dengan benar. Module dibatalkan.`"
         },
+        "afk": {
+            "REASON": "Alasan",
+            "AFK": "Afk.",
+            "IM_AFK": "afk dulu.",
+            "IM_NOT_AFK": "Balik dari afk."
+        },
         "updater": {
             "DETECTING": "`Memeriksa pembaruan...`",
             "FAILED": "Pembaharuan gagal! Kami mengalami beberapa masalah.",
