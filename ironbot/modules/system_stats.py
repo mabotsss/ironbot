@@ -152,6 +152,7 @@ async def amialive(e):
 
 @register(outgoing=True, pattern="^.on$")
 async def ironalive(alive):
+    me = await alive.client.get_me()
     if alive.fwd_from:
         return
     await alive.get_chat()
