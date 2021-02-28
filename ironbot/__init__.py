@@ -247,7 +247,7 @@ def butonlastir(sayfa, moduller):
             custom.Button.inline("🔸 " + pair, data=f"bilgi[{sayfa}]({pair})") for pair in pairs
         ])
 
-    butonlar.append([custom.Button.inline("◀️ Kembali", data=f"sayfa({(max_pages - 1) if sayfa == 0 else (sayfa - 1)})"), custom.Button.inline("-ᴄʟᴏꜱᴇ-", data="closes"), custom.Button.inline("Lanjut ▶️", data=f"sayfa({0 if sayfa == (max_pages - 1) else sayfa + 1})")])
+    butonlar.append([custom.Button.inline("◀️ ᴋᴇᴍʙᴀʟɪ", data=f"sayfa({(max_pages - 1) if sayfa == 0 else (sayfa - 1)})"), custom.Button.inline("-ᴄʟᴏꜱᴇ-", data="closes"), custom.Button.inline("ʟᴀɴᴊᴜᴛ ▶️", data=f"sayfa({0 if sayfa == (max_pages - 1) else sayfa + 1})")])
     return [max_pages, butonlar]
 
 with bot:
@@ -363,7 +363,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
                 return await event.answer("❌ Tidak ada deskripsi tertulis untuk modul ini.", cache_time=0, alert=True)
 
             butonlar = [butonlar[i:i + 2] for i in range(0, len(butonlar), 2)]
-            butonlar.append([custom.Button.inline("◀️ Kembali", data=f"sayfa({sayfa})")])
+            butonlar.append([custom.Button.inline("◀️ ᴋᴇᴍʙᴀʟɪ", data=f"sayfa({sayfa})")])
             await event.edit(
                 f"**📗 Tips untuk:** `{komut}`\n**🔢 Jumlah Perintah:** `{len(CMD_HELP_BOT[komut]['commands'])}`",
                 buttons=butonlar,
@@ -406,7 +406,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
 
             await event.edit(
                 result,
-                buttons=[custom.Button.inline("◀️ Kembali", data=f"bilgi[{sayfa}]({cmd})")],
+                buttons=[custom.Button.inline("◀️ ᴋᴇᴍʙᴀʟɪ", data=f"bilgi[{sayfa}]({cmd})")],
                 link_preview=False
             )
     except Exception as e:
