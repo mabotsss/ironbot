@@ -7,7 +7,7 @@ from ironbot.cmdhelp import CmdHelp
 async def _(event):
     if event.fwd_from:
         return
-    mentions = "@tag"
+    mentions = "@semuanya_yang_ada_disini"
     chat = await event.get_input_chat()
     leng = 0
     async for x in bot.iter_participants(chat):
@@ -21,7 +21,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    mentions = "@admin"
+    mentions = "@ampun_om_admin"
     chat = await event.get_input_chat()
     async for x in bot.iter_participants(chat, filter=ChannelParticipantsAdmins):
         mentions += f"[\u2063](tg://user?id={x.id})"
