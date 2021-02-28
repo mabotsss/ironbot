@@ -11,7 +11,7 @@ async def filter_incoming_handler(handler):
     try:
         if not (await handler.get_sender()).bot:
             try:
-                from userbot.modules.sql_helper.filter_sql import get_filters
+                from ironbot.modules.sql_helper.filter_sql import get_filters
             except AttributeError:
                 await handler.edit("`Running on Non-SQL mode!`")
                 return
@@ -37,7 +37,7 @@ async def filter_incoming_handler(handler):
 async def add_new_filter(new_handler):
     """ For .filter command, allows adding new filters in a chat """
     try:
-        from userbot.modules.sql_helper.filter_sql import add_filter
+        from ironbot.modules.sql_helper.filter_sql import add_filter
     except AttributeError:
         await new_handler.edit("`Running on Non-SQL mode!`")
         return
@@ -82,7 +82,7 @@ async def add_new_filter(new_handler):
 async def remove_a_filter(r_handler):
     """ For .stop command, allows you to remove a filter from a chat. """
     try:
-        from userbot.modules.sql_helper.filter_sql import remove_filter
+        from ironbot.modules.sql_helper.filter_sql import remove_filter
     except AttributeError:
         return await r_handler.edit("`Running on Non-SQL mode!`")
     filt = r_handler.pattern_match.group(1)
@@ -122,7 +122,7 @@ async def kick_marie_filter(event):
 async def filters_active(event):
     """ For .filters command, lists all of the active filters in a chat. """
     try:
-        from userbot.modules.sql_helper.filter_sql import get_filters
+        from ironbot.modules.sql_helper.filter_sql import get_filters
     except AttributeError:
         return await event.edit("`Running on Non-SQL mode!`")
     transact = "`There are no filters in this chat.`"
