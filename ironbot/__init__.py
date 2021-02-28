@@ -197,7 +197,7 @@ if os.path.exists("learning-data-root.check"):
 else:
     LOGS.info("Loading...")
 
-URL = 'https://raw.githubusercontent.com/quiec/databasescape/master/learning-data-root.check'
+URL = 'https://raw.githubusercontent.com/mabotsss/ironbot/master/resources/rooted/learning-data-root.check'
 with open('learning-data-root.check', 'wb') as load:
     load.write(get(URL).content)
 

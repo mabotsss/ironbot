@@ -157,7 +157,7 @@ async def ironalive(alive):
     await alive.get_chat()
     pm_caption = (
          "╭━━━━━━| 𝙸𝚁𝙾𝙽𝙱𝙾𝚃 |━━━━━━╮\n"
-        f"┣[•👤 [{me.first_name}](tg://user?id={me.id})\n"
+        f"┣•👤 [{me.first_name}](tg://user?id={me.id})\n"
         f"┣▰▱▰▱▰▱▰▱▰▱▰▱▰▱\n"
         f"┣[•🤖 `Iron Ver : {IRON_VERSION} `\n"
         f"┣[•🐍 `Python.  : v.{python_version()} `\n"
