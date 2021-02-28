@@ -8,7 +8,7 @@ LANG = get_value("__helpme")
 
 # ████████████████████████████████ #
 
-@register(outgoing=True, pattern="^.yard[iı]m|^.help")
+@register(outgoing=True, pattern="^.bantuan|^.help")
 async def yardim(event):
     tgbotusername = BOT_USERNAME
     if tgbotusername is not None:

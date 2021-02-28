@@ -45,6 +45,20 @@
             "IM_AFK": "__Afk dulu__❗",
             "IM_NOT_AFK": "__Balik dari afk.__"
         },
+        "filter": {
+            "GLOBAL_USAGE": "`Pemakaian: `` .globalfilter \"hello\" hi ` atau ` .globalfilter hi hi `",
+            "GLOBAL_FILTER": "filter",
+            "ADDED": "ditambahan",
+            "UPDATED": "ter-update",
+            "FILTER_USAGE": "`Pemakaian: `` .filter \"hello\" hi ` atau ` .filter hi hi `",
+            "NOT_FOUND": "filter tidak ada.",
+            "DELETED": "filter berhasil dihapus",
+            "GLOBALFILTERS": "`Tidak ada global filter.`",
+            "GLOBAL_FILTERS": "Global filter :",
+            "FILTERS": "`Tidak ada filter di chat ini. `",
+            "_FILTERS": "Filters disini :",
+            "NEED_BOTLOG": "` Untuk media yang akan didaftarkan sebagai respons terhadap filter, perlu mengatur BOTLOG_CHATID pada environment. `"
+        },
         "updater": {
             "DETECTING": "`Memeriksa pembaruan...`",
             "FAILED": "Pembaharuan gagal! Kami mengalami beberapa masalah.",
