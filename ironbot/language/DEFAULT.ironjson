@@ -79,8 +79,8 @@
             "SUCCESSFULLY": "`Pembaruan berhasil diselesaikan! \nSedang merestart bot...`"
         },
         "pmpermit": {
-            "BLOCKED": "`Anda mengirim spam ke PM pemilik saya, saya tidak suka.` \n`Anda sekarang DIBLOKIR dan dilaporkan sebagai SPAM, kecuali jika ada perubahan di masa mendatang..`",
-            "ERROR": "Penghitung PM sudah gila, silakan mulai ulang bot.",
+            "BLOCKED": "`Anda mengirim spam ke PM boss.` \n`Anda sekarang DIBLOKIR dan dilaporkan sebagai SPAM..`",
+            "ERROR": "Penghitung PM rusak, silakan mulai ulang bot.",
             "BOTLOG_BLOCKED": " itu hanya kekecewaan. Dia diblokir karena dia membuat PM sibuk.",
             "NOTIFOFF": "`Pengguna tanpa izin pm dibungkam untuk mengirim pemberitahuan!`",
             "NOTIFON": "`Pengguna tanpa izin pm diizinkan untuk mengirim pemberitahuan!`",
