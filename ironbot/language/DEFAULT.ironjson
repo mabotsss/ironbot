@@ -41,8 +41,8 @@
         },
         "afk": {
             "REASON": "Alasan",
-            "AFK": "Afk.",
-            "IM_AFK": "afk dulu.",
+            "AFK": "__Afk__❗",
+            "IM_AFK": "__Afk dulu__❗",
             "IM_NOT_AFK": "Balik dari afk."
         },
         "updater": {
