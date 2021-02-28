@@ -165,7 +165,7 @@ async def ironalive(alive):
         f"┣[•💡 `Base on  : master `\n"
         f"┣[•📍 `Plugin.  : {len(CMD_HELP)} `\n"
         f"┣[•🕒 `Uptime.  : {uptime} `\n"
-         "`🛡 IRONBOT SUDAH AKTIF 🛡`\n"
+         "`>>> IRONBOT SUDAH AKTIF <<<`\n"
         f"╰━━━━━━━━━━━━━━━━━━━━╯\n"         
     )
     
@@ -186,5 +186,5 @@ CmdHelp('system_stats').add_command(
 ).add_command(
     'pip', '<modul>', 'Mencari modul pip.'
 ).add_command(
-    'alive', None, 'Digunakan untuk memeriksa apakah ironbot sedang berjalan.'
+    'alive/on', None, 'Digunakan untuk memeriksa apakah ironbot sedang berjalan.'
 ).add()
