@@ -268,7 +268,6 @@ async def set_afk(afk_e):
     global ISAFK
     global AFKREASON
     global SON_GORULME
-
     if string:
         AFKREASON = string
         await afk_e.edit(f"{LANG['IM_AFK']} {LANG['REASON']} `{string}`")

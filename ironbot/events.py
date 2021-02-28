@@ -69,7 +69,7 @@ def register(**args):
 
                     text = "**USERBOT LAPORAN KESALAHAN**\n"
                     link = "[Dev Ironbot](https://t.me/ndourbae)"
-                    text += "`Jika mau, Anda dapat melaporkan ini"
+                    text += "`Anda dapat melaporkan ini"
                     text += f" di sini` {link}.\n"
                     
                     ftext = "--------USERBOT LAPORAN ERROR--------\n"
