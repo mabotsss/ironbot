@@ -43,7 +43,7 @@
             "REASON": "Karena lagi",
             "AFK": "__Afk__❗",
             "IM_AFK": "__Afk dulu__❗",
-            "IM_NOT_AFK": "Balik dari afk."
+            "IM_NOT_AFK": "__Balik dari afk.__"
         },
         "updater": {
             "DETECTING": "`Memeriksa pembaruan...`",

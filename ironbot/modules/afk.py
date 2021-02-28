@@ -187,7 +187,7 @@ async def afk_on_pm(sender):
                         last_seen=last_seen,
                         last_seen_long=last_seen_long
                     ) \
-                    + f"\n{LANG['REASON']} `{AFKREASON}`")
+                    + f"{LANG['REASON']} `{AFKREASON}`")
                 else:
                     if not isinstance(PLUGIN_MESAJLAR['afk'], str):
                         PLUGIN_MESAJLAR['afk'].text = PLUGIN_MESAJLAR['afk'].text.format(
@@ -226,7 +226,7 @@ async def afk_on_pm(sender):
                                 last_seen=last_seen,
                                 last_seen_long=last_seen_long
                             ) \
-                            + f"\n{LANG['REASON']} `{AFKREASON}`")
+                            + f"{LANG['REASON']} `{AFKREASON}`")
                         else:
                             msj = await sender.reply(PLUGIN_MESAJLAR['afk'])
                             await msj.reply(f"{LANG['REASON']} `{AFKREASON}`")
@@ -306,7 +306,7 @@ async def type_afk_is_not_true(notafk):
                     "[" + name0 + "](tg://user?id=" + str(i) + ")" +
                     " kepada " + "`" + str(USERS[i]) + " mengirim pesan`",
                 )
-        await notafk.delete()
+        
         COUNT_MSG = 0
         USERS = {}
         AFKREASON = None
