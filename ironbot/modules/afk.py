@@ -66,10 +66,10 @@ async def mention_afk(mention):
                         last_seen=last_seen,
                         last_seen_long=last_seen_long
                     ) \
-                            + f"\n{LANG['REASON']}: `{AFKREASON}`\n")
+                            + f"{LANG['REASON']} `{AFKREASON}`")
                     else:
                         msj = await mention.reply(PLUGIN_MESAJLAR['afk'])
-                        await msj.reply(f"{LANG['REASON']}: `{AFKREASON}`")
+                        await msj.reply(f"{LANG['REASON']} `{AFKREASON}`")
                 else:
                     if not isinstance(PLUGIN_MESAJLAR['afk'], str):
                         PLUGIN_MESAJLAR['afk'].text = PLUGIN_MESAJLAR['afk'].text.format(
@@ -107,10 +107,10 @@ async def mention_afk(mention):
                             last_seen=last_seen,
                             last_seen_long=last_seen_long
                             ) \
-                                + f"\{LANG['REASON']}: `{AFKREASON}`")
+                                + f"\{LANG['REASON']} `{AFKREASON}`")
                         else:
                             msj = await mention.reply(PLUGIN_MESAJLAR['afk'])
-                            await msj.reply(f"{LANG['REASON']}: `{AFKREASON}`")
+                            await msj.reply(f"{LANG['REASON']} `{AFKREASON}`")
                     else:
                         if not isinstance(PLUGIN_MESAJLAR['afk'], str):
                             PLUGIN_MESAJLAR['afk'].text = PLUGIN_MESAJLAR['afk'].text.format(
@@ -187,7 +187,7 @@ async def afk_on_pm(sender):
                         last_seen=last_seen,
                         last_seen_long=last_seen_long
                     ) \
-                    + f"\n{LANG['REASON']}: `{AFKREASON}`")
+                    + f"\n{LANG['REASON']} `{AFKREASON}`")
                 else:
                     if not isinstance(PLUGIN_MESAJLAR['afk'], str):
                         PLUGIN_MESAJLAR['afk'].text = PLUGIN_MESAJLAR['afk'].text.format(
@@ -226,10 +226,10 @@ async def afk_on_pm(sender):
                                 last_seen=last_seen,
                                 last_seen_long=last_seen_long
                             ) \
-                            + f"\n{LANG['REASON']}: `{AFKREASON}`")
+                            + f"\n{LANG['REASON']} `{AFKREASON}`")
                         else:
                             msj = await sender.reply(PLUGIN_MESAJLAR['afk'])
-                            await msj.reply(f"{LANG['REASON']}: `{AFKREASON}`")
+                            await msj.reply(f"{LANG['REASON']} `{AFKREASON}`")
                     else:
                         if not isinstance(PLUGIN_MESAJLAR['afk'], str):
                             PLUGIN_MESAJLAR['afk'].text = PLUGIN_MESAJLAR['afk'].text.format(
@@ -271,7 +271,7 @@ async def set_afk(afk_e):
 
     if string:
         AFKREASON = string
-        await afk_e.edit(f"{LANG['IM_AFK']} {LANG['REASON']}: `{string}`")
+        await afk_e.edit(f"{LANG['IM_AFK']} {LANG['REASON']} `{string}`")
     else:
         await afk_e.edit(LANG['IM_AFK'])
 

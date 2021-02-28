@@ -40,7 +40,7 @@
             "NO_BOT": "`Bot tidak berfungsi! Harap setel bot Token dan username bot dengan benar. Module dibatalkan.`"
         },
         "afk": {
-            "REASON": "Alasan",
+            "REASON": "Karena lagi",
             "AFK": "__Afk__❗",
             "IM_AFK": "__Afk dulu__❗",
             "IM_NOT_AFK": "Balik dari afk."
