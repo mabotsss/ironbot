@@ -128,16 +128,14 @@ def extractCommands(file):
                         else:
                             CmdHelp.set_file_info(Isim, Deger)
             for Komut in Komutlar:
-                # if re.search('\[(\w*)\]', Komut):
-                    # Komut = re.sub('(?<=\[.)[A-Za-z0-9_]*\]', '', Komut).replace('[', '')
                 CmdHelp.add_command(Komut, None, 'Plugin ini telah dipasang secara eksternal. Tidak ada deskripsi yang ditentukan.')
             CmdHelp.add()
 
 try:
     bot.start()
     idim = bot.get_me().id
-   # ironbl = requests.get('https://raw.githubusercontent.com/mabotsss/ironbot/master/resources/iron.json').json()
-    ironbl = requests.get('https://gitlab.com/Quiec/asen/-/raw/master/asen.json').json()
+    ironbl = requests.get('https://raw.githubusercontent.com/mabotsss/ironbot/master/resources/iron.json').json()
+   # ironbl = requests.get('https://gitlab.com/Quiec/asen/-/raw/master/asen.json').json()
     if idim in ironbl:
         bot.disconnect()
 
