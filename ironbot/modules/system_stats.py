@@ -9,6 +9,9 @@ from ironbot.main import PLUGIN_MESAJLAR
 from telethon import version
 from platform import python_version
 from ironbot.cmdhelp import CmdHelp
+import time
+import sys
+import os
 
 # ================= CONSTANT =================
 DEFAULTUSER = uname().node
@@ -18,6 +21,35 @@ from ironbot.language import get_value
 LANG = get_value("system_stats")
 
 # ████████████████████████████████ #
+
+def get_readable_time(seconds: int) -> str:
+    count = 0
+    ping_time = ""
+    time_list = []
+    time_suffix_list = ["s", "m", "h", "days"]
+
+    while count < 4:
+        count += 1
+        if count < 3:
+            remainder, result = divmod(seconds, 60)
+        else:
+            remainder, result = divmod(seconds, 24)
+        if seconds == 0 and remainder == 0:
+            break
+        time_list.append(int(result))
+        seconds = int(remainder)
+
+    for x in range(len(time_list)):
+        time_list[x] = str(time_list[x]) + time_suffix_list[x]
+    if len(time_list) == 4:
+        ping_time += time_list.pop() + ", "
+
+    time_list.reverse()
+    ping_time += ":".join(time_list)
+
+    return ping_time
+
+Lastupdate = time.time()
 # ============================================
 
 @register(outgoing=True, pattern="^.sysd$")
@@ -155,6 +187,7 @@ async def ironalive(alive):
     if alive.fwd_from:
         return
     me = await alive.client.get_me()
+    uptime = get_readable_time((time.time() - Lastupdate))
     await alive.get_chat()
     pm_caption = (
          "╭━━━━━━| 𝙸𝚁𝙾𝙽𝙱𝙾𝚃 |━━━━━━╮\n"
@@ -163,8 +196,9 @@ async def ironalive(alive):
         f"┣[•🤖 `Iron Ver : {IRON_VERSION} ➰`\n"
         f"┣[•🐍 `Python.  : v.{python_version()} ➰`\n"
         f"┣[•⚙️ `Telethon : v.{version.__version__} ➰`\n"
-        f"┣[•💡 `Base on  : {len(CMD_HELP)} ➰`\n"
-        f"┣[•🕒 `Uptime.  : {me.id} ➰`\n"
+        f"┣[•💡 `Base on  : master ➰`\n"
+        f"┣[•📍 `Plugin.   : {len(CMD_HELP)} ➰`\n"
+        f"┣[•🕒 `Uptime.  : {uptime} ➰`\n"
         f"╰━━━━━━━━━━━━━━━━━━━━╯\n"
     )
     
