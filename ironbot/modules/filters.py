@@ -147,7 +147,7 @@ async def on_all_snip_delete(event):
     await event.edit(f"filters **in current chat** deleted successfully")
 
 
-CmdHelp('filter').add_command(
+CmdHelp('filters').add_command(
     'filters', None, 'Menampilkan semua filter ironbot dalam obrolan.'
 ).add_command(
     'filter', '<kata> <balasan respon> atau pesan .filter <kata>', 'Menambahkan filter setiap kali kata yang Anda tambahkan ditulis, bot akan merespons.', 'filter "contoh" "respon contoh"'
