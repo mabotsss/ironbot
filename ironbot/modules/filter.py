@@ -1,7 +1,7 @@
 from asyncio import sleep
 from re import search, IGNORECASE, escape
-from userbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
-from userbot.events import register
+from ironbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
+from ironbot.events import register
 
 
 @register(incoming=True, disable_edited=True, disable_errors=True)
