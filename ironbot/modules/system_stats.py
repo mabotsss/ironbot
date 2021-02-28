@@ -167,7 +167,7 @@ async def ironalive(alive):
         f"╰━━━━━━━━━━━━━━━━━━━━╯\n"
     )
     
-    await borg.send_message(
+    await bot.send_message(
         alive.chat_id,
         pm_caption,
         reply_to=alive.message.reply_to_msg_id,
