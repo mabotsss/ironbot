@@ -22,10 +22,6 @@
       "value": "",
       "required": true
     },
-    "PLUGIN_CHANNEL_ID": {
-      "description": "Opsional",
-      "required": false
-    },
     "STRING_SESSION": {
       "description": "Dapatkan value ini dengan menjalankan file $python3 GenerateStringSession.py secara lokal.",
       "value": "",
@@ -81,8 +77,8 @@
       "required": false
     },
     "BOTLOG": {
-      "description": "# Jangan dirubah #",
-      "value": "False"
+      "description": "Log untuk bot #Jangan diubah",
+      "value": "True"
     },
     "BOT_USERNAME": {
       "description": "Diperlukan agar fitur bot sebaris berfungsi. Di sini Anda harus menulis nama pengguna bot Anda (Contoh: @Ndobots). Jika Anda tidak memiliki bot, Anda dapat membuat bot dengan bantuan @BotFather.",
@@ -98,20 +94,17 @@
       "description": "Masukkan Token API Genius yang Anda terima di sini.",
       "required": false
     },
-    "AUTO_PP": {
-      "description": "Ini adalah variabel yang diperlukan untuk menjalankan modul Auto pp. Anda harus memasukkan alamat langsung dari gambar yang akan Anda gunakan agar berfungsi.",
-      "required": false      
-    },
     "BOTLOG_CHATID": {
-      "description": "ChatID'si. BOTLOG= False LOGSPAMMER= False adalah '0' .",
-      "value": "0"
+      "description": "Group ID untuk Log bot , contoh = -1000857499xx ",
+      "value": "",
+      "required": true
     },
     "CONSOLE_LOGGER_VERBOSE": {
-      "description": "Setel ini ke True jika Anda memerlukan detail di log konsol.",
+      "description": "Setel ini ke True jika Anda memerlukan detail di log konsol web deploy",
       "value": "False"
     },
     "PM_AUTO_BAN": {
-      "description": "Fitur PM Auto Ban. Setel ke True jika ingin mengaktifkan",
+      "description": "Fitur PM Auto Ban. Setel ke False jika ingin menonaktifkan",
       "value": "True"
     },
     "PM_AUTO_BAN_LIMIT": {
@@ -157,10 +150,11 @@
       "required": false
     },
     "LOGSPAMMER": {
-      "description": "biarkan False.",
-      "value": "False"
+      "description": "biarkan tru. #Jangan di ubah",
+      "value": "True",
+      "required": true
     },
-    "OTOMATIK_KATILMA": {
+    "OTOMATIS_JOIN": {
       "description": "Jika Anda tidak ingin bergabung dengan grup dan saluran Dukungan secara otomatis, ketik False.",
       "value": "True",
       "required": true

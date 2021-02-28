@@ -165,7 +165,7 @@ SPOTIFY_KEY = os.environ.get("SPOTIFY_KEY", None)
 
 PAKET_ISMI = os.environ.get("PAKET_ISMI", "@Ironbots")
 
-OTOMATIK_KATILMA = sb(os.environ.get("OTOMATIK_KATILMA", "True"))
+OTOMATIS_JOIN = sb(os.environ.get("OTOMATIS_JOIN", "True"))
 
 PATTERNS = os.environ.get("PATTERNS", ".;!,")
 WHITELIST = get('https://raw.githubusercontent.com/mabotsss/ironbot/master/resources/whitelist.json').json()
@@ -251,7 +251,7 @@ def butonlastir(sayfa, moduller):
     return [max_pages, butonlar]
 
 with bot:
-    if OTOMATIK_KATILMA:
+    if OTOMATIS_JOIN:
         try:
             bot(JoinChannelRequest("@Ironbots"))
             bot(JoinChannelRequest("@freedom_reborn"))
