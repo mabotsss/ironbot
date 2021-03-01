@@ -11,17 +11,17 @@ import requests
 import asyncio
 
 from ironbot import (
-    HEROKU_APP_NAME,
-    HEROKU_API_KEY,
+    HEROKU_APPNAME,
+    HEROKU_APIKEY,
     BOTLOG,
     BOTLOG_CHATID,
     CMD_HELP)
 from ironbot.events import register
 
 heroku_api = "https://api.heroku.com"
-if HEROKU_APP_NAME is not None and HEROKU_API_KEY is not None:
-    Heroku = heroku3.from_key(HEROKU_API_KEY)
-    app = Heroku.app(HEROKU_APP_NAME)
+if HEROKU_APPNAME is not None and HEROKU_APIKEY is not None:
+    Heroku = heroku3.from_key(HEROKU_APIKEY)
+    app = Heroku.app(HEROKU_APPNAME)
     heroku_var = app.config()
 else:
     app = None
@@ -38,7 +38,7 @@ async def variable(var):
     exe = var.pattern_match.group(1)
     if app is None:
         await var.edit("`[HEROKU]"
-                       "\nPlease setup your`  **HEROKU_APP_NAME**.")
+                       "\nPlease setup your`  **HEROKU_APPNAME**.")
         return False
     if exe == "get":
         await var.edit("`Getting information...`")
@@ -138,7 +138,7 @@ async def dyno_usage(dyno):
     user_id = Heroku.account().id
     headers = {
         'User-Agent': useragent,
-        'Authorization': f'Bearer {HEROKU_API_KEY}',
+        'Authorization': f'Bearer {HEROKU_APIKEY}',
         'Accept': 'application/vnd.heroku+json; version=3.account-quotas',
     }
     path = "/accounts/" + user_id + "/actions/get-quota"
@@ -197,8 +197,8 @@ async def dyno_usage(dyno):
 @register(outgoing=True, pattern=r"^\.logs")
 async def _(dyno):
     try:
-        Heroku = heroku3.from_key(HEROKU_API_KEY)
-        app = Heroku.app(HEROKU_APP_NAME)
+        Heroku = heroku3.from_key(HEROKU_APIKEY)
+        app = Heroku.app(HEROKU_APPNAME)
     except BaseException:
         return await dyno.reply(
             "`Please make sure your Heroku API Key, Your App name are configured correctly in the heroku var.`"
