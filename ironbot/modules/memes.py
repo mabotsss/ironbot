@@ -977,20 +977,6 @@ async def boobs(e):
     await e.delete()
 
 
-@register(outgoing=True, pattern=r"^\.butts(?: |$)(.*)")
-async def butts(e):
-    await e.edit("`Finding some beautiful butts...`")
-    await sleep(3)
-    await e.edit("`Sending some beautiful butts...`")
-    nsfw = requests.get('http://api.obutts.ru/noise/1').json()[0]["preview"]
-    urllib.request.urlretrieve(
-        "http://media.obutts.ru/{}".format(nsfw), "*.jpg")
-    os.rename('*.jpg', 'butts.jpg')
-    await e.client.send_file(e.chat_id, "butts.jpg")
-    os.remove("butts.jpg")
-    await e.delete()
-
-
 @register(outgoing=True, pattern=r"^\.(yes|no|maybe|decide)$")
 async def decide(event):
     decision = event.pattern_match.group(1).lower()
@@ -1349,15 +1335,6 @@ async def claptext(memereview):
     reply_text += message.replace(" ", " 👏 ")
     reply_text += " 👏"
     await memereview.edit(reply_text)
-
-
-@register(outgoing=True, pattern=r"^\.bt$")
-async def bluetext(bt_e):
-    """ Believe me, you will find this useful. """
-    if await bt_e.get_reply_message() and bt_e.is_group:
-        await bt_e.edit(
-            "/BLUETEXT /MUST /CLICK.\n"
-            "/ARE /YOU /A /STUPID /ANIMAL /WHICH /IS /ATTRACTED /TO /COLOURS?")
 
 
 @register(outgoing=True, pattern=r"^\.f (.*)")
@@ -1756,12 +1733,8 @@ CMD_HELP.update({
     "\nUsage: Praise people!"
     "\n\n>`.boobs`"
         "\nUsage: Get b00bs imej"
-        "\n\n>`.butts`"
-        "\nUsage: Get 🅱️utts imej"
     "\n\n>`.f <emoji/character>`"
     "\nUsage: Pay Respects."
-    "\n\n>`.bt`"
-    "\nUsage: Believe me, you will find this useful."
     "\n\n>`.weeb`"
     "\nUsage: To Weeb-ify your text."
     "\n\n>`.type`"
