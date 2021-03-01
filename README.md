@@ -8,7 +8,7 @@
     <a href="https://github.com/mabotsss/ironbot"> <img src="https://img.shields.io/github/repo-size/mabotsss/ironbot?logo=github&style=for-the-badge" /></a>
     <a href="https://pypi.org/project/Telethon/"> <img src="https://img.shields.io/pypi/v/telethon?label=telethon&logo=pypi&logoColor=white&style=for-the-badge" /></a>
     <a href="https://github.com/mabotsss/ironbot/blob/master/LICENSE"> <img src="https://img.shields.io/github/license/mabotsss/ironbot?style=for-the-badge&logo=appveyor" /></a>
-    <img alt="PYTHON" src="https://img.shields.io/badge/PYTHON-v3.8.5-red?style=for-the-badge&logo=appveyor"/>
+    <img alt="PYTHON" src="https://img.shields.io/badge/PYTHON-v3.8.6-red?style=for-the-badge&logo=appveyor"/>
 </p>
 
 ## Installing Heroku 
