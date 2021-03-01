@@ -68,7 +68,7 @@ async def dil(event):
             f"\n\nUntuk bahasa lain, silahkan req ke Developer."
         )
 
-CmdHelp('dil').add_command(
+CmdHelp('bahasa').add_command(
     'bahasa', None, 'Memberikan informasi tentang bahasa yang telah Anda instal.'
 ).add_command(
     'bahasa info', None, 'Memberikan informasi tentang file bahasa yang Anda tanggapi.'
