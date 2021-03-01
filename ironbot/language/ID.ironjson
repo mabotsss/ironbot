@@ -72,8 +72,18 @@
             "SUPPORT_GROUP": "[Disini](http://t.me/freedom_reborn) kamu bisa chat di grup.",
             "CREATOR": "Bot ini dibuat oleh\n[Nando](https://t.me/ndourbae)",
             "README": "[Iron README.md](https://github.com/mabotsss/ironbot/blob/master/README.md)",
-            "REPO": "[Iron Repo](https://github.com/mabotsss/ironbot)",
+            "REPO": "[IRON-Repo](https://github.com/mabotsss/ironbot)",
             "CHECK_LOGS": "`Melihat info ironbot Logs!`"
+        },
+        "notes": {
+            "NOT_FOUND": "` Tidak ada notes yang disimpan di chat ini `",
+            "NOTES": "Notes yang disimpan disini :",
+            "CLEAR_NOT_FOUND": "Notes tidak ditemukan",
+            "CLEAR": "Note berhasil dihapus",
+            "SUCCESS": "Note berhasil",
+            "UPDATED": "diperbarui",
+            "ADDED": "ditambahkan",
+            "CALL": "Anda bisa melihat dengan command Notes = #"
         },
         "updater": {
             "DETECTING": "`Memeriksa pembaruan...`",
