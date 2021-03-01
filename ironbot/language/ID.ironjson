@@ -137,6 +137,16 @@
             "DISAPPROVE": "Izin untuk membuang PM telah dicabut.",
             "UNBLOCKED": "Blokir telah dihapus."
         },
+        "remove_bg": {
+            "NEED_API_KEY": "`Error: Remove.BG API key tidak ada!.`",
+            "TRYING": "`Memproses...`",
+            "RBG": "'Menghapus background dari gambar ini...`",
+            "CANT_RBG": "`bagaimana cara meremove background ini ?`",
+            "ONLINE_RBG": "Hapus background dari gambar online",
+            "NEED": "`Aku butuh sesuatu untuk menghapus background...`",
+            "CAPTION": "Background berhasil dihapus...",
+            "ERROR": "Error (API key salah...)"
+        },
         "song": {
             "GIVE_ME_SONG": "** Tulis judul lagu! ** ` Pemakaian: .deez Judul lagu/youtube/spotify/soundcloud `",
             "SEARCHING": "`Mencari lagu...`",
