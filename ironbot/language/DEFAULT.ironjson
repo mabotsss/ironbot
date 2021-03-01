@@ -59,6 +59,22 @@
             "_FILTERS": "Filters disini :",
             "NEED_BOTLOG": "` Untuk media yang akan didaftarkan sebagai respons terhadap filter, perlu mengatur BOTLOG_CHATID pada environment. `"
         },
+        "misc": {
+            "REPLY_TO_FILE": "`Balas ke file.`",
+            "QUERY": "Pencarian",
+            "RESULT": "Hasil",
+            "NEED_MUCH_DATA_FOR_RANDOM": "`2 atau lebih dibutuhkan. Masukan .iron random tes1 tes2 tes3.`",
+            "SLEEP_DESC": "Pemakaian: ` .sleep 30`",
+            "SLEEPING": "`Lagi tidurr sambil nyelam minum air ...`",
+            "GOODMORNIN_YALL": "`Pagi bossku!`",
+            "GOODBYE_MFRS": "`Dadaaaaahhh...m `",
+            "RESTARTING": "`Memulai ulang bot...`",
+            "SUPPORT_GROUP": "[Disini](http://t.me/freedom_reborn) kamu bisa chat di grup.",
+            "CREATOR": "Bot ini dibuat oleh\n[Nando](https://t.me/ndourbae)",
+            "README": "[Iron README.md](https://github.com/mabotsss/ironbot/blob/master/README.md)",
+            "REPO": "[Iron Repo](https://github.com/mabotsss/ironbot)",
+            "CHECK_LOGS": "`Melihat info ironbot Logs!`"
+        },
         "updater": {
             "DETECTING": "`Memeriksa pembaruan...`",
             "FAILED": "Pembaharuan gagal! Kami mengalami beberapa masalah.",
