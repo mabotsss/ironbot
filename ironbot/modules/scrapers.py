@@ -159,31 +159,42 @@ async def carbon_api(e):
 
 @register(outgoing=True, pattern="^.img (.*)")
 async def img_sampler(event):
-    """ For .img command, search and return images matching the query. """
-    await event.edit("Mencari Gambar...")
-    query = event.pattern_match.group(1)
-    lim = findall(r"lim=\d+", query)
-    try:
-        lim = lim[0]
-        lim = lim.replace("lim=", "")
-        query = query.replace("lim=" + lim[0], "")
-    except IndexError:
-        lim = 5
+    reply_to_id = event.message.id
+    if event.reply_to_msg_id:
+        reply_to_id = event.reply_to_msg_id
+    if event.is_reply and not event.pattern_match.group(2):
+        query = await event.get_reply_message()
+        query = str(query.message)
+    else:
+        query = str(event.pattern_match.group(2))
+    if not query:
+        return await event.edit("Reply to a message or pass a query to search!")
+    await event.edit("`Mencari gambar..`")
+    if event.pattern_match.group(1) != "":
+        lim = int(event.pattern_match.group(1))
+        if lim > 10:
+            lim = int(10)
+        if lim <= 0:
+            lim = int(1)
+    else:
+        lim = int(3)
     response = googleimagesdownload()
-
     # creating list of arguments
     arguments = {
         "keywords": query,
         "limit": lim,
         "format": "jpg",
-        "no_directory": "no_directory"
+        "no_directory": "no_directory",
     }
-
     # passing the arguments to the function
-    paths = response.download(arguments)
+    try:
+        paths = response.download(arguments)
+    except Exception as e:
+        return await telethon.edit(f"Error: \n`{e}`")
     lst = paths[0][query]
-    await event.client.send_file(
-        await event.client.get_input_entity(event.chat_id), lst)
+    await bot.send_file(
+        await bot.get_input_entity(event.chat_id), lst, reply_to=reply_to_id
+    )
     shutil.rmtree(os.path.dirname(os.path.abspath(lst[0])))
     await event.delete()
 
