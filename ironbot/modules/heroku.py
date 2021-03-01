@@ -1,5 +1,5 @@
 """
-   Heroku manager for your userbot
+   Heroku manager for your ironbot
 """
 
 import codecs
@@ -10,13 +10,13 @@ import os
 import requests
 import asyncio
 
-from userbot import (
+from ironbot import (
     HEROKU_APPNAME,
     HEROKU_APIKEY,
     BOTLOG,
     BOTLOG_CHATID,
     CMD_HELP)
-from userbot.events import register
+from ironbot.events import register
 
 heroku_api = "https://api.heroku.com"
 if HEROKU_APPNAME is not None and HEROKU_APIKEY is not None:
