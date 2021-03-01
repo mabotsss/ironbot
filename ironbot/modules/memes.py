@@ -1690,16 +1690,16 @@ async def emoji_kontl(e):
     await e.edit(kontl)
 
 
-@register(outgoing=True, pattern=r"^\.ok$")
+@register(outgoing=True, pattern=r"^.ok$")
 async def emoji_oke(e):
-    emoji = e.pattern_match.group(2)
+    emoji = e.pattern_match.group(1)
     oke = GAMBAR_OK
     if emoji:
         oke = oke.replace('😂', emoji)
     await e.edit(oke)
 
 
-@register(outgoing=True, pattern=r"^\.skull$")
+@register(outgoing=True, pattern=r"^.skull$")
 async def emoji_tengkorak(e):
     emoji = e.pattern_match.group(1)
     tengkorak = GAMBAR_TENGKORAK
