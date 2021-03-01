@@ -1692,7 +1692,7 @@ async def emoji_kontl(e):
 
 @register(outgoing=True, pattern=r"^\.ok$")
 async def emoji_oke(e):
-    emoji = e.pattern_match.group(1)
+    emoji = e.pattern_match.group(2)
     oke = GAMBAR_OK
     if emoji:
         oke = oke.replace('😂', emoji)
