@@ -60,3 +60,4 @@ emoji-country-flag
 cairosvg
 imagedown
 validators
+wget
