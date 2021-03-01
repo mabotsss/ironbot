@@ -1,265 +1,228 @@
-import asyncio
+"""
+   Heroku manager for your userbot
+"""
+
+import codecs
+import heroku3
+import aiohttp
 import math
 import os
-
-import heroku3
 import requests
+import asyncio
 
-Heroku = heroku3.from_key(Config.HEROKU_APIKEY)
+from userbot import (
+    HEROKU_APPNAME,
+    HEROKU_APIKEY,
+    BOTLOG,
+    BOTLOG_CHATID,
+    CMD_HELP)
+from userbot.events import register
+
 heroku_api = "https://api.heroku.com"
+if HEROKU_APPNAME is not None and HEROKU_APIKEY is not None:
+    Heroku = heroku3.from_key(HEROKU_APIKEY)
+    app = Heroku.app(HEROKU_APPNAME)
+    heroku_var = app.config()
+else:
+    app = None
 
 
-class HerokuHelper:
-    def __init__(self, appName, apiKey):
-        self.APIKEY = apiKey
-        self.APPNAME = appName
-        self.herokuclient = self.getherokuclient()
-        self.app = self.herokuclient.apps()[self.APPNAME]
-
-    def getherokuclient(self):
-        return heroku3.from_key(self.APIKEY)
-
-    def getAccount(self):
-        return self.herokuclient.account()
-
-    def getLog(self):
-        return self.app.get_log()
-
-    def addEnvConfig(self, key, value):
-        self.app.config()[key] = value
-
-    def restart(self):
-        return self.app.restart()
-    
-    def shutdown(self):
-        return self.app.process_formation()["worker.1"].scale(0)
+"""
+   ConfigVars setting, get current var, set var or delete var...
+"""
 
 
-@iron.on(iron_on_cmd(pattern="(logs$|log$)"))
-@iron.on(sudo_cmd(pattern="(logs|log)", allow_sudo=True))
-async def giblog(event):
-    if event.fwd_from:
-        return
-    herokuHelper = HerokuHelper(Config.HEROKU_APPNAME, Config.HEROKU_APIKEY)
-    logz = herokuHelper.getLog()
-    with open("logs.txt", "w") as log:
-        log.write(logz)
-    await event.delete()
-    await borg.send_file(
-        event.chat_id, "logs.txt", caption=f"**Logs Of {Config.HEROKU_APPNAME}**"
-    )
+@register(outgoing=True,
+          pattern=r"^.(get|del) var(?: |$)(\w*)")
+async def variable(var):
+    exe = var.pattern_match.group(1)
+    if app is None:
+        await var.edit("`[HEROKU]"
+                       "\nPlease setup your`  **HEROKU_APPNAME**.")
+        return False
+    if exe == "get":
+        await var.edit("`Getting information...`")
+        variable = var.pattern_match.group(2)
+        if variable != '':
+            if variable in heroku_var:
+                if BOTLOG:
+                    await var.client.send_message(
+                        BOTLOG_CHATID, "#CONFIGVAR\n\n"
+                        "**ConfigVar**:\n"
+                        f"`{variable}` = `{heroku_var[variable]}`\n"
+                    )
+                    await var.edit("`Received to BOTLOG_CHATID...`")
+                    return True
+                else:
+                    await var.edit("`Please set BOTLOG to True...`")
+                    return False
+            else:
+                await var.edit("`Information don't exists...`")
+                return True
+        else:
+            configvars = heroku_var.to_dict()
+            msg = ''
+            if BOTLOG:
+                for item in configvars:
+                    msg += f"`{item}` = `{configvars[item]}`\n"
+                await var.client.send_message(
+                    BOTLOG_CHATID, "#CONFIGVARS\n\n"
+                    "**ConfigVars**:\n"
+                    f"{msg}"
+                )
+                await var.edit("`Received to BOTLOG_CHATID...`")
+                return True
+            else:
+                await var.edit("`Please set BOTLOG to True...`")
+                return False
+    elif exe == "del":
+        await var.edit("`Deleting information...`")
+        variable = var.pattern_match.group(2)
+        if variable == '':
+            await var.edit("`Specify ConfigVars you want to del...`")
+            return False
+        if variable in heroku_var:
+            if BOTLOG:
+                await var.client.send_message(
+                    BOTLOG_CHATID, "#DELCONFIGVAR\n\n"
+                    "**Delete ConfigVar**:\n"
+                    f"`{variable}`"
+                )
+            await var.edit("`Information deleted...`")
+            del heroku_var[variable]
+        else:
+            await var.edit("`Information don't exists...`")
+            return True
 
 
+@register(outgoing=True, pattern=r'^.set var (\w*) ([\s\S]*)')
+async def set_var(var):
+    await var.edit("`Setting information...`")
+    variable = var.pattern_match.group(1)
+    value = var.pattern_match.group(2)
+    if variable in heroku_var:
+        if BOTLOG:
+            await var.client.send_message(
+                BOTLOG_CHATID, "#SETCONFIGVAR\n\n"
+                "**Change ConfigVar**:\n"
+                f"`{variable}` = `{value}`"
+            )
+        await var.edit("`Information sets...`")
+    else:
+        if BOTLOG:
+            await var.client.send_message(
+                BOTLOG_CHATID, "#ADDCONFIGVAR\n\n"
+                "**Add ConfigVar**:\n"
+                f"`{variable}` = `{value}`"
+            )
+        await var.edit("`Information added...`")
+    heroku_var[variable] = value
 
-@iron.on(iron_on_cmd(pattern="usage$"))
-@iron.on(sudo_cmd(pattern="usage$", allow_sudo=True))
+
+"""
+    Check account quota, remaining quota, used quota, used app quota
+"""
+
+
+@register(outgoing=True, pattern=r"^.usage(?: |$)")
 async def dyno_usage(dyno):
-    if dyno.fwd_from:
-        return
     """
-    Get your account Dyno Usage
+        Get your account Dyno Usage
     """
-    await edit_or_reply(dyno, "`Trying To Fetch Dyno Usage....`")
+    await dyno.edit("`Getting Information...`")
     useragent = (
-        "Mozilla/5.0 (Linux; Android 10; SM-G975F) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/80.0.3987.149 Mobile Safari/537.36"
+        'Mozilla/5.0 (Linux; Android 10; SM-G975F) '
+        'AppleWebKit/537.36 (KHTML, like Gecko) '
+        'Chrome/81.0.4044.117 Mobile Safari/537.36'
     )
     user_id = Heroku.account().id
     headers = {
-        "User-Agent": useragent,
-        "Authorization": f"Bearer {Config.HEROKU_APIKEY}",
-        "Accept": "application/vnd.heroku+json; version=3.account-quotas",
+        'User-Agent': useragent,
+        'Authorization': f'Bearer {HEROKU_APIKEY}',
+        'Accept': 'application/vnd.heroku+json; version=3.account-quotas',
     }
     path = "/accounts/" + user_id + "/actions/get-quota"
-    r = requests.get(heroku_api + path, headers=headers)
-    if r.status_code != 200:
-        return await edit_or_reply(
-            dyno, "`Error: something bad happened`\n\n" f">.`{r.reason}`\n"
-        )
-    result = r.json()
-    quota = result["account_quota"]
-    quota_used = result["quota_used"]
-
-    """ - Used - """
-    remaining_quota = quota - quota_used
-    percentage = math.floor(remaining_quota / quota * 100)
-    minutes_remaining = remaining_quota / 60
-    hours = math.floor(minutes_remaining / 60)
-    minutes = math.floor(minutes_remaining % 60)
-
-    """ - Current - """
-    App = result["apps"]
-    try:
-        App[0]["quota_used"]
-    except IndexError:
-        AppQuotaUsed = 0
-        AppPercentage = 0
-    else:
-        AppQuotaUsed = App[0]["quota_used"] / 60
-        AppPercentage = math.floor(App[0]["quota_used"] * 100 / quota)
-    AppHours = math.floor(AppQuotaUsed / 60)
-    AppMinutes = math.floor(AppQuotaUsed % 60)
-
-    await asyncio.sleep(1.5)
-
-    return await edit_or_reply(
-        dyno,
-        "**Dyno Usage Data**:\n\n"
-        f"✗ **APP NAME =>** `{Config.HEROKU_APPNAME}` \n"
-        f"✗ **Usage in Hours And Minutes =>** `{AppHours}h`  `{AppMinutes}m`"
-        f"✗ **Usage Percentage =>** [`{AppPercentage} %`]\n"
-        "\n\n"
-        "✗ **Dyno Remaining This Months 📆:**\n"
-        f"✗ `{hours}`**h**  `{minutes}`**m** \n"
-        f"✗ **Percentage :-** [`{percentage}`**%**]",
-    )
-
-
-@iron.on(
-    iron_on_cmd(pattern="(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)", outgoing=True)
-)
-@iron.on(
-    sudo_cmd(pattern="(set|get|del) var(?: |$)(.*)(?: |$)([\s\S]*)", allow_sudo=True)
-)
-async def variable(var):
-    if var.fwd_from:
-        return
-    """
-    Manage most of ConfigConfigs setting, set new var, get current var,
-    or delete var...
-    """
-    if Config.HEROKU_APPNAME is not None:
-        app = Heroku.app(Config.HEROKU_APPNAME)
-    else:
-        return await edit_or_reply(
-            var, "`[HEROKU]:" "\nPlease setup your` **HEROKU_APPNAME**"
-        )
-    exe = var.pattern_match.group(1)
-    heroku_var = app.config()
-    if exe == "get":
-        await edit_or_reply(var, "`Getting information...`")
-        await asyncio.sleep(1.5)
-        try:
-            variable = var.pattern_match.group(2).split()[0]
-            if variable in heroku_var:
-                return await edit_or_reply(
-                    var,
-                    "**ConfigConfigs**:" f"\n\n`{variable} = {heroku_var[variable]}`\n",
+    async with aiohttp.ClientSession() as session:
+        async with session.get(heroku_api + path, headers=headers) as r:
+            if r.status != 200:
+                await dyno.client.send_message(
+                    dyno.chat_id,
+                    f"`{r.reason}`",
+                    reply_to=dyno.id
                 )
+                await dyno.edit("`Can't get information...`")
+                return False
+            result = await r.json()
+            quota = result['account_quota']
+            quota_used = result['quota_used']
+
+            """ - User Quota Limit and Used - """
+            remaining_quota = quota - quota_used
+            percentage = math.floor(remaining_quota / quota * 100)
+            minutes_remaining = remaining_quota / 60
+            hours = math.floor(minutes_remaining / 60)
+            minutes = math.floor(minutes_remaining % 60)
+
+            """ - User App Used Quota - """
+            Apps = result['apps']
+            for apps in Apps:
+                if apps.get('app_uuid') == app.id:
+                    AppQuotaUsed = apps.get('quota_used') / 60
+                    AppPercentage = math.floor(
+                        apps.get('quota_used') * 100 / quota)
+                    break
             else:
-                return await edit_or_reply(
-                    var, "**ConfigConfigs**:" f"\n\n`Error:\n-> {variable} don't exists`"
-                )
-        except IndexError:
-            configs = prettyjson(heroku_var.to_dict(), indent=2)
-            with open("configs.json", "w") as fp:
-                fp.write(configs)
-            with open("configs.json", "r") as fp:
-                result = fp.read()
-                if len(result) >= 4096:
-                    await var.client.send_file(
-                        var.chat_id,
-                        "configs.json",
-                        reply_to=var.id,
-                        caption="`Output too large, sending it as a file`",
-                    )
-                else:
-                    await edit_or_reply(
-                        var,
-                        "`[HEROKU]` ConfigConfigs:\n\n"
-                        "================================"
-                        f"\n```{result}```\n"
-                        "================================",
-                    )
-            os.remove("configs.json")
-            return
-    elif exe == "set":
-        await edit_or_reply(var, "`Setting information...`")
-        variable = var.pattern_match.group(2)
-        if not variable:
-            return await edit_or_reply(var, ">`.set var <ConfigConfigs-name> <value>`")
-        value = var.pattern_match.group(3)
-        if not value:
-            variable = variable.split()[0]
-            try:
-                value = var.pattern_match.group(2).split()[1]
-            except IndexError:
-                return await edit_or_reply(var, ">`.set var <ConfigConfigs-name> <value>`")
-        await asyncio.sleep(1.5)
-        if variable in heroku_var:
-            await edit_or_reply(
-                var, f"**{variable}**  `successfully changed to`  ->  **{value}**"
+                AppQuotaUsed = 0
+                AppPercentage = 0
+
+            AppHours = math.floor(AppQuotaUsed / 60)
+            AppMinutes = math.floor(AppQuotaUsed % 60)
+
+            await dyno.edit(
+                "**Dyno Usage**:\n\n╭━━━━━━━━━━━━━━━━━━━━╮\n"
+                f"-> `Penggunaan Dyno `  **{app.name}**:\n"
+                f"    •**{AppHours} jam - "
+                f"{AppMinutes} menit  -  {AppPercentage}%**"
+                "\n ◐━─━─━─━─━──━─━─━─━─━◐\n"
+                "-> `Sisa Dyno Bulan Ini`:\n"
+                f"    •**{hours} jam - {minutes} menit  "
+                f"-  {percentage}%**\n"
+                "╰━━━━━━━━━━━━━━━━━━━━╯"
             )
-        else:
-            await edit_or_reply(
-                var, f"**{variable}**  `successfully added with value`  ->  **{value}**"
-            )
-        heroku_var[variable] = value
-    elif exe == "del":
-        await edit_or_reply(var, "`Getting information to deleting variable...`")
-        try:
-            variable = var.pattern_match.group(2).split()[0]
-        except IndexError:
-            return await edit_or_reply(
-                var, "`Please specify ConfigConfigs you want to delete`"
-            )
-        await asyncio.sleep(1.5)
-        if variable in heroku_var:
-            await edit_or_reply(var, f"**{variable}**  `successfully deleted`")
-            del heroku_var[variable]
-        else:
-            return await edit_or_reply(var, f"**{variable}**  `is not exists`")
+            await asyncio.sleep(20)
+            await dyno.delete()
+            return True
 
 
-@iron.on(iron_on_cmd(pattern="shp ?(.*)"))
-async def lel(event):
-    if event.fwd_from:
-        return
-    cpass, npass = event.pattern_match.group(1).split(" ", 1)
-    await event.edit("`Changing You Pass`")
-    accountm = Heroku.account()
-    accountm.change_password(cpass, npass)
-    await event.edit(f"`Done !, Changed You Pass to {npass}")
+@register(outgoing=True, pattern=r"^\.logs")
+async def _(dyno):
+    try:
+        Heroku = heroku3.from_key(HEROKU_APIKEY)
+        app = Heroku.app(HEROKU_APPNAME)
+    except BaseException:
+        return await dyno.reply(
+            "`Please make sure your Heroku API Key, Your App name are configured correctly in the heroku var.`"
+        )
+    await dyno.edit("`Getting Logs....`")
+    with open("logs.txt", "w") as log:
+        log.write(app.get_log())
+    fd = codecs.open("logs.txt", "r", encoding="utf-8")
+    data = fd.read()
+    key = (requests.post("https://nekobin.com/api/documents",
+                         json={"content": data}) .json() .get("result") .get("key"))
+    url = f"https://nekobin.com/raw/{key}"
+    await dyno.edit(f"`Here the heroku logs:`\n\nPasted to: [Nekobin]({url})")
+    return os.remove("logs.txt")
 
 
-@iron.on(iron_on_cmd(pattern="acolb (.*)"))
-async def sf(event):
-    if event.fwd_from:
-        return
-    hmm = event.pattern_match.group(1)
-    app = Heroku.app(Config.HEROKU_APPNAME)
-    collaborator = app.add_collaborator(user_id_or_email=hmm, silent=0)
-    await event.edit("`Sent Invitation To Accept Your Collab`")
-
-
-@iron.on(iron_on_cmd(pattern="tfa (.*)"))
-async def l(event):
-    if event.fwd_from:
-        return
-    hmm = event.pattern_match.group(1)
-    app = Heroku.app(Config.HEROKU_APPNAME)
-    transfer = app.create_transfer(recipient_id_or_name=hmm)
-
-
-@iron.on(iron_on_cmd(pattern="exit$"))
-async def killdyno(event):
-    if event.fwd_from:
-        return
-    app = Heroku.app(Config.HEROKU_APPNAME)
-    await event.edit("`Dyno Is Off. Manually Turn it On Later`")
-    app.kill_dyno("worker.1")
-
-
-def prettyjson(obj, indent=2, maxlinelength=80):
-    """Renders JSON content with indentation and line splits/concatenations to fit maxlinelength.
-    Only dicts, lists and basic types are supported"""
-
-    items, _ = getsubitems(
-        obj,
-        itemkey="",
-        islast=True,
-        maxlinelength=maxlinelength - indent,
-        indent=indent,
-    )
-    return indentitems(items, indent, level=0)
+CMD_HELP.update({"heroku": ">.`usage`"
+                 "\nUsage: Check your heroku dyno hours remaining"
+                 "\n\n>`.set var <NEW VAR> <VALUE>`"
+                 "\nUsage: add new variable or update existing value variable"
+                 "\n!!! WARNING !!!, after setting a variable the bot will restarted"
+                 "\n\n>`.get var or .get var <VAR>`"
+                 "\nUsage: get your existing varibles, use it only on your private group!"
+                 "\nThis returns all of your private information, please be caution..."
+                 "\n\n>`.del var <VAR>`"
+                 "\nUsage: delete existing variable"
+                 "\n!!! WARNING !!!, after deleting variable the bot will restarted"})
