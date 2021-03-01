@@ -50,7 +50,7 @@ async def kbg(remob):
     contentType = output_file_name.headers.get("content-type")
     if "image" in contentType:
         with io.BytesIO(output_file_name.content) as remove_bg_image:
-            remove_bg_image.name = "removed_bg.png"
+            remove_bg_image.name = "Iron.png"
             await remob.client.send_file(
                 remob.chat_id,
                 remove_bg_image,
