@@ -5,11 +5,34 @@ import os
 import heroku3
 import requests
 
-from ironbot.function.heroku_helper import HerokuHelper
-from ironbot.utils import edit_or_reply, iron_on_cmd, sudo_cmd
-
 Heroku = heroku3.from_key(Config.HEROKU_APIKEY)
 heroku_api = "https://api.heroku.com"
+
+
+class HerokuHelper:
+    def __init__(self, appName, apiKey):
+        self.APIKEY = apiKey
+        self.APPNAME = appName
+        self.herokuclient = self.getherokuclient()
+        self.app = self.herokuclient.apps()[self.APPNAME]
+
+    def getherokuclient(self):
+        return heroku3.from_key(self.APIKEY)
+
+    def getAccount(self):
+        return self.herokuclient.account()
+
+    def getLog(self):
+        return self.app.get_log()
+
+    def addEnvConfig(self, key, value):
+        self.app.config()[key] = value
+
+    def restart(self):
+        return self.app.restart()
+    
+    def shutdown(self):
+        return self.app.process_formation()["worker.1"].scale(0)
 
 
 @iron.on(iron_on_cmd(pattern="(logs$|log$)"))
