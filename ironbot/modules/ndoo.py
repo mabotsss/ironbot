@@ -3,6 +3,7 @@ from ironbot import CMD_HELP, bot
 from ironbot.events import register
 from telethon import events
 import asyncio
+from ironbot.cmdhelp import CmdHelp
 
 
 @register(outgoing=True, pattern="^.sayang$")
@@ -419,7 +420,7 @@ async def typewriter(typew):
     sleep(1)
     await typew.edit("`I NEED YOU!`")
     sleep(1)
-    await typew.edit("`I WANT TO BE YOUR BOYFRIEND!`")
+    await typew.edit("`I WANT TO BE YOUR GIRLFRIEND!`")
     sleep(1)
     await typew.edit("`I LOVEE YOUUUU💕💗`")
     sleep(1)
@@ -435,7 +436,7 @@ async def typewriter(typew):
 # Create by myself @localheart
 
 CMD_HELP.update({
-    "gabut":
+    "ndoo":
     "`.gabut` ; `.dino`\
     \nUsage: ntahlah gabut doang.\
     \n\n`.gombal`\
@@ -447,3 +448,17 @@ CMD_HELP.update({
     \n\n`.terkadang`\
     \nUsage: Auk dah iseng doang."
 })
+
+CmdHelp('ndoo').add_command(
+    'gabut', None, 'gabut ya gabut'
+).add_command(
+    'cinta', None, 'eaa eaa'
+).add_command(
+    'gombal', None, 'canda doang'
+).add_command(
+    'dino', None, 'ntah ga ada deskripsi'
+).add_command(
+    'sayang', None, 'buaya mode'
+).add_command(
+    'terkadang', None, 'au ah'
+).add()
