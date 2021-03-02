@@ -1685,8 +1685,8 @@ async def emoji_tengkorak(e):
         tengkorak = tengkorak.replace('😂', emoji)
     await e.edit(tengkorak)
 
-CmdHelp('heroku').add_command(
-'iron memes', 'iron memes', 'Pakai perintah .iron memes untuk melihat jelas..'
+CmdHelp('memes').add_command(
+'iron memes', None, 'Pakai perintah .iron memes untuk melihat jelas..'
     ).add()
     
 CMD_HELP.update({
