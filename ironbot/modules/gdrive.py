@@ -25,7 +25,7 @@ from google.auth.transport.requests import Request
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 
 from ironbot import (
-    G_DRIVE_DATA, G_DRIVE_CLIENT_ID, G_DRIVE_CLIENT_SECRET,
+    G_DRIVE_AUTH_TOKEN_DATA, G_DRIVE_CLIENT_ID, G_DRIVE_CLIENT_SECRET,
     G_DRIVE_FOLDER_ID, BOTLOG_CHATID, TEMP_DOWNLOAD_DIRECTORY, CMD_HELP, LOGS,
 )
 from ironbot.events import register
@@ -98,14 +98,14 @@ async def generate_credentials(gdrive):
         await gdrive.delete()
         return False
     """ - Generate credentials - """
-    if G_DRIVE_DATA is not None:
+    if G_DRIVE_AUTH_TOKEN_DATA is not None:
         try:
-            configs = json.loads(G_DRIVE_DATA)
+            configs = json.loads(G_DRIVE_AUTH_TOKEN_DATA)
         except json.JSONDecodeError:
             await gdrive.edit(
                 "`[AUTHENTICATE - ERROR]`\n\n"
                 "`Status` : **BAD**\n"
-                "`Reason` : **G_DRIVE_DATA** entity is not valid!"
+                "`Reason` : **G_DRIVE_AUTH_TOKEN_DATA** entity is not valid!"
             )
             return False
     else:
@@ -114,7 +114,7 @@ async def generate_credentials(gdrive):
             await gdrive.edit(
                 "`[AUTHENTICATE - ERROR]`\n\n"
                 "`Status` : **BAD**\n"
-                "`Reason` : please get your **G_DRIVE_DATA** "
+                "`Reason` : please get your **G_DRIVE_AUTH_TOKEN_DATA** "
                 "[here](https://telegra.ph/How-To-Setup-Google-Drive-04-03)"
             )
             return False
