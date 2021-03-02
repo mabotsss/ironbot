@@ -330,9 +330,9 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
                    Button.inline("📗ᴍᴇɴᴜ", data="opensss"),
                    custom.Button.url("❤ᴅᴇᴠ", "https://t.me/ndourbae"),
                ],
-                   [Button.inline("Oᴡɴᴇʀ•Tᴏᴏʟꜱ", data="ownr")],
-                   [Button.inline("Iɴʟɪɴᴇ•Pʟᴜɢɪɴs", data="inlone")],
-                   [Button.inline("••Cʟᴏꜱᴇ••", data="close")],
+                   [Button.inline("•ᴘɪɴɢ•", data="pingsss")],
+                   [Button.inline("•ᴛʜᴀɴᴋꜱ ᴛᴏ•", data="thnksto")],
+                   [Button.inline("••ᴇxɪᴛ••", data="close")],
                ]
                await event.edit(
                    f"`ᴍᴇɴᴜ ᴅɪ ᴛᴜᴛᴜᴘ\nᴛᴏᴛᴀʟ ᴘʟᴜɢɪɴ : {len(CMD_HELP)}`",
@@ -343,6 +343,16 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
                 reply_pop_up_alert = "❌  Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣."
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
+        @tgbot.on(callbackquery.CallbackQuery(data=compile(b"pingsss")))
+        async def _(event):
+            start = datetime.now()
+            end = datetime.now()
+            ms = (end - start).microseconds / 1000
+            pin = f"🌋Pɪɴɢ = {ms}ms"
+            await event.answer(pin, cache_time=0, alert=True)
+
+        
+        
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"opensss")))
         async def opensss(event):
             if not event.query.user_id == uid:
