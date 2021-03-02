@@ -205,6 +205,12 @@
             "SENDING_SONGS": "Mengirim lagu! Lagu:",
             "NOT_FOUND_PL": "`Playlist yang Anda cari tidak ditemukan! Maaf.`"
         },
+        "stickers": {
+            "GIVE_STICKER": "`Saya ingin anda memberi Sticker atau Gambar jadi saya bisa memprosesnya!`",
+            "FAIL_DOWNLOAD": "`Gagal mengunduh sticker! periksa dengan benar. `",
+            "NEW_PACK": "`Sticker package gagal dibuat! Membuat package baru...`",
+            "TOO_STICKERS": "`Berganti ke package {} ... `"
+        },
         "system_stats": {
             "NO_NEOFETCH": "`Pertama, muat modul neofetch!`",
             "VERSION": "IRONBOT Version",
