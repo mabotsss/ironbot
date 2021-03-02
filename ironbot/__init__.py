@@ -56,6 +56,8 @@ if not LANGUAGE in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
     
 IRON_VERSION = "v3.0.7"
 
+ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
+
 API_KEY = os.environ.get("API_KEY", None)
 API_HASH = os.environ.get("API_HASH", None)
 

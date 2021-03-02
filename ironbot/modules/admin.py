@@ -920,10 +920,10 @@ CmdHelp('admin').add_command(
     ).add_command(
         'bots', None, 'Melihat bots yang ada dalam grup.'
     ).add_command(
-        'users .users', '<username/reply>', 'Mengambil kembali semua pengguna di obrolan.'
+        'users', '<username/reply>', 'Mengambil kembali semua pengguna di obrolan.'
     ).add_command(
         'setgpic', '<balas ke gambar>', 'Mengganti gambar grup.'
     ).add_command(
-        'pin', '<balas pesan>', 'Memberi pin kepada pesan yang dipilih.'
+        'pin', '<reply>', 'Memberi pin kepada pesan yang dipilih.'
     ).add()
 

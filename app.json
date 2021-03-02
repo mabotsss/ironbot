@@ -12,6 +12,10 @@
   "repository": "https://github.com/mabotsss/ironbot",
   "stack": "container",
   "env": {
+    "ALIVE_NAME": {
+      "description": "Nama untuk menunjukan pesan .alive",
+      "required": true
+    },
     "API_KEY": {
       "description": "Dapatkan value ini dari my.telegram.org.",
       "value": "",

@@ -165,7 +165,6 @@ async def ironalive(alive):
         f"┣[•💡 `Base on  : master `\n"
         f"┣[•📍 `Plugin.  : {len(CMD_HELP)} `\n"
         f"┣[•🕒 `Uptime.  : {uptime} `\n"
-         "`>>> IRONBOT SUDAH AKTIF <<<`\n"
         f"╰━━━━━━━━━━━━━━━━━━━━╯\n"         
     )
     
