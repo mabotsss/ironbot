@@ -268,7 +268,7 @@ with bot:
             if not event.message.from_id == uid:
                 await event.reply(f'`Hai aku` @ironbot`! Maboss (`@{me.username}`) ')
             else:
-                await event.reply(f'`Ironbot berjalan normal... 🐺`')
+                await event.reply(f'`Ironbot berjalan normal... 🤖`')
 
         @tgbot.on(InlineQuery)  # pylint:disable=E0602
         async def inline_handler(event):
@@ -280,7 +280,7 @@ with bot:
                 veriler = (butonlastir(0, sorted(CMD_HELP)))
                 result = await builder.article(
                     f"Harap Gunakan Hanya Dengan Perintah .help",
-                    text=f"**🐺 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/ironbots)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: 1/{veriler[0]}`",
+                    text=f"**🤖 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/ironbots)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: 1/{veriler[0]}`",
                     buttons=veriler[1],
                     link_preview=False
                 )
@@ -316,7 +316,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
             sayfa = int(event.data_match.group(1).decode("UTF-8"))
             veriler = butonlastir(sayfa, CMD_HELP)
             await event.edit(
-                f"**🐺 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/freedom_reborn)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: {sayfa + 1}/{veriler[0]}`",
+                f"**🤖 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/freedom_reborn)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: {sayfa + 1}/{veriler[0]}`",
                 buttons=veriler[1],
                 link_preview=False
             )
@@ -325,10 +325,15 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"closes")))
         async def closes(event):
             if event.query.user_id == uid:
-               buttons = [    
+               buttons = [
+               [
                    Button.inline("📗ᴍᴇɴᴜ", data="opensss"),
                    custom.Button.url("❤ᴅᴇᴠ", "https://t.me/ndourbae"),
-                ]
+               ],
+                   [Button.inline("Oᴡɴᴇʀ•Tᴏᴏʟꜱ", data="ownr")],
+                   [Button.inline("Iɴʟɪɴᴇ•Pʟᴜɢɪɴs", data="inlone")],
+                   [Button.inline("••Cʟᴏꜱᴇ••", data="close")],
+               ]
                await event.edit(
                    f"`ᴍᴇɴᴜ ᴅɪ ᴛᴜᴛᴜᴘ\nᴛᴏᴛᴀʟ ᴘʟᴜɢɪɴ : {len(CMD_HELP)}`",
                    buttons=buttons,
@@ -344,7 +349,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
                 return await event.answer("❌ Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
             veriler = (butonlastir(0, sorted(CMD_HELP)))
             await event.edit(
-                f"**🐺 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/freedom_reborn)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: 1/{veriler[0]}`",
+                f"**🤖 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/freedom_reborn)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: 1/{veriler[0]}`",
                 buttons=veriler[1],
                 link_preview=False
             )           
