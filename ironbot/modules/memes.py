@@ -10,6 +10,7 @@ from random import choice, getrandbits, randint
 from ironbot import bot, CMD_HELP
 from ironbot.events import register
 from ironbot.modules.admin import get_user_from_event
+from ironbot.cmdhelp import CmdHelp
 
 # ================= CONSTANT =================
 METOOSTR = [
@@ -1684,7 +1685,10 @@ async def emoji_tengkorak(e):
         tengkorak = tengkorak.replace('😂', emoji)
     await e.edit(tengkorak)
 
-
+CmdHelp('heroku').add_command(
+'iron memes', 'iron memes', 'Pakai perintah .iron memes untuk melihat jelas..'
+    ).add()
+    
 CMD_HELP.update({
     "memes":
     ">`.cowsay`"
