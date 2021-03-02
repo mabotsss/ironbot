@@ -361,7 +361,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
         async def opensss(event):
             if not event.query.user_id == uid:
                 return await event.answer("❌ Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
-            await event.delete()
+            await event.edit("**BERHASIL KELUAR**")
         
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"opensss")))
         async def opensss(event):
