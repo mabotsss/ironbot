@@ -47,7 +47,7 @@ if LANGUAGE_JSON == None:
         else:
             raise Exception(f"Tidak dapat menemukan {LANGUAGE} file")
 
-LOGS.info(f"{LANGUAGE_JSON['LANGUAGE']} bahasa dimuat.")
+LOGS.info(f"Bahasa {LANGUAGE_JSON['LANGUAGE']} dimuat.")
 
 def get_value (plugin = None, value = None):
     global LANGUAGE_JSON

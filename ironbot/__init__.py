@@ -347,6 +347,8 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
 
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"pingsss")))
         async def _(event):
+            if not event.query.user_id == uid:
+                return await event.answer("❌ Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
             start = datetime.now()
             end = datetime.now()
             ms = (end - start).microseconds / 100
@@ -355,7 +357,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
         
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"thnksto")))
         async def _(event):
-            await event.answer("Akun Telegram : \n\n👤 @incorrect_cuy\n👤 @Mantulity\n👤 @Bryan066\n👤 @planktoneye\n👤 @XINKQ_Chan", cache_time=0, alert=True)
+            await event.answer("👤 Akun Telegram : \n\n🧔 @incorrect_cuy\n👨 @Mantulity\n👨‍🦰 @Bryan066\n👨‍🦱 @planktoneye\n👩‍🦰 @XINKQ_Chan", cache_time=0, alert=True)
         
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"exitsss")))
         async def opensss(event):
