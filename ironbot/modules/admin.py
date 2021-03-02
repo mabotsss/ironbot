@@ -897,35 +897,32 @@ async def get_bots(show):
         )
         remove("botlist.txt")
 
+        
+CmdHelp('admin').add_command(
+        'promote', '<username/reply> <rank(opsional)>', 'Memberikan hak admin kepada orang dalam obrolan.'
+    ).add_command(
+        'demote', '<username/reply>', 'Menghapus hak admin.'
+    ).add_command(
+        'ban', '<username/reply> <alasan (opsional)>', 'banned seseorang.'
+    ).add_command(
+        'unban', '<username/reply>', 'Menghapus dari daftar banned.'
+    ).add_command(
+        'kick', '<username/reply> <alasan (opsional)>', 'Mengeluarkan sesorang dari grup.'
+    ).add_command(
+        'gmute', '<username/reply> <alasan (opsionalı)>', 'Membungkam orang di semua grup yang memiliki kesamaan dengan Anda dengannya.'
+    ).add_command(
+        'ungmute', '<username/reply>', 'Balas pesan seseorang dengan .ungmute untuk menghapusnya dari daftar yang dibungkam.'
+    ).add_command(
+        'zombies', None, 'Mencari akun yang dihapus dalam grup.'
+    ).add_command(
+        'admins', None, 'Melihat list admin dalam grup.'
+    ).add_command(
+        'bots', None, 'Melihat bots yang ada dalam grup.'
+    ).add_command(
+        'users .users', '<username/reply>', 'Mengambil kembali semua pengguna di obrolan.'
+    ).add_command(
+        'setgpic', '<balas ke gambar>', 'Mengganti gambar grup.'
+    ).add_command(
+        'pin', '<balas pesan>', 'Memberi pin kepada pesan yang dipilih.'
+    ).add()
 
-CMD_HELP.update(
-    {
-        "admin": ">`.promote <username/reply> <custom rank (optional)>`"
-        "\nUsage: Provides admin rights to the person in the chat."
-        "\n\n>`.demote <username/reply>`"
-        "\nUsage: Revokes the person's admin permissions in the chat."
-        "\n\n>`.ban <username/reply> <reason (optional)>`"
-        "\nUsage: Bans the person off your chat."
-        "\n\n>`.unban <username/reply>`"
-        "\nUsage: Removes the ban from the person in the chat."
-        "\n\n>`.mute <username/reply> <reason (optional)>`"
-        "\nUsage: Mutes the person in the chat, works on admins too."
-        "\n\n>`.unmute <username/reply>`"
-        "\nUsage: Removes the person from the muted list."
-        "\n\n>`.gmute <username/reply> <reason (optional)>`"
-        "\nUsage: Mutes the person in all groups you have in common with them."
-        "\n\n>`.ungmute <username/reply>`"
-        "\nUsage: Reply someone's message with .ungmute to remove them from the gmuted list."
-        "\n\n>`.zombies`"
-        "\nUsage: Searches for deleted accounts in a group. "
-        "Use .zombies clean to remove deleted accounts from the group."
-        "\n\n>`.all`"
-        "\nUsage: Tag all member in group chat."
-        "\n\n>`.admins`"
-        "\nUsage: Retrieves a list of admins in the chat."
-        "\n\n>`.bots`"
-        "\nUsage: Retrieves a list of bots in the chat."
-        "\n\n>`.users` or >`.users <name of member>`"
-        "\nUsage: Retrieves all (or queried) users in the chat."
-        "\n\n>`.setgpic <reply to image>`"
-        "\nUsage: Changes the group's display picture."})

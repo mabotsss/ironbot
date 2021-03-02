@@ -163,7 +163,7 @@ PM_AUTO_BAN_LIMIT = int(os.environ.get("PM_AUTO_BAN_LIMIT", 4))
 SPOTIFY_DC = os.environ.get("SPOTIFY_DC", None)
 SPOTIFY_KEY = os.environ.get("SPOTIFY_KEY", None)
 
-PAKET_ISMI = os.environ.get("PAKET_ISMI", "@Ironbots")
+NAMA_PACK = os.environ.get("NAMA_PACK", "@Ironbots")
 
 OTOMATIS_JOIN = sb(os.environ.get("OTOMATIS_JOIN", "True"))
 
