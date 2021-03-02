@@ -1,5 +1,6 @@
 from asyncio import sleep
 from os import remove
+from ironbot.cmdhelp import CmdHelp
 
 from telethon.errors import (
     BadRequestError,
