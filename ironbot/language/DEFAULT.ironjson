@@ -208,7 +208,7 @@
         "stickers": {
             "GIVE_STICKER": "`Saya ingin anda memberi Sticker atau Gambar jadi saya bisa memprosesnya!`",
             "FAIL_DOWNLOAD": "`Gagal mengunduh sticker! periksa dengan benar. `",
-            "NEW_PACK": "`Sticker package gagal dibuat! Membuat package baru...`",
+            "NEW_PACK": "`Membuat package baru...`",
             "TOO_STICKERS": "`Berganti ke package {} ... `"
         },
         "system_stats": {
