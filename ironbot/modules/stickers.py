@@ -72,7 +72,7 @@ async def kang(event):
             emoji = "🤔"
 
     packname = f"a{user.id}_by_{pack_username}_{number}{'_anim' if is_anim else ''}"
-    packtitle = (f"@{user.username or user.first_name} {NAMA_PACK} "
+    packtitle = (f"@{user.username or user.first_name} "
                 f"{number}{' animasyonlu' if is_anim else ''}")
     response = urllib.request.urlopen(
             urllib.request.Request(f'http://t.me/addstickers/{packname}'))
@@ -101,7 +101,7 @@ async def kang(event):
                 # Switch to a new pack, create one if it doesn't exist
                 number += 1
                 packname = f"a{user.id}_by_{pack_username}_{number}{'_anim' if is_anim else ''}"
-                packtitle = (f"@{user.username or user.first_name} {NAMA_PACK} "
+                packtitle = (f"@{user.username or user.first_name} "
                             f"{number}{' animated' if is_anim else ''}")
 
                 await event.edit(
@@ -122,7 +122,7 @@ async def kang(event):
                     )
 
                     await event.edit(
-                        f"`Sticker {number}{'(animasyonlu)' if is_anim else ''} , ditambahkan ke paket"
+                        f"`Sticker {number}{'(animasyonlu)' if is_anim else ''} , ditambahkan"
                         f"dengan emoji {emoji} ! "
                         f"Sticker dapat dilihat `[Disini](t.me/addstickers/{packname})` ...`",
                         parse_mode='md')
@@ -175,7 +175,7 @@ async def kang(event):
     )
 
     await event.edit(
-        f"`Sticker {number}{'(animasyonlu)' if is_anim else ''} ditambahkan ke paket, "
+        f"`Sticker {number}{'(animasyonlu)' if is_anim else ''} ditambahkan, "
         f"dengan emoji {emoji} ! "
         f"Sticker dapat dilihat `[Disini](t.me/addstickers/{packname})`...`",
         parse_mode='md')

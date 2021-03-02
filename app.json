@@ -167,11 +167,6 @@
       "description": "Support bahasa ID/EN.",
       "value": "ID",
       "required": true
-    },
-    "NAMA_PACK": {
-      "description": "Nama packet untuk stickers.",
-      "value": "@ironbot",
-      "required": true
     }
   },
   "addons": [{
