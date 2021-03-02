@@ -90,6 +90,6 @@ async def ReTrieveURL(input_url):
                       stream=True)
     return r
 
-CmdHelp('rgb').add_command(
+CmdHelp('removebg').add_command(
     'rbg', '<balas ke foto>', 'Menghapus latar belakang gambar menggunakan API remove.bg.'
 ).add()

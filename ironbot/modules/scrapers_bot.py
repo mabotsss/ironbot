@@ -118,61 +118,6 @@ async def sangmata(event):
           await bot.send_read_acknowledge(chat, max_id=(response.id+3))
           await conv.cancel_all()
 
-@register(outgoing=True, pattern="^.meme ?((\d*)(.*))")
-async def memeyap(event):
-    font = event.pattern_match.group(2)
-    if font == "":
-        font = 35
-    else:
-        font = int(font)
-    text = event.pattern_match.group(3)
-    await event.edit(LANG['MEMING'])
-    if event.is_reply:
-        reply = await event.get_reply_message()
-        if ";" in text:
-            Split = text.split(";")
-            Bottom = True
-            Text = Split[0]
-            BottomText = Split[1]
-        else:
-            Bottom = False
-            Text = text
-            BottomText = None
-        
-        if reply.photo:
-            Resim = await reply.download_media()
-        elif reply.sticker and reply.file.ext == ".webp":
-            if os.path.exists("./IronSticker.png"):
-                os.remove("./IronSticker.png")
-
-            foto = await reply.download_media()
-            im = Image.open(foto).convert("RGB")
-            im.save("IronSticker.png", "png")
-            Resim = "IronSticker.png"
-        elif reply.sticker and reply.file.ext == ".tgs":
-            sticker = await reply.download_media()
-            os.system(f"lottie_convert.py --frame 0 -if lottie -of png '{sticker}' IronSticker.png")
-            os.remove(sticker)
-            Resim = "IronSticker.png"
-        elif reply.media:
-            Resim = await reply.download_media()
-            Sure = os.system("ffmpeg -i '"+Resim+"' 2>&1 | grep Duration | awk '{print $2}' | tr -d , | awk -F ':' '{print ($3+$2*60+$1*3600)/2}'``")
-            os.system(f"ffmpeg -i '{Resim}' -vcodec mjpeg -vframes 1 -an -f rawvideo -ss {Sure} IronThumb.jpg")
-            os.remove(Resim)
-            Resim = 'IronThumb.jpg'
-        else:
-            return await event.edit(LANG['REPLY_TO_MEME'])
-            
-        if os.path.exists("./ironmeme.png"):
-            os.remove("./ironmeme.png")
-
-        MemeYap(Resim, Text, font, Bottom, BottomText)
-        await event.client.send_file(event.chat_id, "./ironmeme.png", reply_to=reply)
-        await event.delete()
-        os.remove(Resim)
-    else:
-        await event.edit(LANG['REPLY_TO_MEME'])
-
 @register(outgoing=True, pattern="^.scan")
 async def scan(event):
     if event.fwd_from:
