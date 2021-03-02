@@ -6,6 +6,44 @@ import asyncio
 from ironbot.cmdhelp import CmdHelp
 
 
+@register(outgoing=True, pattern='^.sadb(?: |$)(.*)')
+async def typewriter(typew):
+    typew.pattern_match.group(1)
+    sleep(2)
+    await typew.edit("`Pertama-tama kamu cantik`")
+    sleep(2)
+    await typew.edit("`Kedua kamu manis`")
+    sleep(1)
+    await typew.edit("`Dan yang terakhir adalah kamu bukan jodohku`")
+# Create by myself @localheart
+
+
+@register(outgoing=True, pattern='^.punten(?: |$)(.*)')
+async def typewriter(typew):
+    typew.pattern_match.group(1)
+    await typew.edit("`\n┻┳|―-∩`"
+                     "`\n┳┻|     ヽ`"
+                     "`\n┻┳|    ● |`"
+                     "`\n┳┻|▼) _ノ`"
+                     "`\n┻┳|￣  )`"
+                     "`\n┳ﾐ(￣ ／`"
+                     "`\n┻┳T￣|`"
+                     "\n**Punten**")
+
+
+@register(outgoing=True, pattern='^.pantau(?: |$)(.*)')
+async def typewriter(typew):
+    typew.pattern_match.group(1)
+    await typew.edit("`\n┻┳|―-∩`"
+                     "`\n┳┻|     ヽ`"
+                     "`\n┻┳|    ● |`"
+                     "`\n┳┻|▼) _ノ`"
+                     "`\n┻┳|￣  )`"
+                     "`\n┳ﾐ(￣ ／`"
+                     "`\n┻┳T￣|`"
+                     "\n**Masih Ku Pantau**")
+
+
 @register(outgoing=True, pattern="^.sayang$")
 async def koc(e):
     if not e.text[0].isalpha() and e.text[0] not in ("/", "#", "@", "!"):
@@ -461,4 +499,10 @@ CmdHelp('ndoo').add_command(
     'sayang', None, 'buaya mode'
 ).add_command(
     'terkadang', None, 'au ah'
+).add_command(
+    'sadb', None, 'au ah'
+).add_command(
+    'punten', None, 'au ah'
+).add_command(
+    'pantau', None, 'au ah'
 ).add()
