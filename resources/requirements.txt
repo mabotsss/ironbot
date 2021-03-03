@@ -1,4 +1,5 @@
 aiohttp
+aria2
 aria2p
 async_generator
 asyncurban
