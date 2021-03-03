@@ -49,11 +49,12 @@ async def permitpm(event):
         notifsoff = gvarstatus("NOTIF_OFF")
 
         # Use user custom unapproved message
-       # getmsg = gvarstatus("unapproved_msg")
-       # if getmsg is not None:
-       #     UNAPPROVED_MSG = getmsg
-       # else:
-        UNAPPROVED_MSG = DEF_UNAPPROVED_MSG
+        getmsg = gvarstatus("unapproved_msg")
+        DEF_UNAPPROVED_MSG = gvarstatus("unapproved_msg")
+        if getmsg is not None:
+            UNAPPROVED_MSG = getmsg
+        else:
+            UNAPPROVED_MSG = DEF_UNAPPROVED_MSG
 
         # This part basically is a sanity check
         # If the message that sent before is Unapproved Message
