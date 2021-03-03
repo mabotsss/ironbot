@@ -25,8 +25,8 @@ from google.auth.transport.requests import Request
 from googleapiclient.http import MediaFileUpload, MediaIoBaseDownload
 
 from ironbot import (
-    G_DRIVE_AUTH_TOKEN_DATA, G_DRIVE_CLIENT_ID, G_DRIVE_CLIENT_SECRET,
-    TEMP_DOWNLOAD_DIRECTORY, BOTLOG_CHATID, TEMP_DOWNLOAD_DIRECTORY, CMD_HELP, LOGS,
+    G_DRIVE_DATA, G_DRIVE_CLIENT_ID, G_DRIVE_CLIENT_SECRET,
+    G_DRIVE_FOLDER_ID, BOTLOG_CHATID, TEMP_DOWNLOAD_DIRECTORY, CMD_HELP, LOGS,
 )
 from ironbot.events import register
 from ironbot.utils import progress, humanbytes, time_formatter, human_to_bytes
@@ -43,25 +43,25 @@ SCOPES = [
 ]
 REDIRECT_URI = "urn:ietf:wg:oauth:2.0:oob"
 # =========================================================== #
-#      STATIC CASE FOR TEMP_DOWNLOAD_DIRECTORY IF VALUE IS URL      #
+#      STATIC CASE FOR G_DRIVE_FOLDER_ID IF VALUE IS URL      #
 # =========================================================== #
-__ = TEMP_DOWNLOAD_DIRECTORY
+__ = G_DRIVE_FOLDER_ID
 if __ is not None:
-    if "uc?id=" in TEMP_DOWNLOAD_DIRECTORY:
+    if "uc?id=" in G_DRIVE_FOLDER_ID:
         LOGS.info(
-            "TEMP_DOWNLOAD_DIRECTORY is not a valid folderURL...")
-        TEMP_DOWNLOAD_DIRECTORY = None
+            "G_DRIVE_FOLDER_ID is not a valid folderURL...")
+        G_DRIVE_FOLDER_ID = None
     try:
-        TEMP_DOWNLOAD_DIRECTORY = __.split("folders/")[1]
+        G_DRIVE_FOLDER_ID = __.split("folders/")[1]
     except IndexError:
         try:
-            TEMP_DOWNLOAD_DIRECTORY = __.split("open?id=")[1]
+            G_DRIVE_FOLDER_ID = __.split("open?id=")[1]
         except IndexError:
             if "/view" in __:
-                TEMP_DOWNLOAD_DIRECTORY = __.split("/")[-2]
+                G_DRIVE_FOLDER_ID = __.split("/")[-2]
             else:
                 try:
-                    TEMP_DOWNLOAD_DIRECTORY = __.split(
+                    G_DRIVE_FOLDER_ID = __.split(
                         "folderview?id=")[1]
                 except IndexError:
                     if any(map(str.isdigit, __)):
@@ -76,9 +76,9 @@ if __ is not None:
                         pass
                     else:
                         LOGS.info(
-                            "TEMP_DOWNLOAD_DIRECTORY "
+                            "G_DRIVE_FOLDER_ID "
                             "not a valid ID/URL...")
-                        TEMP_DOWNLOAD_DIRECTORY = None
+                        G_DRIVE_FOLDER_ID = None
 # =========================================================== #
 #                           LOG                               #
 # =========================================================== #
@@ -98,14 +98,14 @@ async def generate_credentials(gdrive):
         await gdrive.delete()
         return False
     """ - Generate credentials - """
-    if G_DRIVE_AUTH_TOKEN_DATA is not None:
+    if G_DRIVE_DATA is not None:
         try:
-            configs = json.loads(G_DRIVE_AUTH_TOKEN_DATA)
+            configs = json.loads(G_DRIVE_DATA)
         except json.JSONDecodeError:
             await gdrive.edit(
                 "`[AUTHENTICATE - ERROR]`\n\n"
                 "`Status` : **BAD**\n"
-                "`Reason` : **G_DRIVE_AUTH_TOKEN_DATA** entity is not valid!"
+                "`Reason` : **G_DRIVE_DATA** entity is not valid!"
             )
             return False
     else:
@@ -114,7 +114,7 @@ async def generate_credentials(gdrive):
             await gdrive.edit(
                 "`[AUTHENTICATE - ERROR]`\n\n"
                 "`Status` : **BAD**\n"
-                "`Reason` : please get your **G_DRIVE_AUTH_TOKEN_DATA** "
+                "`Reason` : please get your **G_DRIVE_DATA** "
                 "[here](https://telegra.ph/How-To-Setup-Google-Drive-04-03)"
             )
             return False
@@ -568,11 +568,11 @@ async def create_dir(service, folder_name):
         if parent_Id is not None:
             pass
     except NameError:
-        """ - Fallback to TEMP_DOWNLOAD_DIRECTORY else root dir - """
-        if TEMP_DOWNLOAD_DIRECTORY is not None:
-            metadata['parents'] = [TEMP_DOWNLOAD_DIRECTORY]
+        """ - Fallback to G_DRIVE_FOLDER_ID else root dir - """
+        if G_DRIVE_FOLDER_ID is not None:
+            metadata['parents'] = [G_DRIVE_FOLDER_ID]
     else:
-        """ - Override TEMP_DOWNLOAD_DIRECTORY because parent_Id not empty - """
+        """ - Override G_DRIVE_FOLDER_ID because parent_Id not empty - """
         metadata['parents'] = [parent_Id]
     folder = service.files().create(
         body=metadata, fields="id, webViewLink", supportsAllDrives=True
@@ -595,11 +595,11 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
         if parent_Id is not None:
             pass
     except NameError:
-        """ - Fallback to TEMP_DOWNLOAD_DIRECTORY else root dir - """
-        if TEMP_DOWNLOAD_DIRECTORY is not None:
-            body['parents'] = [TEMP_DOWNLOAD_DIRECTORY]
+        """ - Fallback to G_DRIVE_FOLDER_ID else root dir - """
+        if G_DRIVE_FOLDER_ID is not None:
+            body['parents'] = [G_DRIVE_FOLDER_ID]
     else:
-        """ - Override TEMP_DOWNLOAD_DIRECTORY because parent_Id not empty - """
+        """ - Override G_DRIVE_FOLDER_ID because parent_Id not empty - """
         body['parents'] = [parent_Id]
     media_body = MediaFileUpload(
         file_path,
@@ -686,8 +686,8 @@ async def reset_parentId():
         if parent_Id is not None:
             pass
     except NameError:
-        if TEMP_DOWNLOAD_DIRECTORY is not None:
-            parent_Id = TEMP_DOWNLOAD_DIRECTORY
+        if G_DRIVE_FOLDER_ID is not None:
+            parent_Id = G_DRIVE_FOLDER_ID
     else:
         del parent_Id
     return
@@ -824,11 +824,11 @@ async def google_drive_managers(gdrive):
             if parent_Id is not None:
                 pass
         except NameError:
-            """ - Fallback to TEMP_DOWNLOAD_DIRECTORY else to root dir - """
-            if TEMP_DOWNLOAD_DIRECTORY is not None:
-                metadata['parents'] = [TEMP_DOWNLOAD_DIRECTORY]
+            """ - Fallback to G_DRIVE_FOLDER_ID else to root dir - """
+            if G_DRIVE_FOLDER_ID is not None:
+                metadata['parents'] = [G_DRIVE_FOLDER_ID]
         else:
-            """ - Override TEMP_DOWNLOAD_DIRECTORY because parent_Id not empty - """
+            """ - Override G_DRIVE_FOLDER_ID because parent_Id not empty - """
             metadata['parents'] = [parent_Id]
         page_token = None
         result = service.files().list(
@@ -1151,11 +1151,11 @@ async def set_upload_folder(gdrive):
     global parent_Id
     exe = gdrive.pattern_match.group(1)
     if exe == "rm":
-        if TEMP_DOWNLOAD_DIRECTORY is not None:
-            parent_Id = TEMP_DOWNLOAD_DIRECTORY
+        if G_DRIVE_FOLDER_ID is not None:
+            parent_Id = G_DRIVE_FOLDER_ID
             await gdrive.edit(
                 "`[FOLDER - SET]`\n\n"
-                "`Status` : **OK** - using `TEMP_DOWNLOAD_DIRECTORY` now."
+                "`Status` : **OK** - using `G_DRIVE_FOLDER_ID` now."
             )
             return None
         else:
@@ -1171,7 +1171,7 @@ async def set_upload_folder(gdrive):
                 await gdrive.edit(
                     "`[FOLDER - SET]`\n\n"
                     "`Status` : **OK**"
-                    " - `TEMP_DOWNLOAD_DIRECTORY` empty, will use root."
+                    " - `G_DRIVE_FOLDER_ID` empty, will use root."
                 )
                 return None
     inp = gdrive.pattern_match.group(2)
@@ -1325,7 +1325,7 @@ CMD_HELP.update({
     "\nUsage: Change upload directory in gdrive."
     "\n\n`.gdfset rm`"
     "\nUsage: remove set parentId from cmd\n`.gdfset put` "
-    "into **TEMP_DOWNLOAD_DIRECTORY** and if empty upload will go to root."
+    "into **G_DRIVE_FOLDER_ID** and if empty upload will go to root."
     "\n\nNOTE:"
     "\nfor `.gdlist` you can combine -l and -p flags with or without name "
     "at the same time, it must be `-l` flags first before use `-p` flags.\n"

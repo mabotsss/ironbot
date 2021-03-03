@@ -305,6 +305,7 @@ async def type_afk_is_not_true(notafk):
                     "[" + name0 + "](tg://user?id=" + str(i) + ")" +
                     " kepada " + "`" + str(USERS[i]) + " mengirim pesan`",
                 )
+            await notafk.delete()
         
         COUNT_MSG = 0
         USERS = {}
