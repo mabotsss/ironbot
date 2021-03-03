@@ -58,7 +58,7 @@ async def permitpm(event):
             username = '@' + reply_user.username if reply_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
             mention = f'[{first_name} {last_name}](tg://user?id={id})'
 
-            if not apprv and event.text != UNAPPROVED_MSG
+            if not apprv and event.text != UNAPPROVED_MSG:
                 if event.chat_id in LASTMSG:
                     prevmsg = LASTMSG[event.chat_id]
                     if event.text != prevmsg:
