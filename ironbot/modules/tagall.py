@@ -7,7 +7,7 @@ from ironbot.cmdhelp import CmdHelp
 async def _(event):
     if event.fwd_from:
         return
-    mentions = "@semuanya_yang_ada_disini"
+    mentions = "@hallosemua"
     chat = await event.get_input_chat()
     leng = 0
     async for x in bot.iter_participants(chat):
@@ -17,11 +17,11 @@ async def _(event):
     await event.reply(mentions)
     await event.delete()
 
-@register(outgoing=True, pattern="^.tagadmins$")
+@register(outgoing=True, pattern="^.tagadmin$")
 async def _(event):
     if event.fwd_from:
         return
-    mentions = "@ampun_om_admin"
+    mentions = "@om"
     chat = await event.get_input_chat()
     async for x in bot.iter_participants(chat, filter=ChannelParticipantsAdmins):
         mentions += f"[\u2063](tg://user?id={x.id})"
@@ -36,5 +36,5 @@ async def _(event):
 CmdHelp('tagall').add_command(
     'tagall', None, 'Tandai semua orang dalam obrolan saat Anda menggunakan perintah ini.'
 ).add_command(
-    'admin', None, 'Memberi tag pada administrator dalam obrolan saat Anda menggunakan perintah ini.'
+    'tagadmin', None, 'Memberi tag pada administrator dalam obrolan saat Anda menggunakan perintah ini.'
 ).add()
