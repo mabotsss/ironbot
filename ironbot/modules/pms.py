@@ -18,7 +18,7 @@ from ironbot.events import register
 # ========================= CONSTANTS ============================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 
-DEF_UNAPPROVED_MSG = str(
+DEF_UNAPPROVED_MSG = (
     f"**ROOM CHAT || {DEFAULTUSER}**\n"
     "┏━━━━━━━━━━━━━━━━━━━\n"
     "┣[• `PESAN OTOMATIS`\n"
@@ -51,10 +51,10 @@ async def permitpm(event):
         # Use user custom unapproved message
         getmsg = gvarstatus("unapproved_msg")
         #DEF_UNAPPROVED_MSG = gvarstatus("unapproved_msg")
-        if getmsg is not None:
-            UNAPPROVED_MSG = getmsg
-        else:
+        if not getmsg:
             UNAPPROVED_MSG = DEF_UNAPPROVED_MSG
+        else:
+            UNAPPROVED_MSG = getmsg
 
         # This part basically is a sanity check
         # If the message that sent before is Unapproved Message
@@ -134,11 +134,11 @@ async def auto_accept(event):
             return
 
         # Use user custom unapproved message
-        get_message = gvarstatus("unapproved_msg")
-        if get_message is not None:
-            UNAPPROVED_MSG = get_message
-        else:
+        getmsg = gvarstatus("unapproved_msg")
+        if not getmsg:
             UNAPPROVED_MSG = DEF_UNAPPROVED_MSG
+        else:
+            UNAPPROVED_MSG = getmsg
 
         chat = await event.get_chat()
         if isinstance(chat, User):
@@ -210,10 +210,10 @@ async def approvepm(apprvpm):
 
     # Get user custom msg
     getmsg = gvarstatus("unapproved_msg")
-    if getmsg is not None:
-        UNAPPROVED_MSG = getmsg
-    else:
+    if not getmsg:
         UNAPPROVED_MSG = DEF_UNAPPROVED_MSG
+    else:
+        UNAPPROVED_MSG = getmsg
 
     async for message in apprvpm.client.iter_messages(
         apprvpm.chat_id, from_user="me", search=UNAPPROVED_MSG
