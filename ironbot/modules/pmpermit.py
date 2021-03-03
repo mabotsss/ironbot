@@ -76,9 +76,9 @@ async def permitpm(event):
                                 from_user='me',
                                 limit=PM_AUTO_BAN_LIMIT + 1):
                                     await message.delete()
-                            if not UNAPPROVED_MSG.text == '':
-                                UNAPPROVED_MSG.text = UNAPPROVED_MSG.text
-                                )
+                          #  if not UNAPPROVED_MSG.text == '':
+                          #      UNAPPROVED_MSG.text = UNAPPROVED_MSG.text
+                          #      )
 
                             await event.reply(f"{UNAPPROVED_MSG}")
                     LASTMSG.update({event.chat_id: event.text})
