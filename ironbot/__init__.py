@@ -346,13 +346,13 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
                    link_preview=False,
                 )
             else:
-                reply_pop_up_alert = "❌  Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣."
+                reply_pop_up_alert = "Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣."
                 await event.answer(reply_pop_up_alert, cache_time=0, alert=True)
 
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"pingsss")))
         async def _(event):
             if not event.query.user_id == uid:
-                return await event.answer("❌ Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
+                return await event.answer("Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
             start = datetime.now()
             end = datetime.now()
             ms = (end - start).microseconds / 100
@@ -366,13 +366,13 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"exitsss")))
         async def opensss(event):
             if not event.query.user_id == uid:
-                return await event.answer("❌ Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
+                return await event.answer("Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
             await event.edit("**BERHASIL KELUAR**")
         
         @tgbot.on(callbackquery.CallbackQuery(data=compile(b"opensss")))
         async def opensss(event):
             if not event.query.user_id == uid:
-                return await event.answer("❌ Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
+                return await event.answer("Pasang ironbot sendiri gan, biar ga kepo wkwkwk 🤣.", cache_time=0, alert=True)
             veriler = (butonlastir(0, sorted(CMD_HELP)))
             await event.edit(
                 f"**🤖 ʜᴀʟʟᴏᴏ ɪɴɪ ᴀᴅᴀʟᴀʜ !** [ɪʀᴏɴʙᴏᴛꜱ](https://t.me/freedom_reborn)\n\n`Total plugin: {len(CMD_HELP)} | ʜᴀʟᴀᴍᴀɴ: 1/{veriler[0]}`",
@@ -391,7 +391,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
             try:
                 butonlar = [custom.Button.inline("🔹 " + cmd[0], data=f"komut[{komut}[{sayfa}]]({cmd[0]})") for cmd in CMD_HELP_BOT[komut]['commands'].items()]
             except KeyError:
-                return await event.answer("❌ Tidak ada deskripsi tertulis untuk modul ini.", cache_time=0, alert=True)
+                return await event.answer("Tidak ada deskripsi tertulis untuk modul ini.", cache_time=0, alert=True)
 
             butonlar = [butonlar[i:i + 2] for i in range(0, len(butonlar), 2)]
             butonlar.append([custom.Button.inline("◀️ ᴋᴇᴍʙᴀʟɪ", data=f"sayfa({sayfa})")])

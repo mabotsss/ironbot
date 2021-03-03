@@ -231,7 +231,7 @@ async def download(gdrive, service, uri=None):
                 TEMP_DOWNLOAD_DIRECTORY,
                 progress_callback=lambda d, t: asyncio.get_event_loop(
                 ).create_task(progress(d, t, gdrive, current_time,
-                                       "[FILE - UNDUH]",
+                                       "[FILE - UNDUHAN]",
                                        is_cancelled=is_cancelled)))
         except CancelProcess:
             reply += (
@@ -251,7 +251,7 @@ async def download(gdrive, service, uri=None):
         return reply
     mimeType = await get_mimeType(required_file_name)
     try:
-        status = "[FILE - UNGGAH]"
+        status = "[FILE - UNGGAHAN]"
         if isfile(required_file_name):
             try:
                 result = await upload(
@@ -300,7 +300,7 @@ async def download(gdrive, service, uri=None):
                 await reset_parentId()
                 return reply
     except Exception as e:
-        status = status.replace("UNDUHAN]", "GAGAL]")
+        status = status.replace("UNDUHANAN]", "GAGAL]")
         reply += (
             f"`{status}`\n\n"
             "`Status` : **failed**\n"
@@ -411,7 +411,7 @@ async def download_gdrive(gdrive, service, uri):
                                 10 - math.floor(percentage / 10))]),
                         round(percentage, 2))
                     current_message = (
-                        "`[FILE - UNDUH]`\n\n"
+                        "`[FILE - UNDUHAN]`\n\n"
                         f"`{file_name}`\n"
                         f"`Status`\n{prog_str}\n"
                         f"`{humanbytes(downloaded)} dari {humanbytes(file_size)}"
@@ -459,7 +459,7 @@ async def download_gdrive(gdrive, service, uri):
                                 10 - math.floor(percentage / 10))]),
                         round(percentage, 2))
                     current_message = (
-                        "`[FILE - UNDUHAN]`\n\n"
+                        "`[FILE - UNDUHANAN]`\n\n"
                         f"`{file_name}`\n"
                         f"`Status`\n{prog_str}\n"
                         f"`{humanbytes(downloaded)} dari {humanbytes(file_size)}"
@@ -473,7 +473,7 @@ async def download_gdrive(gdrive, service, uri):
                         await gdrive.edit(current_message)
                         display_message = current_message
     await gdrive.edit(
-        "`[FILE - UNDUHAN]`\n\n"
+        "`[FILE - UNDUHANAN]`\n\n"
         f"`Nama   :` `{file_name}`\n"
         f"`Ukuran   :` `{humanbytes(file_size)}`\n"
         f"`Path   :` `{file_path}`\n"
@@ -506,7 +506,7 @@ async def download_gdrive(gdrive, service, uri):
             )
         else:
             reply += (
-                "`[FILE - UNGGAH]`\n\n"
+                "`[FILE - UNGGAHAN]`\n\n"
                 f"`Nama   :` `{file_name}`\n"
                 f"`Ukuran   :` `{humanbytes(result[0])}`\n"
                 f"`Link   :` [{file_name}]({result[1]})\n"
@@ -615,7 +615,7 @@ async def upload(gdrive, service, file_path, file_name, mimeType):
                         10 - math.floor(percentage / 10))]),
                 round(percentage, 2))
             current_message = (
-                "`[FILE - UNGGAH]`\n\n"
+                "`[FILE - UNGGAHAN]`\n\n"
                 f"`{file_name}`\n"
                 f"`Status`\n{prog_str}\n"
                 f"`{humanbytes(uploaded)} dari {humanbytes(file_size)} "
@@ -782,7 +782,7 @@ async def lists(gdrive):
     return
 
 
-@register(pattern="^.gdf (mkdir|rm|check) (.*)", outgoing=True)
+@register(pattern="^.gd (mkdir|rm|check) (.*)", outgoing=True)
 async def google_drive_managers(gdrive):
     await gdrive.edit("`Mengirim informasi...`")
     service = await create_app(gdrive)
@@ -972,7 +972,7 @@ async def google_drive(gdrive):
             return True
         except Exception as e:
             await gdrive.edit(
-                "`[FOLDER - UNGGAH]`\n\n"
+                "`[FOLDER - UNGGAHAN]`\n\n"
                 f"`{folder_name}`\n"
                 "`Status` : **BAD**\n"
                 f"`Karena` : {str(e)}"
@@ -981,7 +981,7 @@ async def google_drive(gdrive):
             return False
         else:
             await gdrive.edit(
-                "`[FOLDER - UNGGAH]`\n\n"
+                "`[FOLDER - UNGGAHAN]`\n\n"
                 f"[{folder_name}]({webViewURL})\n"
                 "`Status` : **OK** - Berhasil diunggah.\n\n"
             )
@@ -1094,7 +1094,7 @@ async def google_drive(gdrive):
         )
     if result:
         await gdrive.respond(
-            "`[FILE - UNGGAH]`\n\n"
+            "`[FILE - UNGGAHAN]`\n\n"
             f"`Name   :` `{file_name}`\n"
             f"`Size   :` `{humanbytes(result[0])}`\n"
             f"`Link   :` [{file_name}]({result[1]})\n"
@@ -1105,7 +1105,7 @@ async def google_drive(gdrive):
     return
 
 
-@register(pattern="^.gdfset (put|rm)(?: |$)(.*)", outgoing=True)
+@register(pattern="^.gdset (put|rm)(?: |$)(.*)", outgoing=True)
 async def set_upload_folder(gdrive):
     await gdrive.edit("`Mengirim informasi...`")
     global parent_Id
@@ -1136,7 +1136,7 @@ async def set_upload_folder(gdrive):
                 return None
     inp = gdrive.pattern_match.group(2)
     if not inp:
-        await gdrive.edit(">`.gdfset put <folderURL/folderID>`")
+        await gdrive.edit(">`.gdset put <folderURL/folderID>`")
         return None
     try:
         ext_id = re.findall(r'\bhttps?://drive\.google\.com\S+', inp)[0]
@@ -1219,7 +1219,7 @@ async def check_progress_for_dl(gdrive, gid, previous):
                             10 - math.floor(percentage / 10))]),
                     file.progress_string())
                 msg = (
-                    "`[URI - UNDUH]`\n\n"
+                    "`[URI - UNDUHAN]`\n\n"
                     f"`{file.name}`\n"
                     f"`Status` -> **{file.status.capitalize()}**\n"
                     f"{prog_str}\n"
@@ -1271,17 +1271,17 @@ CMD_HELP.update({
     "\nUsage: Dapatkan daftar folder dan file dengan ukuran default 50."
     "\nUse flags `-l jarak[1-1000]` batasan limit."
     "\nUse flags `-p parents-folder_id` untuk daftar folder yang diberikan di gdrive."
-    "\n\n`.gdf mkdir`"
+    "\n\n`.gd mkdir`"
     "\nUsage: Membuat gdrive folder."
-    "\n\n`.gdf check`"
+    "\n\n`.gd check`"
     "\nUsage: Check file/folder dalam gdrive."
-    "\n\n`.gdf rm`<file/folder>nama"
+    "\n\n`.gd rm`<file/folder>nama"
     "\nUsage: Menghapus files/folders dalam gdrive."
     "\nTidak dapat diurungkan, jadi berhati-hatilah..."
-    "\n\n`.gdfset put`"
+    "\n\n`.gdset put`"
     "\nUsage: Ubah direktori unggahan di gdrive."
-    "\n\n`.gdfset rm`"
-    "\nUsage:hapus set parentId dari cmd\n`.gdfset put` "
+    "\n\n`.gdset rm`"
+    "\nUsage:hapus set parentId dari cmd\n`.gdset put` "
     "into **G_DRIVE_FOLDER_ID** dan jika upload folder kosong akan masuk ke root."
     "\n\nNOTE:"
     "\nfor `.gdlist` Anda bisa menggabungkan dengan flag -l dan -p atau tanpa nama "
