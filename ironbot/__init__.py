@@ -154,7 +154,8 @@ G_DRIVE_AUTH_TOKEN_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)
 GDRIVE_FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID", None)
 TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TMP_DOWNLOAD_DIRECTORY",
                                          "./downloads")
-G_DRIVE_DATA = os.environ.get("G_DRIVE_AUTH_TOKEN_DATA", None)                                         
+G_DRIVE_DATA = os.environ.get("G_DRIVE_DATA", None)     
+G_DRIVE_FOLDER_ID = os.environ.get("G_DRIVE_FOLDER_ID", None)                                    
 
 # Inline bot
 BOT_TOKEN = os.environ.get("BOT_TOKEN", None)
