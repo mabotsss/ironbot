@@ -1,21 +1,40 @@
-import aria2p
+import math
+import os
 from asyncio import sleep
-from os import system
-from ironbot import LOGS, CMD_HELP
-from ironbot.events import register
-from requests import get
-from ironbot.cmdhelp import CmdHelp
+from subprocess import PIPE, Popen
 
-# Gelişmiş indirme hızları için en iyi trackerları çağırır, bunun için K-E-N-W-A-Y'e teşekkürler.
+import aria2p
+from requests import get
+
+from ironbot import CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
+from ironbot.events import register
+from ironbot.utils import humanbytes
+
+
+def subprocess_run(cmd):
+    subproc = Popen(
+        cmd,
+        stdout=PIPE,
+        stderr=PIPE,
+        shell=True,
+        universal_newlines=True)
+    talk = subproc.communicate()
+    exitCode = subproc.returncode
+    if exitCode != 0:
+        return
+    return talk
+
+
+# Get best trackers for improved download speeds, thanks K-E-N-W-A-Y.
 trackers_list = get(
-    'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt'
-).text.replace('\n\n', ',')
+    "https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt"
+).text.replace("\n\n", ",")
 trackers = f"[{trackers_list}]"
 
 cmd = f"aria2c \
 --enable-rpc \
 --rpc-listen-all=false \
---rpc-listen-port 6800 \
+--rpc-listen-port 8210 \
 --max-connection-per-server=10 \
 --rpc-max-request-size=1024M \
 --seed-time=0.01 \
@@ -28,22 +47,29 @@ cmd = f"aria2c \
 --daemon=true \
 --allow-overwrite=true"
 
-aria2_is_running = system(cmd)
+subprocess_run(cmd)
+if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
+    os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
+download_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip(".")
 
-aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=6800,
-                                 secret=""))
+aria2 = aria2p.API(
+    aria2p.Client(
+        host="http://localhost",
+        port=8210,
+        secret=""))
+
+aria2.set_global_options({"dir": download_path})
 
 
-@register(outgoing=True, pattern="^.amag(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.amag(?: |$)(.*)")
 async def magnet_download(event):
     magnet_uri = event.pattern_match.group(1)
-    # Magnet URI'ı kuyruğa ekler.
+    # Add Magnet URI Into Queue
     try:
         download = aria2.add_magnet(magnet_uri)
     except Exception as e:
         LOGS.info(str(e))
-        await event.edit("Hata:\n`" + str(e) + "`")
-        return
+        return await event.edit("Error:\n`" + str(e) + "`")
     gid = download.gid
     await check_progress_for_dl(gid=gid, event=event, previous=None)
     await sleep(5)
@@ -51,88 +77,100 @@ async def magnet_download(event):
     await check_progress_for_dl(gid=new_gid, event=event, previous=None)
 
 
-@register(outgoing=True, pattern="^.ator(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.ator(?: |$)(.*)")
 async def torrent_download(event):
     torrent_file_path = event.pattern_match.group(1)
-    # Torrent'i kuyruğa ekler.
+    # Add Torrent Into Queue
     try:
-        download = aria2.add_torrent(torrent_file_path,
-                                     uris=None,
-                                     options=None,
-                                     position=None)
+        download = aria2.add_torrent(
+            torrent_file_path, uris=None, options=None, position=None
+        )
     except Exception as e:
-        await event.edit(str(e))
-        return
+        return await event.edit(str(e))
     gid = download.gid
     await check_progress_for_dl(gid=gid, event=event, previous=None)
 
 
-@register(outgoing=True, pattern="^.aurl(?: |$)(.*)")
-async def amagnet_download(event):
+@register(outgoing=True, pattern=r"^\.aurl(?: |$)(.*)")
+async def aurl_download(event):
     uri = [event.pattern_match.group(1)]
-    try:  # URL'yi kuyruğa ekler.
+    try:  # Add URL Into Queue
         download = aria2.add_uris(uri, options=None, position=None)
     except Exception as e:
         LOGS.info(str(e))
-        await event.edit("Hata :\n`{}`".format(str(e)))
-        return
+        return await event.edit("Error :\n`{}`".format(str(e)))
     gid = download.gid
     await check_progress_for_dl(gid=gid, event=event, previous=None)
     file = aria2.get_download(gid)
     if file.followed_by_ids:
         new_gid = await check_metadata(gid)
-        await progress_status(gid=new_gid, event=event, previous=None)
+        await check_progress_for_dl(gid=new_gid, event=event, previous=None)
 
 
-@register(outgoing=True, pattern="^.aclear(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.aclear(?: |$)(.*)")
 async def remove_all(event):
-    await event.edit("`Devam eden indirmeler temizleniyor... `")
     try:
         removed = aria2.remove_all(force=True)
         aria2.purge_all()
-    except:
+    except Exception:
         pass
-    if not removed:  # Eğer API False olarak dönerse sistem vasıtasıyla kaldırılmaya çalışılır.
-        system("aria2p remove-all")
-    await event.edit("`Tüm indirilenler başarıyla temizlendi.`")
+    if not removed:  # If API returns False Try to Remove Through System Call.
+        subprocess_run("aria2p remove-all")
+    await event.edit("`Clearing on-going downloads... `")
+    await sleep(2.5)
+    await event.edit("`Successfully cleared all downloads.`")
+    await sleep(2.5)
 
 
-@register(outgoing=True, pattern="^.apause(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.apause(?: |$)(.*)")
 async def pause_all(event):
-    # Tüm devam eden indirmeleri duraklatır.
-    await event.edit("`İndirmeler duraklatılıyor...`")
+    # Pause ALL Currently Running Downloads.
+    await event.edit("`Pausing downloads...`")
     aria2.pause_all(force=True)
-    await event.edit("`Devam eden indirmeler başarıyla durduruldu.`")
+    await sleep(2.5)
+    await event.edit("`Successfully paused on-going downloads.`")
+    await sleep(2.5)
 
 
-@register(outgoing=True, pattern="^.aresume(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.aresume(?: |$)(.*)")
 async def resume_all(event):
-    await event.edit("`İndirmeler devam ettiriliyor...`")
+    await event.edit("`Resuming downloads...`")
     aria2.resume_all()
-    await event.edit("`İndirmeler devam ettirildi.`")
+    await sleep(1)
+    await event.edit("`Downloads resumed.`")
     await sleep(2.5)
     await event.delete()
 
 
-@register(outgoing=True, pattern="^.ashow(?: |$)(.*)")
+@register(outgoing=True, pattern=r"^\.ashow(?: |$)(.*)")
 async def show_all(event):
-    output = "output.txt"
     downloads = aria2.get_downloads()
     msg = ""
     for download in downloads:
-        msg = msg + "Dosya: `" + str(download.name) + "`\nHız: " + str(
-            download.download_speed_string()) + "\nİşlem: " + str(
-                download.progress_string()) + "\nToplam Boyut: " + str(
-                    download.total_length_string()) + "\nDurum: " + str(
-                        download.status) + "\nTahmini bitiş:  " + str(
-                            download.eta_string()) + "\n\n"
+        msg = (
+            msg
+            + "File: `"
+            + str(download.name)
+            + "`\nSpeed: "
+            + str(download.download_speed_string())
+            + "\nProgress: "
+            + str(download.progress_string())
+            + "\nTotal Size: "
+            + str(download.total_length_string())
+            + "\nStatus: "
+            + str(download.status)
+            + "\nETA:  "
+            + str(download.eta_string())
+            + "\n\n"
+        )
     if len(msg) <= 4096:
-        await event.edit("`Devam eden indirmeler: `\n" + msg)
+        await event.edit("`On-going Downloads: `\n" + msg)
         await sleep(5)
         await event.delete()
     else:
-        await event.edit("`Çıktı çok büyük, bu sebepten dolayı dosya olarak gönderiliyor...`")
-        with open(output, 'w') as f:
+        await event.edit("`Output is too big, sending it as a file...`")
+        output = "output.txt"
+        with open(output, "w") as f:
             f.write(msg)
         await sleep(2)
         await event.delete()
@@ -149,7 +187,7 @@ async def show_all(event):
 async def check_metadata(gid):
     file = aria2.get_download(gid)
     new_gid = file.followed_by_ids[0]
-    LOGS.info("GID " + gid + " şu değerden şu değere değiştiriliyor:" + new_gid)
+    LOGS.info("Changing GID " + gid + " to" + new_gid)
     return new_gid
 
 
@@ -159,47 +197,66 @@ async def check_progress_for_dl(gid, event, previous):
         file = aria2.get_download(gid)
         complete = file.is_complete
         try:
-            if not complete and not file.error_message:
-                msg = f"\nİndirilen dosya: `{file.name}`"
-                msg += f"\nHız: {file.download_speed_string()}"
-                msg += f"\nİşlem: {file.progress_string()}"
-                msg += f"\nToplam Boyut: {file.total_length_string()}"
-                msg += f"\nDurum: {file.status}"
-                msg += f"\nTahmini bitiş: {file.eta_string()}"
+            if not (complete or file.error_message):
+                percentage = int(file.progress)
+                downloaded = percentage * int(file.total_length) / 100
+                prog_str = "[{0}{1}] `{2}`".format(
+                    "".join(
+                        "█" for i in range(
+                            math.floor(
+                                percentage /
+                                10))),
+                    "".join(
+                        "░" for i in range(
+                            10 -
+                            math.floor(
+                                percentage /
+                                10))),
+                    file.progress_string(),
+                )
+                msg = (
+                    f"{file.name} - Downloading\n"
+                    f"{prog_str}\n"
+                    f"`Size:` {humanbytes(downloaded)} of {file.total_length_string()}\n"
+                    f"`Speed:` {file.download_speed_string()}\n"
+                    f"`ETA:` {file.eta_string()}\n")
                 if msg != previous:
                     await event.edit(msg)
                     msg = previous
             else:
-                LOGS.info(str(file.error_message))
                 await event.edit(f"`{msg}`")
             await sleep(5)
             await check_progress_for_dl(gid, event, previous)
             file = aria2.get_download(gid)
             complete = file.is_complete
             if complete:
-                await event.edit(f"Dosya başarıyla indirdi: `{file.name}`"
-                                 )
-                return False
+                return await event.edit(
+                    f"`Name`: `{file.name}`\n"
+                    f"`Size`: `{file.total_length_string()}`\n"
+                    f"`Path`: `{TEMP_DOWNLOAD_DIRECTORY + file.name}`\n"
+                    "`Resp`: **OK** - Successfully downloaded..."
+                )
         except Exception as e:
             if " not found" in str(e) or "'file'" in str(e):
-                await event.edit("İndirme iptal edildi :\n`{}`".format(file.name))
+                await event.edit("Download Canceled :\n`{}`".format(file.name))
                 await sleep(2.5)
-                await event.delete()
-                return
+                return await event.delete()
             elif " depth exceeded" in str(e):
                 file.remove(force=True)
                 await event.edit(
-                    "İndirme otomatik olarak iptal edildi:\n`{}`\nTorrent ya da link ölü."
-                    .format(file.name))
+                    "Download Auto Canceled :\n`{}`\nYour Torrent/Link is Dead.".format(
+                        file.name
+                    )
+                )
 
-CmdHelp('aria').add_command(
-    'aurl', 
-    '[URL] (ya da) .amag [Magnet Linki] (ya da) .ator [torrent dosyasının yolu]', 
-    'Bir dosyayı ironbot sunucusuna indirir.'
-    ).add_command(
-        'apause', None, 'Devam eden indirmeyi durdurur ya da devam ettirir.'
-    ).add_command(
-        'aclear', None, 'İndirme kuyruğunu temizler, devam eden tüm indirmeleri siler.'
-    ).add_command(
-        'ashow', None, 'Devam eden indirmelerin durumunu gösterir.'
-    ).add()
+
+CMD_HELP.update(
+    {
+        "aria": ">`.aurl [URL]` (or) >`.amag [Magnet Link]` (or) >`.ator [path to torrent file]`"
+        "\nUsage: Downloads the file into your ironbot server storage."
+        "\n\n>`.apause (or) .aresume`"
+        "\nUsage: Pauses/resumes on-going downloads."
+        "\n\n>`.aclear`"
+        "\nUsage: Clears the download queue, deleting all on-going downloads."
+        "\n\n>`.ashow`"
+        "\nUsage: Shows progress of the on-going downloads."})
