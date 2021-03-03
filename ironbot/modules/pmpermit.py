@@ -67,9 +67,9 @@ async def permitpm(event):
                                 event.chat_id,
                                 from_user='me',
                                 search=UNAPPROVED_MSG
-                            ):
-                                await message.delete()
+                            ):                              
                             await event.reply(f"{UNAPPROVED_MSG}")
+                            await message.delete()
                         else:
                             async for message in event.client.iter_messages(
                                 event.chat_id,
