@@ -11,6 +11,7 @@ import requests
 import logging
 
 import ironbot.modules.sql_helper.google_drive_sql as helper
+from ironbot.cmdhelp import CmdHelp
 
 from bs4 import BeautifulSoup
 from os.path import isfile, isdir, join
@@ -930,7 +931,7 @@ async def cancel_process(gdrive):
     await gdrive.delete()
 
 
-@register(pattern="^.gd(?: |$)(.*)", outgoing=True)
+@register(pattern="^.ggd(?: |$)(.*)", outgoing=True)
 async def google_drive(gdrive):
     reply = ''
     value = gdrive.pattern_match.group(1)
@@ -1262,7 +1263,7 @@ CMD_HELP.update({
     "\nIni hanya perlu dijalankan sekali seumur hidup."
     "\n\n`.gdreset`"
     "\nUsage: Setel ulang token Anda jika terjadi sesuatu yang buruk atau ubah akun drive."
-    "\n\n`.gd`"
+    "\n\n`.ggd`"
     "\nUsage: Unggah file dari lokal atau uri / url / drivelink ke google drive."
     "\nUntuk drivelink."
     "\n\n`.gdabort`"
@@ -1288,3 +1289,23 @@ CMD_HELP.update({
     "pada saat yang sama, itu pasti `-l` flags pertama sebelum digunakan `-p` flags.\n"
     "Dan secara default daftar dari yang terbaru 'modifiedTime' dan juga folder."
 })
+
+CmdHelp('gdrive').add_command(
+    'gdauth', None, 'Buat token untuk mengaktifkan semua layanan cmd google drive, Ini hanya perlu dijalankan sekali seumur hidup'
+).add_command(
+    'ggd', '<file/url>', 'Unggah file dari lokal atau uri / url / drivelink ke google drive.'
+).add_command(
+    'gdreset', None, 'Setel ulang token Anda jika terjadi sesuatu yang buruk atau ubah akun drive.'
+).add_command(
+    'gdlist', None, 'Dapatkan daftar folder dan file dengan ukuran default 50.'
+).add_command(
+    'gd mkdir', None, 'Membuat gdrive folder.'
+).add_command(
+    'gd check', '<Nama file>', 'Check file/folder dalam gdrive..'
+).add_command(
+    'gd rm', '<file/folder>nama', 'Menghapus files/folders dalam gdrive. Tidak dapat diurungkan, jadi berhati-hatilah..'
+).add_command(
+    'gdset put', None, 'Ubah direktori unggahan di gdrive.'
+).add_command(
+    'gdset rm', None, 'hapus set parentId dari cmd\n`.gdset put.'
+).add()
