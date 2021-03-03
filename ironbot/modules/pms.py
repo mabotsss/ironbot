@@ -18,7 +18,7 @@ from ironbot.events import register
 # ========================= CONSTANTS ============================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 
-DEF_UNAPPROVED_MSG = (
+DEF_UNAPPROVED_MSG = str(
     f"**ROOM CHAT || {DEFAULTUSER}**\n"
     "┏━━━━━━━━━━━━━━━━━━━\n"
     "┣[• `PESAN OTOMATIS`\n"
@@ -50,7 +50,7 @@ async def permitpm(event):
 
         # Use user custom unapproved message
         getmsg = gvarstatus("unapproved_msg")
-        DEF_UNAPPROVED_MSG = gvarstatus("unapproved_msg")
+        #DEF_UNAPPROVED_MSG = gvarstatus("unapproved_msg")
         if getmsg is not None:
             UNAPPROVED_MSG = getmsg
         else:
