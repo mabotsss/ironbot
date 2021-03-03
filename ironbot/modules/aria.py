@@ -1,40 +1,21 @@
-import math
-import os
-from asyncio import sleep
-from subprocess import PIPE, Popen
-
 import aria2p
-from requests import get
-
-from ironbot import CMD_HELP, LOGS, TEMP_DOWNLOAD_DIRECTORY
+from asyncio import sleep
+from os import system
+from ironbot import LOGS, CMD_HELP
 from ironbot.events import register
-from ironbot.utils import humanbytes
+from requests import get
+from ironbot.cmdhelp import CmdHelp
 
-
-def subprocess_run(cmd):
-    subproc = Popen(
-        cmd,
-        stdout=PIPE,
-        stderr=PIPE,
-        shell=True,
-        universal_newlines=True)
-    talk = subproc.communicate()
-    exitCode = subproc.returncode
-    if exitCode != 0:
-        return
-    return talk
-
-
-# Get best trackers for improved download speeds, thanks K-E-N-W-A-Y.
+# Gelişmiş indirme hızları için en iyi trackerları çağırır, bunun için K-E-N-W-A-Y'e teşekkürler.
 trackers_list = get(
-    "https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt"
-).text.replace("\n\n", ",")
+    'https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt'
+).text.replace('\n\n', ',')
 trackers = f"[{trackers_list}]"
 
 cmd = f"aria2c \
 --enable-rpc \
 --rpc-listen-all=false \
---rpc-listen-port 8210 \
+--rpc-listen-port 6800 \
 --max-connection-per-server=10 \
 --rpc-max-request-size=1024M \
 --seed-time=0.01 \
@@ -47,18 +28,10 @@ cmd = f"aria2c \
 --daemon=true \
 --allow-overwrite=true"
 
-subprocess_run(cmd)
-if not os.path.isdir(TEMP_DOWNLOAD_DIRECTORY):
-    os.makedirs(TEMP_DOWNLOAD_DIRECTORY)
-download_path = os.getcwd() + TEMP_DOWNLOAD_DIRECTORY.strip(".")
+aria2_is_running = system(cmd)
 
-aria2 = aria2p.API(
-    aria2p.Client(
-        host="http://localhost",
-        port=8210,
-        secret=""))
-
-aria2.set_global_options({"dir": download_path})
+aria2 = aria2p.API(aria2p.Client(host="http://localhost", port=6800,
+                                 secret=""))
 
 
 @register(outgoing=True, pattern=r"^\.amag(?: |$)(.*)")
@@ -250,13 +223,14 @@ async def check_progress_for_dl(gid, event, previous):
                 )
 
 
-CMD_HELP.update(
-    {
-        "aria": ">`.aurl [URL]` (or) >`.amag [Magnet Link]` (or) >`.ator [path to torrent file]`"
-        "\nUsage: Downloads the file into your ironbot server storage."
-        "\n\n>`.apause (or) .aresume`"
-        "\nUsage: Pauses/resumes on-going downloads."
-        "\n\n>`.aclear`"
-        "\nUsage: Clears the download queue, deleting all on-going downloads."
-        "\n\n>`.ashow`"
-        "\nUsage: Shows progress of the on-going downloads."})
+CmdHelp('aria').add_command(
+    'aurl', 
+    '[URL] (atau) .amag [Magnet Link] (atau) .ator [lokasi torrent file]', 
+    'Download file ke ironbot server.'
+    ).add_command(
+        'apause', None, 'Pause/resume saat mengunduh.'
+    ).add_command(
+        'aclear', None, 'Menghapus antrian unduhan, menghapus semua unduhan yang sedang berjalan'
+    ).add_command(
+        'ashow', None, 'Menunjukkan kemajuan unduhan yang sedang berlangsung.'
+    ).add()
