@@ -764,7 +764,7 @@ async def lists(gdrive):
 
     del result
     if query == '':
-        query = 'Not specified'
+        query = 'Tidak ditentukan'
     if len(message) > 4096:
         await gdrive.edit("`Hasil terlalu besar, mengirim file text..`")
         with open('result.txt', 'w') as r:
