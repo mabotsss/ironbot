@@ -256,5 +256,5 @@ CmdHelp('stickers').add_command(
 ).add_command(
     'kang', '<jumlah>', 'Menambahkan stiker atau gambar ke paket yang ditentukan tetapi menggunakan yang berikut ini sebagai emoji: 🤔 '
 ).add_command(
-    'kang', '<emoji(s)> <numara>', 'Melampirkan stiker atau gambar ke paket yang ditentukan dan digunakan sebagai emoji stiker emoji yang Anda tentukan..'
+    'kang', '<emoji(s)> <nomor>', 'Melampirkan stiker atau gambar ke paket yang ditentukan dan digunakan sebagai emoji stiker emoji yang Anda tentukan..'
 ).add()
