@@ -67,9 +67,9 @@ async def permitpm(event):
                                 event.chat_id,
                                 from_user='me',
                                 search=UNAPPROVED_MSG
-                            ):                              
-                                await event.reply(f"{UNAPPROVED_MSG}")
-                            await message.delete()
+                            ):                         
+                                await message.delete()    
+                            await event.reply(f"{UNAPPROVED_MSG}")
                         else:
                             async for message in event.client.iter_messages(
                                 event.chat_id,
@@ -370,6 +370,67 @@ async def unblockpm(unblock):
             f"[{name0}](tg://user?id={replied_user.id})"
             "tidak diblokir.",
         )
+
+
+@register(outgoing=True, pattern=r"^.(set|get|reset) pm_msg(?: |$)(\w*)")
+async def add_pmsg(cust_msg):
+    """Set your own Unapproved message"""
+    if not PM_AUTO_BAN:
+        return await cust_msg.edit("** Anda Harus Menyetel** `PM_AUTO_BAN` **Ke** `True`")
+    try:
+        import ironbot.modules.sql_helper.globals as sql
+    except AttributeError:
+        await cust_msg.edit("`Running on Non-SQL mode!`")
+        return
+
+    await cust_msg.edit("`Sedang Memproses...`")
+    conf = cust_msg.pattern_match.group(1)
+
+    custom_message = sql.gvarstatus("unapproved_msg")
+
+    if conf.lower() == "set":
+        message = await cust_msg.get_reply_message()
+        status = "Pesan"
+
+        # check and clear user unapproved message first
+        if custom_message is not None:
+            sql.delgvar("unapproved_msg")
+            status = "Pesan"
+
+        if message:
+            # TODO: allow user to have a custom text formatting
+            # eg: bold, underline, striketrough, link
+            # for now all text are in monoscape
+            msg = message.message  # get the plain text
+            sql.addgvar("unapproved_msg", msg)
+        else:
+            return await cust_msg.edit("`Mohon Balas Ke Pesan`")
+
+        await cust_msg.edit("`Pesan Berhasil Disimpan Ke Room Chat`")
+
+        if BOTLOG:
+            await cust_msg.client.send_message(
+                BOTLOG_CHATID, f"**{status} PM Yang Tersimpan Dalam Room Chat Anda:** \n\n{msg}"
+            )
+
+    if conf.lower() == "reset":
+        if custom_message is not None:
+            sql.delgvar("unapproved_msg")
+            await cust_msg.edit("`Anda Telah Menghapus Pesan Custom PM Ke Default`")
+        else:
+            await cust_msg.edit("`Pesan PM Anda Sudah Default Sejak Awal`")
+
+    if conf.lower() == "get":
+        if custom_message is not None:
+            await cust_msg.edit(
+                "**Ini Adalah Pesan PM Yang Sekarang Dikirimkan Ke Room Chat Anda:**" f"\n\n{custom_message}"
+            )
+        else:
+            await cust_msg.edit(
+                "*Anda Belum Menyetel Pesan PM*\n"
+                f"Masih Menggunakan Pesan PM Default: \n\n`{DEF_UNAPPROVED_MSG}`"
+            )
+
 
 CmdHelp('pmpermit').add_command(
     'approve', None, 'Memberi izin untuk PM.', 
