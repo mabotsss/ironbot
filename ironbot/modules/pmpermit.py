@@ -45,7 +45,7 @@ async def permitpm(event):
             if getmsg is not None:
                 UNAPPROVED_MSG = getmsg
             else:
-                UNAPPROVED_MSG = UNAPPROVED_MSG
+                UNAPPROVED_MSG = PLUGIN_MESAJLAR['pm']
 
             reply_user = await event.get_sender()
             id = reply_user.id
