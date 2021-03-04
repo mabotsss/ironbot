@@ -6,7 +6,7 @@ from os import remove
 from ironbot import CMD_HELP, IRON_VERSION, bot, ALIVE_LOGO, ALIVE_NAME
 from ironbot.events import register
 from ironbot.main import PLUGIN_MESAJLAR
-from telethon import version
+from telethon import __version__, version
 from platform import python_version
 from ironbot.cmdhelp import CmdHelp
 import platform
