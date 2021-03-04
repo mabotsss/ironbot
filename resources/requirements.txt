@@ -61,3 +61,4 @@ cairosvg
 imagedown
 validators
 wget
+psutil
