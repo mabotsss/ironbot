@@ -156,6 +156,7 @@ async def auto_accept(event):
     if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and not (
             await event.get_sender()).bot:
         try:
+            from ironbot.modules.sql_helper.globals import gvarstatus
             from ironbot.modules.sql_helper.pm_permit_sql import is_approved
             from ironbot.modules.sql_helper.pm_permit_sql import approve
         except AttributeError:
@@ -234,10 +235,11 @@ async def notifon(non_event):
     await non_event.edit(LANG['NOTIFON'])
 
 
-@register(outgoing=True, pattern="^.approve$")
+@register(outgoing=True, pattern="^.approve$|^.ap$")
 async def approvepm(apprvpm):
     try:
         from ironbot.modules.sql_helper.pm_permit_sql import approve
+        from ironbot.modules.sql_helper.globals import gvarstatus
     except:
         await apprvpm.edit("`Bot Non-SQL bekerja!!`")
         return
@@ -297,10 +299,11 @@ async def approvepm(apprvpm):
         )
 
 
-@register(outgoing=True, pattern="^.disapprove$")
+@register(outgoing=True, pattern="^.disapprove$|^.dp$")
 async def disapprovepm(disapprvpm):
     try:
         from ironbot.modules.sql_helper.pm_permit_sql import dissprove
+        from ironbot.modules.sql_helper.globals import gvarstatus
     except:
         await disapprvpm.edit("`Bot Non-SQL bekerja!!`")
         return
