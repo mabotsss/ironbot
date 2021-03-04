@@ -170,7 +170,7 @@ async def dyno_usage(dyno):
                 "╰━┷━━━━━━━━━━━━━━━━┷━╯"
             )
     await asyncio.sleep(20)
-    await dyno.delete()
+    await event.delete()
 
 @register(outgoing=True, pattern=r"^\.logs")
 async def _(dyno):
