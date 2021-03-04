@@ -191,7 +191,7 @@ async def amireallyalive(alive):
         f"**♛ Iron** \n"
         f" ➥ [{me.first_name}](tg://user?id={me.id}) \n"
         f"**♛ Username** \n"
-        f" ➥ `@{user.username}` \n"
+        f" ➥ @{user.username} \n"
         f"┏━━━━━━━━━━━━━━━━━━━\n"
         f"┣[• `Telethon :`Ver {version.__version__} \n"
         f"┣[• `Python   :`Ver {python_version()} \n"
@@ -200,14 +200,8 @@ async def amireallyalive(alive):
         f"┣[• `Uptime   :`{uptime} \n"
         f"┗━━━━━━━━━━━━━━━━━━━")
     if ALIVE_LOGO:
-        await bot.send_message(
-            alive.chat_id,
-            ALIVE_LOGO,
-            output,
-            reply_to=alive.message.reply_to_msg_id,
-            force_document=False,
-            silent=True,
-        )
+        logo = ALIVE_LOGO
+        msg = await bot.send_file(alive.chat_id, logo, caption=output)
         await alive.delete()
     else:
         await alive.edit(output)
