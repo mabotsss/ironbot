@@ -234,7 +234,7 @@ async def notifon(non_event):
     await non_event.edit(LANG['NOTIFON'])
 
 
-@register(outgoing=True, pattern="^.approve$|^.ap$")
+@register(outgoing=True, pattern="^.approve$")
 async def approvepm(apprvpm):
     try:
         from ironbot.modules.sql_helper.pm_permit_sql import approve
@@ -297,7 +297,7 @@ async def approvepm(apprvpm):
         )
 
 
-@register(outgoing=True, pattern="^.disapprove$|^.dp$")
+@register(outgoing=True, pattern="^.disapprove$")
 async def disapprovepm(disapprvpm):
     try:
         from ironbot.modules.sql_helper.pm_permit_sql import dissprove
