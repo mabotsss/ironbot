@@ -189,6 +189,18 @@ async def _(dyno):
     await dyno.edit(f"`Ini Logs Heroku Anda :`\n\nPaste Ke: [Nekobin]({url})")
     return os.remove("logs.txt")
 
+@register(outgoing=True, pattern=r"^\.xlogs")
+async def giblog(event):
+    if event.fwd_from:
+        return
+    herokuHelper = HerokuHelper(HEROKU_APPNAME, HEROKU_APIKEY)
+    logz = herokuHelper.getLog()
+    with open("logs.txt", "w") as log:
+        log.write(logz)
+    await event.delete()
+    await bot.send_file(
+        event.chat_id, "logs.txt", caption=f"**Logs Of {Config.HEROKU_APP_NAME}**"
+    )
 
 CmdHelp('heroku').add_command(
 'usage', None, 'Memberikan informasi tentang jam dyno..'
