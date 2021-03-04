@@ -45,7 +45,7 @@ async def permitpm(event):
             if getmsg is not None:
                 UNAPPROVED_MSG = getmsg
             else:
-                UNAPPROVED_MSG = PLUGIN_MESAJLAR['pm']
+                UNAPPROVED_MSG = UNAPPROVED_MSG
 
             reply_user = await event.get_sender()
             id = reply_user.id
@@ -58,7 +58,7 @@ async def permitpm(event):
             username = '@' + reply_user.username if reply_user.username else f'[{first_name} {last_name}](tg://user?id={id})'
             mention = f'[{first_name} {last_name}](tg://user?id={id})'
 
-            if not apprv and event.text != PLUGIN_MESAJLAR['pm']:
+            if not apprv and event.text != UNAPPROVED_MSG:
                 if event.chat_id in LASTMSG:
                     prevmsg = LASTMSG[event.chat_id]
                     if event.text != prevmsg:
@@ -66,7 +66,7 @@ async def permitpm(event):
                             async for message in event.client.iter_messages(
                                 event.chat_id,
                                 from_user='me',
-                                search=PLUGIN_MESAJLAR['pm'].format(
+                                search=UNAPPROVED_MSG.format(
                                     id=id,
                                     username=username,
                                     mention=first_name,
@@ -75,7 +75,7 @@ async def permitpm(event):
                                 )
                             ):
                                 await message.delete()
-                            await event.reply(PLUGIN_MESAJLAR['pm'].format(
+                            await event.reply(UNAPPROVED_MSG.format(
                                 id=id,
                                 username=username,
                                 mention=mention,
@@ -88,8 +88,8 @@ async def permitpm(event):
                                 from_user='me',
                                 limit=PM_AUTO_BAN_LIMIT + 1):
                                     await message.delete()
-                            if not PLUGIN_MESAJLAR['pm'].text == '':
-                                PLUGIN_MESAJLAR['pm'].text = PLUGIN_MESAJLAR['pm'].text.format(
+                            if not UNAPPROVED_MSG.text == '':
+                                UNAPPROVED_MSG.text = UNAPPROVED_MSG.text.format(
                                     id=id,
                                     username=username,
                                     mention=mention,
@@ -97,10 +97,10 @@ async def permitpm(event):
                                     last_name=last_name
                                 )
 
-                            await event.reply(PLUGIN_MESAJLAR['pm'])
+                            await event.reply(UNAPPROVED_MSG)
                     LASTMSG.update({event.chat_id: event.text})
                 else:
-                    await event.reply(PLUGIN_MESAJLAR['pm'].format(
+                    await event.reply(UNAPPROVED_MSG.format(
                                     id=id,
                                     username=username,
                                     mention=mention,
@@ -179,7 +179,7 @@ async def auto_accept(event):
                                                             reverse=True,
                                                             limit=1):
                 if type(PLUGIN_MESAJLAR['afk']) is str:
-                    if message.message is not PLUGIN_MESAJLAR['pm'].format(
+                    if message.message is not UNAPPROVED_MSG.format(
                                     id=id,
                                     username=username,
                                     mention=mention,
@@ -191,7 +191,7 @@ async def auto_accept(event):
                         except IntegrityError:
                             return
                 else:
-                    if message is not PLUGIN_MESAJLAR['pm'] and message.from_id == self_user.id:
+                    if message is not UNAPPROVED_MSG and message.from_id == self_user.id:
                         try:
                             approve(event.chat_id)
                         except IntegrityError:
@@ -267,7 +267,7 @@ async def approvepm(apprvpm):
     ))
     async for message in apprvpm.client.iter_messages(apprvpm.chat_id,
                                                       from_user='me',
-                                                      search=PLUGIN_MESAJLAR['pm'].format(
+                                                      search=UNAPPROVED_MSG.format(
         id=id,
         username=username,
         mention=first_name,
