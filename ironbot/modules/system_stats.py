@@ -180,7 +180,7 @@ async def ironalive(alive):
 @register(outgoing=True, pattern=r"^\.(?:xalive)\s?(.)?")
 async def amireallyalive(alive):
     user = await bot.get_me()
-    await get_readable_time((time.time() - Lastupdate))
+    uptime =  get_readable_time((time.time() - Lastupdate))
     output = (
         f" **┗┓ ----IRONBOT---- ┏┛** \n"
         f"**━━━━━━━━━━━━━━━━━━━━**\n"
@@ -200,14 +200,14 @@ async def amireallyalive(alive):
             logo = ALIVE_LOGO
             await alive.delete()
             msg = await bot.send_file(alive.chat_id, logo, caption=output)
-            await asyncio.sleep(200)
+            await asyncio.sleep(1)
             await msg.delete()
         except BaseException:
             await alive.edit(
                 output + "\n\n *`The provided logo is invalid."
                 "\nMake sure the link is directed to the logo picture`"
             )
-            await asyncio.sleep(100)
+            await asyncio.sleep(60)
             await alive.delete()
     else:
         await alive.edit(output)
