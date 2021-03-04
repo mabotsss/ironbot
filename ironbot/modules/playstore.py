@@ -4,7 +4,7 @@ import bs4
 import requests
 
 from ironbot.events import register
-from ironbot import CmdHelp
+from ironbot.cmdhelp import CmdHelp
 
 
 @register(outgoing=True, pattern=".playstore ?(.*)")
