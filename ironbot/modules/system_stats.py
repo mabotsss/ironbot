@@ -179,13 +179,16 @@ async def ironalive(alive):
 
 @register(outgoing=True, pattern=r"^\.(?:xalive)\s?(.)?")
 async def amireallyalive(alive):
+    if alive.fwd_from:
+        return
     user = await bot.get_me()
+    me = await alive.client.get_me()
     uptime =  get_readable_time((time.time() - Lastupdate))
     output = (
         f" **┗┓ ----IRONBOT---- ┏┛** \n"
         f"**━━━━━━━━━━━━━━━━━━━━**\n"
         f"**♛ Iron** \n"
-        f" ➥ `{DEFAULTUSER}` \n"
+        f" ➥ [{me.first_name}](tg://user?id={me.id}) \n"
         f"**♛ Username** \n"
         f" ➥ `@{user.username}` \n"
         f"┏━━━━━━━━━━━━━━━━━━━\n"
@@ -193,25 +196,21 @@ async def amireallyalive(alive):
         f"┣[• `Python   :`Ver {python_version()} \n"
         f"┣[• `Bot Ver  :`{IRON_VERSION} \n"
         f"┣[• `Modules  :`{len(CMD_HELP)} \n"
-        f"┣[• `Uptime  :`{uptime} \n"
+        f"┣[• `Uptime   :`{uptime} \n"
         f"┗━━━━━━━━━━━━━━━━━━━")
     if ALIVE_LOGO:
-        try:
-            logo = ALIVE_LOGO
-            await alive.delete()
-            msg = await bot.send_file(alive.chat_id, logo, caption=output)
-            await asyncio.sleep(1)
-            await msg.delete()
-        except BaseException:
-            await alive.edit(
-                output + "\n\n *`The provided logo is invalid."
-                "\nMake sure the link is directed to the logo picture`"
-            )
-            await asyncio.sleep(60)
-            await alive.delete()
+        await bot.send_message(
+            alive.chat_id,
+            ALIVE_LOGO,
+            output,
+            reply_to=alive.message.reply_to_msg_id,
+            force_document=False,
+            silent=True,
+        )
+        await alive.delete()
     else:
         await alive.edit(output)
-        await asyncio.sleep(100)
+        await asyncio.sleep(60)
         await alive.delete()
 
 
