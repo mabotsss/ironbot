@@ -148,37 +148,7 @@ async def pipcheck(pip):
     else:
         await pip.edit(LANG['EXAMPLE'])
 
-
-@register(outgoing=True, pattern="^.alive$|^.on$")
-async def ironalive(alive):
-    if alive.fwd_from:
-        return
-    me = await alive.client.get_me()
-    uptime = get_readable_time((time.time() - Lastupdate))
-    await alive.get_chat()
-    pm_caption = (
-         "╭━━━━━━| 𝙸𝚁𝙾𝙽𝙱𝙾𝚃 |━━━━━━╮\n"
-        f"┣•👤 [{me.first_name}](tg://user?id={me.id})\n"
-        f"┣▰▱▰▱▰▱▰▱▰▱▰▱▰▱\n"
-        f"┣[•🤖 `Iron Ver : {IRON_VERSION} `\n"
-        f"┣[•🐍 `Python.  : v.{python_version()} `\n"
-        f"┣[•⚙️ `Telethon : v.{version.__version__} `\n"
-        f"┣[•💡 `Base on  : master `\n"
-        f"┣[•📍 `Plugin.  : {len(CMD_HELP)} `\n"
-        f"┣[•🕒 `Uptime.  : {uptime} `\n"
-        f"╰━━━━━━━━━━━━━━━━━━━━╯\n"         
-    )
-    
-    await bot.send_message(
-        alive.chat_id,
-        pm_caption,
-        reply_to=alive.message.reply_to_msg_id,
-        force_document=False,
-        silent=True,
-    )
-    await alive.delete()
-
-@register(outgoing=True, pattern=r"^\.(?:xalive)\s?(.)?")
+@register(outgoing=True, pattern=r"^\.(?:alive|on)\s?(.)?")
 async def amireallyalive(alive):
     if alive.fwd_from:
         return
@@ -186,26 +156,26 @@ async def amireallyalive(alive):
     me = await alive.client.get_me()
     uptime =  get_readable_time((time.time() - Lastupdate))
     output = (
-        f" **┗┓ ----IRONBOT---- ┏┛** \n"
+        f"    **┗┓ ----IRONBOT---- ┏┛** \n"
         f"**━━━━━━━━━━━━━━━━━━━━**\n"
         f"**♛ Iron** \n"
         f" ➥ [{me.first_name}](tg://user?id={me.id}) \n"
         f"**♛ Username** \n"
         f" ➥ @{user.username} \n"
         f"┏━━━━━━━━━━━━━━━━━━━\n"
-        f"┣[• `Telethon :`Ver {version.__version__} \n"
-        f"┣[• `Python   :`Ver {python_version()} \n"
-        f"┣[• `Bot Ver  :`{IRON_VERSION} \n"
-        f"┣[• `Modules  :`{len(CMD_HELP)} \n"
-        f"┣[• `Uptime   :`{uptime} \n"
+        f"┣[•⚙️ `Telethon :`Ver {version.__version__} \n"
+        f"┣[•🐍 `Python   :`Ver {python_version()} \n"
+        f"┣[•🤖 `Bot Ver  :`{IRON_VERSION} \n"
+        f"┣[•💡 `Base on  :`master \n"
+        f"┣[•⛑️ `Modules  :`{len(CMD_HELP)} \n"
+        f"┣[•🕒 `Uptime   :`{uptime} \n"
         f"┗━━━━━━━━━━━━━━━━━━━")
     if ALIVE_LOGO:
         logo = ALIVE_LOGO
         msg = await bot.send_file(alive.chat_id, logo, caption=output)
         await alive.delete()
     else:
-        await alive.edit(output)
-        await asyncio.sleep(60)
+        msg = await bot.send_file(alive.chat_id, caption=output)
         await alive.delete()
 
 
