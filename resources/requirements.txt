@@ -63,3 +63,4 @@ validators
 wget
 psutil
 jikanpy
+pendulum
