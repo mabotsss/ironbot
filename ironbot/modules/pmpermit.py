@@ -161,6 +161,12 @@ async def auto_accept(event):
         except AttributeError:
             return
 
+        getmsg = gvarstatus("unapproved_msg")
+        if getmsg is not None:
+            UNAPPROVED_MSG = getmsg
+        else:
+            UNAPPROVED_MSG = PLUGIN_MESAJLAR['pm']
+
         chat = await event.get_chat()
         id = chat.id
         first_name = str(chat.first_name)
@@ -228,7 +234,7 @@ async def notifon(non_event):
     await non_event.edit(LANG['NOTIFON'])
 
 
-@register(outgoing=True, pattern="^.approve$")
+@register(outgoing=True, pattern="^.approve$|^.ap$")
 async def approvepm(apprvpm):
     try:
         from ironbot.modules.sql_helper.pm_permit_sql import approve
@@ -241,6 +247,13 @@ async def approvepm(apprvpm):
         reply_user = await apprvpm.client.get_entity(reply.from_id)
     else:
         reply_user = await apprvpm.client.get_entity(apprvpm.chat_id)
+
+    getmsg = gvarstatus("unapproved_msg")
+    if getmsg is not None:
+         UNAPPROVED_MSG = getmsg
+    else:
+         UNAPPROVED_MSG = PLUGIN_MESAJLAR['pm']
+
 
     id = reply_user.id
     first_name = str(reply_user.first_name)
@@ -274,6 +287,7 @@ async def approvepm(apprvpm):
         first_name=first_name,
         last_name=last_name
     )):
+    	await apprvpm.delete(getmsg)
         await message.delete()
 
     if BOTLOG:
@@ -283,7 +297,7 @@ async def approvepm(apprvpm):
         )
 
 
-@register(outgoing=True, pattern="^.disapprove$")
+@register(outgoing=True, pattern="^.disapprove$|^.dp$")
 async def disapprovepm(disapprvpm):
     try:
         from ironbot.modules.sql_helper.pm_permit_sql import dissprove
