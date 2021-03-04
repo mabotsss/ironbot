@@ -1,6 +1,6 @@
 {
-  "name": "Iron UserBot",
-  "description": "Iron UserBot",
+  "name": "Ironbot",
+  "description": "Ironbot",
   "logo": "https://telegra.ph/file/aece629756cbb1899be93.jpg",
   "keywords": [
     "telegram",
@@ -50,16 +50,6 @@
       "description": "Jika anda memakai fork.",
       "value": "https://github.com/mabotsss/ironbot",
       "required": true
-    },
-    "COUNTRY": {
-      "description": "Tetapkan negara Anda untuk digunakan dalam perintah .time dan .date. Pengaturan default adalah Indonesia.",
-      "value": "Indonesia",
-      "required": false
-    },
-    "TZ_NUMBER": {
-      "description": "Ubah nilai ini jika negara Anda memiliki lebih dari satu Zona Waktu.",
-      "value": "1",
-      "required": false
     },
     "TZ": {
       "description": "TimeZone kotamu :)",
@@ -116,37 +106,26 @@
       "value": "4",
       "required": false
     },
-    "YOUTUBE_API_KEY": {
-      "description": ".yt Dapatkan API Key di https://console.cloud.google.com.",
-      "required": false
-    },
-    "OCR_SPACE_API_KEY": {
-      "description": ".ocr Dapatkan OCR API Key. https://ocr.space/ocrapi.",
-      "required": false
-    },
     "REM_BG_API_KEY": {
       "description": ".rbg Dapatkan API Key. https://www.remove.bg/api",
       "required": false
     },
-    "TMP_DOWNLOAD_DIRECTORY": {
+    "TEMP_DOWNLOAD_DIRECTORY": {
       "description": "tmp file (GDrive, .download vb..)",
       "value": "./downloads/"
-    },
-    "G_DRIVE_CLIENT_ID": {
-      "description": "Google Drive client id.",
-      "required": false
     },
     "DEFAULT_BIO": {
       "description": "Default bio telegram.",
       "value": "@freedom_reborn",
       "required": false
     },
-    "G_DRIVE_CLIENT_SECRET": {
-      "description": "Google Drive client secret.",
+    "G_DRIVE_DATA": {
+      "description": "Masukkan data Authentikasi Google Drive sebagai struktur JSON.",
       "required": false
     },
-    "G_DRIVE_AUTH_TOKEN_DATA": {
-      "description": "Masukkan data Authentikasi Google Drive sebagai struktur JSON.",
+    "G_DRIVE_FOLDER_ID": {
+      "description": "Lokasi folder buat Google Drive.",
+      "value": "./downloads/",
       "required": false
     },
     "WEATHER_DEFCITY": {

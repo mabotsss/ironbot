@@ -21,7 +21,7 @@ LANG = get_value("pmpermit")
 async def permitpm(event):
     if PM_AUTO_BAN:
         self_user = await event.client.get_me()
-        if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and event.chat_id != WHITELIST and not (
+        if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and not (
                 await event.get_sender()).bot:
             try:
                 from ironbot.modules.sql_helper.pm_permit_sql import is_approved
@@ -143,7 +143,7 @@ async def auto_accept(event):
     if not PM_AUTO_BAN:
         return
     self_user = await event.client.get_me()
-    if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and event.chat_id != WHITELIST and not (
+    if event.is_private and event.chat_id != 777000 and event.chat_id != self_user.id and not (
             await event.get_sender()).bot:
         try:
             from ironbot.modules.sql_helper.globals import gvarstatus

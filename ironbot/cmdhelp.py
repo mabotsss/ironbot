@@ -29,10 +29,7 @@ class CmdHelp:
         return self
         
     def add_command(self, command : str, params = None, usage: str = '', example = None):
-        """
-        Komut ekler.
-        """
-        
+     
         self.COMMANDS[command] = {'command': command, 'params': params, 'usage': usage, 'example': example}
         return self
     
@@ -45,9 +42,6 @@ class CmdHelp:
         return self
 
     def get_result(self):
-        """
-        Sonuç getirir.
-        """
 
         result = f"**📗 Mengajukan:** `{self.FILE}`\n"
         if self.WARNING == '' and self.INFO == '':
@@ -78,9 +72,6 @@ class CmdHelp:
         return result
 
     def add(self):
-        """
-        Direkt olarak CMD_HELP ekler.
-        """
         CMD_HELP_BOT[self.FILE] = {'info': {'official': self.IS_OFFICIAL, 'warning': self.WARNING, 'info': self.INFO}, 'commands': self.COMMANDS}
         CMD_HELP[self.FILE] = self.get_result()
         return True
