@@ -62,3 +62,10 @@ imagedown
 validators
 wget
 psutil
+jikanpy
+vcsi
+lottie
+wand
+colour
+scipy
+wordcloud
