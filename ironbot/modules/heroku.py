@@ -114,59 +114,49 @@ async def set_var(var):
 
 @register(outgoing=True, pattern=r"^.usage(?: |$)")
 async def dyno_usage(dyno):
-    """
-        Get your account Dyno Usage
-    """
-    await dyno.edit("`Mendapatkan Informasi Dyno Heroku Anda ヅ`")
-    useragent = (
-        'Mozilla/5.0 (Linux; Android 10; SM-G975F) '
-        'AppleWebKit/537.36 (KHTML, like Gecko) '
-        'Chrome/81.0.4044.117 Mobile Safari/537.36'
-    )
-    user_id = Heroku.account().id
+    await dyno.edit("`Mendapatkan Informasi Dyno Heroku Anda ヅ...`")
+    useragent = ('Mozilla/5.0 (Linux; Android 10; SM-G975F) '
+                 'AppleWebKit/537.36 (KHTML, like Gecko) '
+                 'Chrome/80.0.3987.149 Mobile Safari/537.36'
+                 )
+    u_id = Heroku.account().id
     headers = {
-        'User-Agent': useragent,
-        'Authorization': f'Bearer {HEROKU_APIKEY}',
-        'Accept': 'application/vnd.heroku+json; version=3.account-quotas',
+     'User-Agent': useragent,
+     'Authorization': f'Bearer {HEROKU_APIKEY}',
+     'Accept': 'application/vnd.heroku+json; version=3.account-quotas',
     }
-    path = "/accounts/" + user_id + "/actions/get-quota"
-    async with aiohttp.ClientSession() as session:
-        async with session.get(heroku_api + path, headers=headers) as r:
-            if r.status != 200:
-                await dyno.client.send_message(
-                    dyno.chat_id,
-                    f"`{r.reason}`",
-                    reply_to=dyno.id
-                )
-                await dyno.edit("`Tidak Bisa Mendapatkan Informasi Dyno ヅ`")
-                return False
-            result = await r.json()
-            quota = result['account_quota']
-            quota_used = result['quota_used']
+    path = "/accounts/" + u_id + "/actions/get-quota"
+    r = requests.get(heroku_api + path, headers=headers)
+    if r.status_code != 200:
+        return await dyno.edit("`Tidak Bisa Mendapatkan Informasi Dyno ヅ`\n\n"
+                               f">.`{r.reason}`\n")
+    result = r.json()
+    quota = result['account_quota']
+    quota_used = result['quota_used']
 
-            """ - User Quota Limit and Used - """
-            remaining_quota = quota - quota_used
-            percentage = math.floor(remaining_quota / quota * 100)
-            minutes_remaining = remaining_quota / 60
-            hours = math.floor(minutes_remaining / 60)
-            minutes = math.floor(minutes_remaining % 60)
+    """ - Used - """
+    remaining_quota = quota - quota_used
+    percentage = math.floor(remaining_quota / quota * 100)
+    minutes_remaining = remaining_quota / 60
+    hours = math.floor(minutes_remaining / 60)
+    minutes = math.floor(minutes_remaining % 60)
 
-            """ - User App Used Quota - """
-            Apps = result['apps']
-            for apps in Apps:
-                if apps.get('app_uuid') == app.id:
-                    AppQuotaUsed = apps.get('quota_used') / 60
-                    AppPercentage = math.floor(
-                        apps.get('quota_used') * 100 / quota)
-                    break
-            else:
-                AppQuotaUsed = 0
-                AppPercentage = 0
+    """ - Current - """
+    App = result['apps']
+    try:
+        App[0]['quota_used']
+    except IndexError:
+        AppQuotaUsed = 0
+        AppPercentage = 0
+    else:
+        AppQuotaUsed = App[0]['quota_used'] / 60
+        AppPercentage = math.floor(App[0]['quota_used'] * 100 / quota)
+    AppHours = math.floor(AppQuotaUsed / 60)
+    AppMinutes = math.floor(AppQuotaUsed % 60)
 
-            AppHours = math.floor(AppQuotaUsed / 60)
-            AppMinutes = math.floor(AppQuotaUsed % 60)
-
-            await dyno.edit(
+    await asyncio.sleep(1.5)
+    
+    return await dyno.edit(
                 "**☛ Informasi Dyno**:\n\n╭━┯━━━━━━━━━━━━━━━━┯━╮\n"
                 f"✥ `Penggunaan Dyno` **{app.name}**:\n"
                 f"  ❉ **{AppHours} Jam - "
@@ -177,9 +167,6 @@ async def dyno_usage(dyno):
                 f"-  {percentage}%**\n"
                 "╰━┷━━━━━━━━━━━━━━━━┷━╯"
             )
-            await asyncio.sleep(20)
-            await event.delete()
-            return True
 
 
 @register(outgoing=True, pattern=r"^\.logs")
