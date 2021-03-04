@@ -175,7 +175,7 @@ async def amireallyalive(alive):
         msg = await bot.send_file(alive.chat_id, logo, caption=output)
         await alive.delete()
     else:
-        msg = await borg.send_message(alive.chat_id, output, reply_to=alive.message.reply_to_msg_id, force_document=False, silent=True )
+        msg = await bot.send_message(alive.chat_id, output, reply_to=alive.message.reply_to_msg_id, force_document=False, silent=True )
         await alive.delete()
 
 
