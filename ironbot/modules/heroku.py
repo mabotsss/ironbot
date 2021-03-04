@@ -157,7 +157,7 @@ async def dyno_usage(dyno):
     await asyncio.sleep(1.5)
     
     return await dyno.edit(
-                "**☛ Informasi Dyno**:\n\n╭━┯━━━━━━━━━━━━━━━━┯━╮\n"
+                f"**☛ Informasi Dyno**: {app.name}\n\n╭━┯━━━━━━━━━━━━━━━━┯━╮\n"
                 f"✥ `Penggunaan Dyno` **{app.name}**:\n"
                 f"  ❉ **{AppHours} Jam - "
                 f"{AppMinutes} Menit  -  {AppPercentage}%**"

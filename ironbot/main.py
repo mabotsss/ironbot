@@ -61,7 +61,7 @@ AFKSTR = [
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
 
 UNAPPROVED_MSG = (
-    "━━━━━━━━━━━━━━━━━━━━\n"
+    "━━━━━━━━━━━━━━━━━━━━\n\n"
     "`Hey,` {mention}`! .\n\n`"
    f"`Maboss` {DEFAULTUSER} `lagi sibuk.`"
     "`Harap tunggu boss saya aktif dan membalas pesan ini.\n\n`"

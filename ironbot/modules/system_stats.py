@@ -3,7 +3,7 @@ from asyncio.subprocess import PIPE as asyncPIPE
 from platform import uname
 from shutil import which
 from os import remove
-from ironbot import CMD_HELP, IRON_VERSION, bot
+from ironbot import CMD_HELP, IRON_VERSION, bot, ALIVE_LOGO, ALIVE_NAME
 from ironbot.events import register
 from ironbot.main import PLUGIN_MESAJLAR
 from telethon import version
@@ -14,8 +14,8 @@ import sys
 import os
 
 # ================= CONSTANT =================
-DEFAULTUSER = uname().node
-# ██████ LANGUAGE CONSTANTS ██████ #
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
+# ============================================
 
 from ironbot.language import get_value
 LANG = get_value("system_stats")
@@ -26,7 +26,7 @@ def get_readable_time(seconds: int) -> str:
     count = 0
     ping_time = ""
     time_list = []
-    time_suffix_list = ["s", "m", "h", "days"]
+    time_suffix_list = ["Dtk", "Mnt", "Jam", "Hari"]
 
     while count < 4:
         count += 1
@@ -176,6 +176,44 @@ async def ironalive(alive):
         silent=True,
     )
     await alive.delete()
+
+@register(outgoing=True, pattern=r"^\.(?:xalive)\s?(.)?")
+async def amireallyalive(alive):
+    user = await bot.get_me()
+    await get_readable_time((time.time() - StartTime))
+    output = (
+        f" **┗┓ ----IRONBOT---- ┏┛** \n"
+        f"**━━━━━━━━━━━━━━━━━━━━**\n"
+        f"**♛ Iron** \n"
+        f" ➥ `{DEFAULTUSER}` \n"
+        f"**♛ Username** \n"
+        f" ➥ `@{user.username}` \n"
+        f"┏━━━━━━━━━━━━━━━━━━━\n"
+        f"┣[• `Telethon :`Ver {version.__version__} \n"
+        f"┣[• `Python   :`Ver {python_version()} \n"
+        f"┣[• `Bot Ver  :`{IRON_VERSION} \n"
+        f"┣[• `Modules  :`{len(CMD_HELP)} \n"
+        f"┣[• `Uptime  :`{uptime} \n"
+        f"┗━━━━━━━━━━━━━━━━━━━")
+    if ALIVE_LOGO:
+        try:
+            logo = ALIVE_LOGO
+            await alive.delete()
+            msg = await bot.send_file(alive.chat_id, logo, caption=output)
+            await asyncio.sleep(200)
+            await msg.delete()
+        except BaseException:
+            await alive.edit(
+                output + "\n\n *`The provided logo is invalid."
+                "\nMake sure the link is directed to the logo picture`"
+            )
+            await asyncio.sleep(100)
+            await alive.delete()
+    else:
+        await alive.edit(output)
+        await asyncio.sleep(100)
+        await alive.delete()
+
 
 
 CmdHelp('system_stats').add_command(

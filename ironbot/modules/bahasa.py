@@ -55,7 +55,7 @@ async def dil(event):
                 f"**Kode Bahasa: **`{dosya['LANGCODE']}`\n"
                 f"**Penerjemah: **`{dosya['AUTHOR']}`\n"
 
-                f"\n\n`Gunakan perintah .bahasa install untuk mengunggah file.`"
+                f"\n`Gunakan perintah .bahasa install untuk mengunggah file.`"
             )
         else:
             await event.edit("**Harap balas ke file bahasa!**")
@@ -65,7 +65,7 @@ async def dil(event):
             f"**Kode Bahasa: **`{LANGUAGE_JSON['LANGCODE']}`\n"
             f"**Penerjemah: **`{LANGUAGE_JSON ['AUTHOR']}`\n"
 
-            f"\n\nUntuk bahasa lain, silahkan req ke Developer."
+            f"\nUntuk bahasa lain, silahkan req ke Developer."
         )
 
 CmdHelp('bahasa').add_command(

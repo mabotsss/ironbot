@@ -57,6 +57,8 @@ if not LANGUAGE in ["EN", "TR", "AZ", "UZ", "DEFAULT"]:
 IRON_VERSION = "v3.0.7"
 
 ALIVE_NAME = os.environ.get("ALIVE_NAME", None)
+ALIVE_LOGO = os.environ.get(
+    "ALIVE_LOGO") or "https://telegra.ph/file/aece629756cbb1899be93.jpg"
 
 API_KEY = os.environ.get("API_KEY", None)
 API_HASH = os.environ.get("API_HASH", None)
