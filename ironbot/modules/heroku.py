@@ -203,7 +203,7 @@ async def giblog(event):
         log.write(app.get_log())
     await event.delete()
     await bot.send_file(
-        event.chat_id, "logs.txt", caption=f"**Logs Of {Config.HEROKU_APP_NAME}**"
+        event.chat_id, "logs.txt", caption=f"**Logs Of {HEROKU_APPNAME}**"
     )
 
 CmdHelp('heroku').add_command(
