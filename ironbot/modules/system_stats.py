@@ -12,6 +12,7 @@ from ironbot.cmdhelp import CmdHelp
 import time
 import sys
 import os
+import asyncio
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
