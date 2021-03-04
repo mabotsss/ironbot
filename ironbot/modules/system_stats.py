@@ -9,6 +9,7 @@ from ironbot.main import PLUGIN_MESAJLAR
 from telethon import version
 from platform import python_version
 from ironbot.cmdhelp import CmdHelp
+import platform
 import time
 import sys
 import os
