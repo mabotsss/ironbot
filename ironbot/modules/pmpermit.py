@@ -209,7 +209,7 @@ async def notifoff(noff_event):
     try:
         from ironbot.modules.sql_helper.globals import addgvar
     except AttributeError:
-        await noff_event.edit("`Bot Non-SQL bekerja!!`")
+        await noff_event.edit("`Bot Non-SQL !!`")
         return
     addgvar("NOTIF_OFF", True)
     await noff_event.edit(LANG['NOTIFOFF'])
@@ -220,19 +220,19 @@ async def notifon(non_event):
     try:
         from ironbot.modules.sql_helper.globals import delgvar
     except:
-        await non_event.edit("`Bot Non-SQL bekerja!!`")
+        await non_event.edit("`Bot Non-SQL!!`")
         return
     delgvar("NOTIF_OFF")
     await non_event.edit(LANG['NOTIFON'])
 
 
-@register(outgoing=True, pattern="^.approve$|^.ap$")
+@register(outgoing=True, pattern=r"^\.(?:approve|ap|allow)\s?(.)?")
 async def approvepm(apprvpm):
     try:
         from ironbot.modules.sql_helper.pm_permit_sql import approve
         from ironbot.modules.sql_helper.globals import gvarstatus
     except:
-        await apprvpm.edit("`Bot Non-SQL bekerja!!`")
+        await apprvpm.edit("`Bot Non-SQL!!`")
         return
 
     if apprvpm.reply_to_msg_id:
@@ -282,7 +282,7 @@ async def approvepm(apprvpm):
     )):
     	#await apprvpm.delete(getmsg)
         await message.delete()
-        await asyncio.sleep(2)
+        await asyncio.sleep(3)
     await apprvpm.delete()
     if BOTLOG:
         await apprvpm.client.send_message(
@@ -291,13 +291,13 @@ async def approvepm(apprvpm):
         )
 
 
-@register(outgoing=True, pattern="^.disapprove$|^.dp$")
+@register(outgoing=True, pattern=r"^\.(?:disapprove|nopm|dp)\s?(.)?")
 async def disapprovepm(disapprvpm):
     try:
         from ironbot.modules.sql_helper.pm_permit_sql import dissprove
         from ironbot.modules.sql_helper.globals import gvarstatus
     except:
-        await disapprvpm.edit("`Bot Non-SQL bekerja!!`")
+        await disapprvpm.edit("`Bot Non-SQL !!`")
         return
 
     if disapprvpm.reply_to_msg_id:
@@ -321,7 +321,7 @@ async def disapprovepm(disapprvpm):
         )
 
 
-@register(outgoing=True, pattern="^.block$")
+@register(outgoing=True, pattern=r"^.block$")
 async def blockpm(block):
     if block.reply_to_msg_id:
         reply = await block.get_reply_message()
@@ -388,7 +388,7 @@ async def blockpm(block):
         )
 
 
-@register(outgoing=True, pattern="^.unblock$")
+@register(outgoing=True, pattern=r"^.unblock$")
 async def unblockpm(unblock):
     if unblock.reply_to_msg_id:
         reply = await unblock.get_reply_message()
