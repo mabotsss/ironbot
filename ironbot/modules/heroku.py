@@ -11,7 +11,9 @@ from ironbot import (
     HEROKU_APIKEY,
     BOTLOG,
     BOTLOG_CHATID,
-    CMD_HELP)
+    CMD_HELP,
+    bot)
+    
 from ironbot.events import register
 from ironbot.cmdhelp import CmdHelp
 
