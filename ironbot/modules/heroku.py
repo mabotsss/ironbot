@@ -156,7 +156,7 @@ async def dyno_usage(dyno):
     AppHours = math.floor(AppQuotaUsed / 60)
     AppMinutes = math.floor(AppQuotaUsed % 60)
 
-    await asyncio.sleep(1.5)
+    await asyncio.sleep(1)
     
     return await dyno.edit(
                 f"**☛ Informasi Dyno**: {app.name}\n\n╭━┯━━━━━━━━━━━━━━━━┯━╮\n"
@@ -169,7 +169,8 @@ async def dyno_usage(dyno):
                 f"-  {percentage}%**\n"
                 "╰━┷━━━━━━━━━━━━━━━━┷━╯"
             )
-
+    await asyncio.sleep(20)
+    awai dyno.delete()
 
 @register(outgoing=True, pattern=r"^\.logs")
 async def _(dyno):
@@ -197,8 +198,6 @@ async def giblog(event):
         return
     Heroku = heroku3.from_key(HEROKU_APIKEY)
     app = Heroku.app(HEROKU_APPNAME)
-  #  herokuHelper = HerokuHelper(HEROKU_APPNAME, HEROKU_APIKEY)
-  #  logz = herokuHelper.getLog()
     with open("logs.txt", "w") as log:
         log.write(app.get_log())
     await event.delete()
