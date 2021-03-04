@@ -8,6 +8,7 @@ from ironbot import (COUNT_PM, CMD_HELP, BOTLOG, BOTLOG_CHATID,
 from ironbot.events import register
 from ironbot.main import PLUGIN_MESAJLAR
 from ironbot.cmdhelp import CmdHelp
+import asyncio
 
 # ██████ LANGUAGE CONSTANTS ██████ #
 
@@ -281,7 +282,8 @@ async def approvepm(apprvpm):
     )):
     	#await apprvpm.delete(getmsg)
         await message.delete()
-
+        await asyncio.sleep(2)
+    await apprvpm.delete()
     if BOTLOG:
         await apprvpm.client.send_message(
             BOTLOG_CHATID,

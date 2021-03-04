@@ -234,13 +234,13 @@ async def amireallyalive(alive):
         f"┗━━━━━━━━━━━━━━━━━━━")
     if ALIVE_LOGO:
         logo = ALIVE_LOGO
-        msg = await bot.send_file(alive.chat_id, logo, caption=output)
         await alive.delete()
+        msg = await bot.send_file(alive.chat_id, logo, caption=output)
         await asyncio.sleep(60)
         await msg.delete()
     else:
-        msg = await bot.send_message(alive.chat_id, output, reply_to=alive.message.reply_to_msg_id, force_document=False, silent=True )
         await alive.delete()
+        msg = await bot.send_message(alive.chat_id, output, reply_to=alive.message.reply_to_msg_id, force_document=False, silent=True )
         await asyncio.sleep(60)
         await msg.delete()
 
