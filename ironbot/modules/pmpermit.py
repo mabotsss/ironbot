@@ -289,7 +289,7 @@ async def approvepm(apprvpm):
         first_name=first_name,
         last_name=last_name
     )):
-    	await apprvpm.delete(getmsg)
+    	#await apprvpm.delete(getmsg)
     await message.delete()
 
     if BOTLOG:
