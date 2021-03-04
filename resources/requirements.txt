@@ -19,7 +19,7 @@ hachoir
 httplib2
 humanize
 heroku3
-lxml==4.5.2
+lxml
 git+https://github.com/johnwmillr/LyricsGenius.git
 lyricsgenius
 oauth2client
