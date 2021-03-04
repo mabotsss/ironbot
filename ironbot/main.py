@@ -147,7 +147,6 @@ try:
     bot.start()
     idim = bot.get_me().id
     ironbl = requests.get('https://raw.githubusercontent.com/mabotsss/ironbot/master/resources/iron.json').json()
-   # ironbl = requests.get('https://gitlab.com/Quiec/asen/-/raw/master/asen.json').json()
     if idim in ironbl:
         bot.disconnect()
 
