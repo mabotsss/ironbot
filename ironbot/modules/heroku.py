@@ -193,10 +193,12 @@ async def _(dyno):
 async def giblog(event):
     if event.fwd_from:
         return
-    herokuHelper = HerokuHelper(HEROKU_APPNAME, HEROKU_APIKEY)
-    logz = herokuHelper.getLog()
+    Heroku = heroku3.from_key(HEROKU_APIKEY)
+    app = Heroku.app(HEROKU_APPNAME)
+  #  herokuHelper = HerokuHelper(HEROKU_APPNAME, HEROKU_APIKEY)
+  #  logz = herokuHelper.getLog()
     with open("logs.txt", "w") as log:
-        log.write(logz)
+        log.write(app.get_log())
     await event.delete()
     await bot.send_file(
         event.chat_id, "logs.txt", caption=f"**Logs Of {Config.HEROKU_APP_NAME}**"
