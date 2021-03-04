@@ -477,4 +477,10 @@ CmdHelp('pmpermit').add_command(
     'notifoff', None, 'Menghapus atau menonaktifkan pemberitahuan pesan pribadi yang tidak disetujui.'
 ).add_command(
     'notifon', None, 'Izinkan pesan pribadi yang tidak disetujui untuk mengirim pemberitahuan.'
+).add_command(
+    'set pm_msg', None, 'Menyetel Pesan Pribadimu untuk orang yang pesannya belum diterima.'
+).add_command(
+    'get pm_msg', None, 'Mendapatkan Custom pesan PM mu.'
+).add_command(
+    'reset pm_msg', None, 'Menghapus pesan PM ke default.'
 ).add()
