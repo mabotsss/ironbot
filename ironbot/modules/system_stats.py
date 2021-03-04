@@ -15,6 +15,7 @@ import sys
 import os
 import asyncio
 import psutil
+from datetime import datetime
 
 # ================= CONSTANT =================
 DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
