@@ -4,15 +4,16 @@ import bs4
 import requests
 
 from ironbot.events import register
+from ironbot import CmdHelp
 
 
 @register(outgoing=True, pattern=".playstore ?(.*)")
 async def play_store(message):
     try:
-        await message.edit("`Siri Verdiğiniz Program Arıyor...`")
+        await message.edit("`Mencari Program Anda...`")
         app_name = message.pattern_match.group(1)
         if len(app_name) < 1:
-            await message.edit("`Lütfen Program adı yazın. Örnek: ``.playstore Telegram`")
+            await message.edit("`Silakan tulis nama Program. Contoh: ``.playstore Telegram`")
             return
             
         remove_siri = app_name.split(' ')
@@ -31,12 +32,17 @@ async def play_store(message):
         app_icon = results[0].findNext('div', 'Vpfmgd').findNext('div', 'uzcko').img['data-src']
         app_details = "<a href='" + app_icon + "'>📲&#8203;</a>"
         app_details += " <b>" + app_name + "</b>"
-        app_details += "\n\n<code>Sahibi :</code> <a href='" + app_dev_link + "'>"
+        app_details += "\n\n<code>Pembuat :</code> <a href='" + app_dev_link + "'>"
         app_details += app_dev + "</a>"
-        app_details += "\n<code>Puan :</code> " + app_rating.replace(
+        app_details += "\n<code>Rate :</code> " + app_rating.replace(
             "Rated ", "").replace(" out of ", "/").replace(
                 " stars", "", 1).replace(" stars", "⭐️").replace("five", "5")
-        app_details += "\n<code>Özellikler :</code> <a href='" + app_link + "'>Google Play'da göstər</a>"
+        app_details += "\n<code>Link :</code> <a href='" + app_link + "'>GooglePlay Link</a>"
         await message.edit(app_details, parse_mode='html')
     except IndexError:
-        await message.edit("`Verdiğiniz Programk Bulamadım`")
+        await message.edit("`Tidak Dapat Menemukan Program yang Anda Berikan`")
+
+
+CmdHelp('playstore').add_command(
+    'playstore', '<nama apalikasi>', 'Mencari aplikasi yang ada di playstore'
+).add()
