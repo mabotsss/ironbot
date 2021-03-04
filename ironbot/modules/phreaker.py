@@ -11,7 +11,7 @@ from ironbot.cmdhelp import CmdHelp
 async def _(event):
     if event.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
+    input_str = event.pattern_match.group(2)
     adress = input_str
     
     token = "19e7f2b6fe27deb566140aae134dec6b"
@@ -38,7 +38,7 @@ async def _(event):
 async def _(event):
     if event.fwd_from:
         return
-    input_str = event.pattern_match.group(1)
+    input_str = event.pattern_match.group(2)
     Query = input_str
     
     api = "http://ip-api.com/json/" + Query
@@ -56,7 +56,7 @@ async def _(event):
 
 CMD_HELP.update(
     {
-        "ipscanner": "**IP SCANNER**\
+        "phreaker": "**IP SCANNER**\
 \n\n**Syntax : **`.scanip <ip address>`\
 \n**Usage :** Gives details about the ip address."
     }
