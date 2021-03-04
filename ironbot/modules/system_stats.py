@@ -180,7 +180,7 @@ async def ironalive(alive):
 @register(outgoing=True, pattern=r"^\.(?:xalive)\s?(.)?")
 async def amireallyalive(alive):
     user = await bot.get_me()
-    await get_readable_time((time.time() - StartTime))
+    await get_readable_time((time.time() - Lastupdate))
     output = (
         f" **┗┓ ----IRONBOT---- ┏┛** \n"
         f"**━━━━━━━━━━━━━━━━━━━━**\n"
