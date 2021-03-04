@@ -64,3 +64,4 @@ wget
 psutil
 jikanpy
 pendulum
+html_telegraph_poster
