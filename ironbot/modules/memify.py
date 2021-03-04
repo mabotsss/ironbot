@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from ironbot import CMD_HELP, TEMP_DOWNLOAD_DIRECTORY, bot
 from ironbot.events import register
+from ironbot.cmdhelp import CmdHelp
 
 THUMB_IMAGE_PATH = "./thumb_image.jpg"
 
@@ -16,21 +17,21 @@ async def mim(event):
         return
     if not event.reply_to_msg_id:
         await event.edit(
-            "`Syntax: reply to an image with .mmf` 'text on top' ; 'text on bottom' "
+            "Mohon Balas Ke Gambar Ketik `.mmf 'Teks Atas' ; 'Teks Bawah'` "
         )
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await event.edit("```reply to a image/sticker/gif```")
+        await event.edit("```Mohon Balas Ke Gambar/Sticker/Gif```")
         return
     reply_message.sender
     await bot.download_file(reply_message.media)
     if reply_message.sender.bot:
-        await event.edit("```Reply to actual users message.```")
+        await event.edit("```Balas ke pesan pengguna yang sebenarnya.```")
         return
     else:
         await event.edit(
-            "```Transfiguration Time! Mwahaha Memifying this image! (」ﾟﾛﾟ)｣ ```"
+            "```Mengubah Gambar Ini Mwahaha Saatnya Menulis ツ ```"
         )
         await asyncio.sleep(5)
         text = event.pattern_match.group(1)
@@ -58,7 +59,8 @@ async def draw_meme_text(image_path, text):
     os.remove(image_path)
     i_width, i_height = img.size
     m_font = ImageFont.truetype(
-        "ironbot/fonts/Font1.ttf", int((95 / 730) * i_width)
+        "ironbot/fonts/Font1.ttf", int(
+            (70 / 640) * i_width)
     )
     if ";" in text:
         upper_text, lower_text = text.split(";")
@@ -72,25 +74,29 @@ async def draw_meme_text(image_path, text):
             u_width, u_height = draw.textsize(u_text, font=m_font)
 
             draw.text(
-                xy=(((i_width - u_width) / 2) - 1, int((current_h / 730) * i_width)),
+                xy=(((i_width - u_width) / 2) - 1,
+                    int((current_h / 730) * i_width)),
                 text=u_text,
                 font=m_font,
                 fill=(0, 0, 0),
             )
             draw.text(
-                xy=(((i_width - u_width) / 2) + 1, int((current_h / 730) * i_width)),
+                xy=(((i_width - u_width) / 2) + 1,
+                    int((current_h / 730) * i_width)),
                 text=u_text,
                 font=m_font,
                 fill=(0, 0, 0),
             )
             draw.text(
-                xy=((i_width - u_width) / 2, int(((current_h / 730) * i_width)) - 1),
+                xy=((i_width - u_width) / 2,
+                    int(((current_h / 730) * i_width)) - 1),
                 text=u_text,
                 font=m_font,
                 fill=(0, 0, 0),
             )
             draw.text(
-                xy=(((i_width - u_width) / 2), int(((current_h / 730) * i_width)) + 1),
+                xy=(((i_width - u_width) / 2),
+                    int(((current_h / 730) * i_width)) + 1),
                 text=u_text,
                 font=m_font,
                 fill=(0, 0, 0),
@@ -167,21 +173,21 @@ async def mim(event):
         return
     if not event.reply_to_msg_id:
         await event.edit(
-            "`Syntax: reply to an image with .mmf` 'text on top' ; 'text on bottom' "
+            "Mohon Balas Ke Gambar Ketik `.mmf2 'Teks Atas' ; 'Teks Bawah'` "
         )
         return
     reply_message = await event.get_reply_message()
     if not reply_message.media:
-        await event.edit("```reply to a image/sticker/gif```")
+        await event.edit("```Mohon Balas Ke Gambar/Sticker/Gif```")
         return
     reply_message.sender
     await bot.download_file(reply_message.media)
     if reply_message.sender.bot:
-        await event.edit("```Reply to actual users message.```")
+        await event.edit("```Balas Ke Pesan Pengguna Yang Sebenarnya.```")
         return
     else:
         await event.edit(
-            "```Transfiguration Time! Mwahaha Memifying this image! (」ﾟﾛﾟ)｣ ```"
+            "```Mengubah Gambar Ini Mwahaha Saatnya Menulis ツ ```"
         )
         await asyncio.sleep(5)
         text = event.pattern_match.group(1)
@@ -219,7 +225,7 @@ async def draw_meme_text(image_path, text):
     draw = ImageDraw.Draw(img)
     current_h, pad = 10, 5
     if upper_text:
-        for u_text in textwrap.wrap(upper_text, width=18):
+        for u_text in textwrap.wrap(upper_text, width=16):
             u_width, u_height = draw.textsize(u_text, font=m_font)
 
             draw.text(
@@ -255,7 +261,7 @@ async def draw_meme_text(image_path, text):
             )
             current_h += u_height + pad
     if lower_text:
-        for l_text in textwrap.wrap(lower_text, width=18):
+        for l_text in textwrap.wrap(lower_text, width=16):
             u_width, u_height = draw.textsize(l_text, font=m_font)
 
             draw.text(
@@ -311,11 +317,9 @@ async def draw_meme_text(image_path, text):
     img.save(webp_file, "WebP")
     return webp_file
 
+CmdHelp('memify').add_command(
+    'mmf', 'Teks Atas ; Teks Bawah', 'Balas Ke Sticker/Gambar/Gif.'
+).add_command(
+    'mmf2', 'Teks Atas ; Teks Bawah', 'Balas Ke Sticker/Gambar/Gif.'
+).add()
 
-CMD_HELP.update({
-    "memify":
-        "`.mmf` texttop ; textbottom\
-        \nUsage: Reply a sticker/image/gif and send with cmd.\n"
-        "`.mmf2` texttop ; textbottom\
-        \nUsage: Reply a sticker/image/gif and send with cmd."
-})

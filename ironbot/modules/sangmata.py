@@ -2,6 +2,7 @@ from telethon.errors.rpcerrorlist import YouBlockedUserError
 from ironbot import bot, CMD_HELP
 from ironbot.events import register
 from asyncio.exceptions import TimeoutError
+from ironbot.cmdhelp import CmdHelp
 
 
 @register(outgoing=True, pattern=r"^\.sa(?: |$)(.*)")
@@ -54,9 +55,7 @@ async def lastname(steal):
     except TimeoutError:
         return await steal.edit("`Saya Sedang Sakit Boss Maaf`")
 
+CmdHelp('sangmata').add_command(
+    'sa', '<balas ke pesan>', 'Mendapatkan Riwayat Nama Pengguna.'
+).add()
 
-CMD_HELP.update({
-    "sangmata":
-        "`.sa`\
-          \nUsage: Mendapatkan Riwayat Nama Pengguna."
-})
