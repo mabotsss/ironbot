@@ -16,16 +16,6 @@ LANG = get_value("pmpermit")
 
 # ████████████████████████████████ #
 
-DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
-
-DEF_UNAPPROVED_MSG = (
-    f"__**ROOM CHAT || {DEFAULTUSER}**__\n"
-    "━━━━━━━━━━━━━━━━━━━━\n"
-    f"```HALLO SELAMAT DATANG, SAYA ADALAH BOT YANG MENJAGA ROOM CHAT INI MOHON JANGAN MELAKUKAN SPAM KARNA SAYA OTOMATIS AKAN MEMBLOKIR ANDA, TUNGGU SAMPAI {DEFAULTUSER} MENERIMA PESAN ANDA```\n"
-    "┏━━━━━━━━━━━━━━━━━━━\n"
-    "┣[• `PESAN OTOMATIS`\n"
-    "┣[• `BY IRONBOT`\n"
-    "┗━━━━━━━━━━━━━━━━━━━")
 
 @register(incoming=True, disable_edited=True, disable_errors=True)
 async def permitpm(event):

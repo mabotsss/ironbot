@@ -7,7 +7,7 @@ import requests
 from telethon.tl.types import InputMessagesFilterDocument
 from telethon.errors.rpcerrorlist import PhoneNumberInvalidError
 from telethon.tl.functions.channels import GetMessagesRequest
-from . import BRAIN_CHECKER, LOGS, bot, PLUGIN_CHANNEL_ID, CMD_HELP, LANGUAGE, IRON_VERSION, PATTERNS
+from . import BRAIN_CHECKER, LOGS, bot, PLUGIN_CHANNEL_ID, CMD_HELP, LANGUAGE, IRON_VERSION, PATTERNS, ALIVE_NAME
 from .modules import ALL_MODULES
 import ironbot.modules.sql_helper.mesaj_sql as MSJ_SQL
 import ironbot.modules.sql_helper.galeri_sql as GALERI_SQL
@@ -58,9 +58,21 @@ AFKSTR = [
     "Aku tidak di sini sekarang .... \n tapi jika aku ... \n \n bukankah itu bagus?",
 ]
 
-UNAPPROVED_MSG = ("`Hey,` {mention}`! .\n\n`"
-                  "`Maboss lagi sibuk. `"
-                  "`Harap tunggu boss saya aktif dan membalas pesan ini.\n\n`")
+DEFAULTUSER = str(ALIVE_NAME) if ALIVE_NAME else uname().node
+
+UNAPPROVED_MSG = (
+    "━━━━━━━━━━━━━━━━━━━━\n"
+    "`Hey,` {mention}`! .\n\n`"
+   f"`Maboss` {DEFAULTUSER} `lagi sibuk.`"
+    "`Harap tunggu boss saya aktif dan membalas pesan ini.\n\n`"
+    "┏━━━━━━━━━━━━━━━━━━━\n"
+    "┣[• `PESAN OTOMATIS`\n"
+    "┣[• `BY IRONBOT`\n"
+    "┗━━━━━━━━━━━━━━━━━━━")
+
+#UNAPPROVED_MSG = ("`Hey,` {mention}`! .\n\n`"
+#                  "`Maboss lagi sibuk. `"
+#                  "`Harap tunggu boss saya aktif dan membalas pesan ini.\n\n`")
 
 
 DB = connect("learning-data-root.check")
