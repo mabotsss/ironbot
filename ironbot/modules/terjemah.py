@@ -14,7 +14,7 @@ from ironbot.events import register
 from ironbot.cmdhelp import CmdHelp
 #from ironbot.modules.eoreod import edit_or_reply, edit_delete
 
-@register(outgoing=True, pattern="^.tr$")
+@register(outgoing=True, pattern="^.tr (.*)")
 async def _(event):
     input = event.text[4:6]
     txt = event.text[7:]
@@ -37,6 +37,36 @@ async def _(event):
         await edit_delete(xx, output_str)
     except Exception as exc:
         await edit_delete(xx, str(exc), time=10)
+        
+        
+@register(outgoing=True, pattern=r"^.tl (.*)")
+async def _(event):
+    if event.fwd_from:
+        return
+    if "trim" in event.raw_text:
+        return
+    input_str = event.pattern_match.group(1)
+    if event.reply_to_msg_id:
+        previous_message = await event.get_reply_message()
+        text = previous_message.message
+        lan = input_str or "en"
+    elif ";" in input_str:
+        lan, text = input_str.split(";")
+    else:
+        await edit_delete(event, "`.tl LanguageCode` as reply to a message", time=5)
+        return
+    text = emoji.demojize(text.strip())
+    lan = lan.strip()
+    Translator()
+    try:
+        translated = await getTranslate(text, dest=lan)
+        after_tr_text = translated.text
+        output_str = f"**TRANSLATED from {LANGUAGES[translated.src].title()} to {LANGUAGES[lan].title()}**\
+                \n`{after_tr_text}`"
+        await edit_or_reply(event, output_str)
+    except Exception as exc:
+        await edit_delete(event, str(exc), time=5)
+
 
 async def edit_or_reply(
     event,
