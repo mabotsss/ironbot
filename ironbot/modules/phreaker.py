@@ -44,9 +44,9 @@ async def _(event):
     iespe = result['isp']
     org = result['org']
     
-    if result['status'] == 'success': 
+    if result['status'] != 'success': 
         await event.edit(f"Hasil dari {Query}\n\n**IP** : `{qry}`\n**ISP** : `{iespe}`\n**NEGARA** : `{ngra}`\n**KOTA** : `{kta}`\n**BENUA** : `{bnua}`\n")
-    elif result['status'] == 'fail':
+    else:
         await event.edit("Salah Noob")
     
 
