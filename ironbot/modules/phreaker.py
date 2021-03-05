@@ -124,11 +124,16 @@ async def magisk(request):
 
 @register(outgoing=True, pattern="^.ipscan$")
 async def _(event):
-    if event.fwd_from:
+    textx = await request.get_reply_message()
+    input_str = request.pattern_match.group(1)
+    if codename:
+        pass
+    elif textx:
+        input_str = textx.text
+    else:
+        await request.edit("`Usage: .device <input_str> / <model>`")
         return
-    input_str = event.pattern_match.group(2)
-    adress = input_str
-    
+    adress = input_str    
     token = "19e7f2b6fe27deb566140aae134dec6b"
     api = "http://api.ipstack.com/" + adress + "?access_key=" + token + "&format=1"
     
