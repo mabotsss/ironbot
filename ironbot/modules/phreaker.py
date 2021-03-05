@@ -45,8 +45,9 @@ async def _(event):
     
     try:
         await event.edit(f"Hasil dari {Query}\n\n**IP** : `{qry}`\n**ISP** : `{iespe}`\n**ORG** : `{org}`\n**NEGARA** : `{ngra}`\n**KOTA** : `{kta}`\n")
-    except Exception as e:  # pylint:disable=C0103,W0703
-        await event.edit(str(e))
+    except Exception:  # pylint:disable=C0103,W0703
+        raise Exception('Failed') from None
+      #  await event.edit(str(e))
      #   await event.edit("Salah Noob wkwkwk!!!\nya masa make http://")
     
 
