@@ -127,6 +127,7 @@ ANTI_SPAMBOT_SHOUT = sb(os.environ.get("ANTI_SPAMBOT_SHOUT", "False"))
 
 # Youtube API key
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", None)
+SUDO_USER = os.environ.get("SUDO_USER", None)
 
 COUNTRY = str(os.environ.get("COUNTRY", ""))
 TZ_NUMBER = int(os.environ.get("TZ_NUMBER", 1))
@@ -458,6 +459,7 @@ Anda dapat mengubah akun Anda menjadi bot dan menggunakannya. Ingat, Anda tidak 
             "Periksa variabel lingkungan / file config.env Anda."
         )
         quit(1)
+
 
 
 SON_GORULME = 0
