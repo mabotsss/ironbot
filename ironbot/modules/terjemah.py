@@ -11,13 +11,13 @@ import emoji
 from googletrans import Translator
 from ironbot.events import register
 from ironbot.cmdhelp import CmdHelp
-#from ironbot.modules.eoreod import edit_or_replay, edit_delete
+#from ironbot.modules.eoreod import edit_or_reply, edit_delete
 
 @register(outgoing=True, pattern="^.tr$")
 async def _(event):
     input = event.text[4:6]
     txt = event.text[7:]
-    xx = await edit_or_replay(event, "`Translating...`")
+    xx = await edit_or_reply(event, "`Translating...`")
     if event.reply_to_msg_id:
         previous_message = await event.get_reply_message()
         text = previous_message.message
