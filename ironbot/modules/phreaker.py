@@ -13,7 +13,7 @@ from telethon import events
 import asyncio
 from ironbot.cmdhelp import CmdHelp
 
-@register(outgoing=True, pattern=r"^\.hostinfo(?: |$)(\S*)")
+@register(outgoing=True, pattern=r"^\.h2p(?: |$)(\S*)")
 async def _(event):
     textx = await event.get_reply_message()
     Query = event.pattern_match.group(1)
@@ -32,11 +32,22 @@ async def _(event):
     if request.status_code != 200:
         await event.edit("`Invalid link.`")
         return
-
-    qry = result['query']
     stts = result['status']
-      
-    await event.edit(f"Hasil dari {Query}\n\n**IP** : `{qry}`\n")
+    qry = result['query']
+    bnua = result['continent']
+    ngra = result['country']
+    kta = result['city']
+    latd = result['lat']
+    lond = result['lon']
+    tmzn = result['timezone']
+    crncy = result['currency']
+    iespe = result['isp']
+    org = result['org']
+    
+    if stts = 'success': 
+        await event.edit(f"Hasil dari {Query}\n\n**IP** : `{qry}`\n**ISP** : `{iespe}`\n**NEGARA** : `{ngra}`\n**KOTA** : `{kta}`\n**BENUA** : `{bnua}`\n")
+    else:
+        await event.edit("Salah Noob")
     
 
 
