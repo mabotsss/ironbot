@@ -22,7 +22,7 @@ async def _(event):
     elif textx:
         Query = textx.text
     else:
-        await request.edit("`Pemakaian: .h2p <host>`")
+        await request.edit("`Pemakaian: .hostinfo <host>`")
         return
 
     url = f'http://ip-api.com/json/{Query}?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query'

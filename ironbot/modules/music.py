@@ -264,7 +264,7 @@ Song name - {}
     await event.delete()
 
 
-CmdHelp('song').add_command(
+CmdHelp('music').add_command(
     'deez', '<Judul lagu/youtube/spotify/soundcloud>', 'Cari dan unduh lagu dari banyak situs.'
 ).add_command(
     'lagu', '<Judul lagu>', 'mengunduh lagu dari youtube'
