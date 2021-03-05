@@ -61,6 +61,7 @@ async def device_info(request):
              "http://ip-api.com/json/{Query}/"
          ).text
     )
+    results = data.get(Query)
     if results:
          reply = (f"**Latest TWRP for {Query}:**\n")
          for item in data:
@@ -85,10 +86,10 @@ async def device_info(request):
         await request.edit("`Usage: .device <Query> `")
         return
     magisk_dict = {
-        "http://ip-api.com/json/{Query}/"
+        "Tes": "http://ip-api.com/json/{Query}/"
     }
     releases = "Latest Magisk Releases:\n"
-    for release_url in magisk_dict.items():
+    for k, release_url in magisk_dict.items():
          data = get(release_url).json()
          releases += (
              f' ZIP v{data["query"]}')
