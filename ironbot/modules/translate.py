@@ -4,6 +4,7 @@ from googletrans import LANGUAGES, Translator
 from ironbot.events import register
 from ironbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from ironbot.modules.sql_helper.globals import addgvar, gvarstatus
+from emoji import get_emoji_regexp
 
 @register(outgoing=True, pattern="^\.tl (.*)")
 async def _(event):
