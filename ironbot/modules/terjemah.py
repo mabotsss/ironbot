@@ -8,6 +8,7 @@ import traceback
 from asyncio.exceptions import TimeoutError
 
 import emoji
+from ironbot import SUDO_USER, bot
 from googletrans import Translator
 from ironbot.events import register
 from ironbot.cmdhelp import CmdHelp
