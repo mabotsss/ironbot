@@ -45,6 +45,36 @@ async def device_info(request):
         reply = f"`Couldn't find info about {codename}!`\n"
     await request.edit(reply)
 
+@register(outgoing=True, pattern=r"^\.ngens(?: |$)(\S*)")
+async def device_info(request):
+    textx = await request.get_reply_message()
+    codename = request.pattern_match.group(1)
+    if codename:
+        pass
+    elif textx:
+        codename = textx.text
+    else:
+        await request.edit("`Usage: .device <codename> / <model>`")
+        return
+    data = json.loads(
+        get(
+            "http://ip-api.com/json/{codename}"
+        ).text
+    )
+    results = data.get(codename)
+    if results:
+        reply = f"**Search results for {codename}**:\n\n"
+        for item in results:
+            reply += (
+                f"**Brand**: {item['query']}\n"
+                f"**Name**: {item['status']}\n"
+                f"**Model**: {item['country']}\n\n"
+            )
+    else:
+        reply = f"`Couldn't find info about {codename}!`\n"
+    await request.edit(reply)
+
+
 
 @register(outgoing=True, pattern=r"^\.twrp(?: |$)(\S*)")
 async def twrp(request):
