@@ -2,7 +2,7 @@ from asyncio import sleep
 
 from googletrans import LANGUAGES, Translator
 from ironbot.events import register
-from ironbot import BOTLOG, BOTLOG_CHATID
+from ironbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
 from ironbot.modules.sql_helper.globals import addgvar, gvarstatus
 
 @register(outgoing=True, pattern="^\.tl (.*)")
