@@ -56,7 +56,11 @@ async def device_info(request):
     else:
         await request.edit("`Usage: .device <Query> `")
         return
-    data = get(f"http://ip-api.com/json/{Query}/")
+    data = json.loads(
+         get(
+             "http://ip-api.com/json/{Query}/"
+         ).text
+    )
     if data:
          reply = (f"**Latest TWRP for {Query}:**\n")
          for item in data:
