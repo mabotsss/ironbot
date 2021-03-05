@@ -11,6 +11,7 @@ from ironbot import CMD_HELP, bot
 from ironbot.events import register
 from telethon import events
 import asyncio
+from asyncio.exceptions import KeyError
 from ironbot.cmdhelp import CmdHelp
 
 @register(outgoing=True, pattern=r"^\.h2p(?: |$)(\S*)")
@@ -46,7 +47,6 @@ async def _(event):
     try:
         await event.edit(f"Hasil dari {Query}\n\n**IP** : `{qry}`\n**ISP** : `{iespe}`\n**ORG** : `{org}`\n**NEGARA** : `{ngra}`\n**KOTA** : `{kta}`\n")
     except KeyError as e:  # pylint:disable=C0103,W0703
-       # raise Exception('Failed') from None
         await event.edit(str(e))
      #   await event.edit("Salah Noob wkwkwk!!!\nya masa make http://")
     
