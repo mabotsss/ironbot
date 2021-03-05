@@ -2,11 +2,12 @@ from asyncio import sleep
 
 from googletrans import LANGUAGES, Translator
 from ironbot.events import register
-from ironbot import BOTLOG, BOTLOG_CHATID, CMD_HELP, bot
+from ironbot import BOTLOG, BOTLOG_CHATID, CMD_HELP
 from ironbot.modules.sql_helper.globals import addgvar, gvarstatus
 from emoji import get_emoji_regexp
 
-@register(outgoing=True, pattern="^\.tl (.*)")
+#@register(outgoing=True, pattern="^\.tl (.*)")
+@bot.on(admin_cmd(pattern="tl (.*)"))
 async def _(event):
     if event.fwd_from:
         return
@@ -35,7 +36,8 @@ async def _(event):
         await event.edit(str(exc))
 
 
-@register(outgoing=True, pattern=r"^\.trt(?: |$)([\s\S]*)")
+#@register(outgoing=True, pattern=r"^\.trt(?: |$)([\s\S]*)")
+@bot.on(admin_cmd(outgoing=True, pattern=r"trt(?: |$)([\s\S]*)"))
 async def translateme(trans):
     if trans.fwd_from:
         return
@@ -66,7 +68,8 @@ async def translateme(trans):
         )
 
 
-@register(outgoing=True, pattern="^\.lang trt (.*)")
+#@register(outgoing=True, pattern="^\.lang trt (.*)")
+@bot.on(admin_cmd(pattern="lang trt (.*)", outgoing=True))
 async def lang(value):
     if value.fwd_from:
         return
