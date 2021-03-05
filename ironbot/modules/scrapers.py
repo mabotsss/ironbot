@@ -336,7 +336,7 @@ async def text_to_speech(query):
         await query.delete()
 
 
-@register(outgoing=True, pattern="^\.tr$")
+@register(outgoing=True, pattern="^.tr (.*)")
 async def _(event):
     if event.fwd_from:
         return
