@@ -33,13 +33,12 @@ async def _(event):
         await event.edit("`Invalid link.`")
         return
     
-    try:
-        return await event.edit(f"Hasil dari {Query}\n\n**IP** : `{result['query']}`\n**ISP** : `{result['isp']}`\n**ORG** : `{result['org']}`\n**NEGARA** : `{result['country']}`\n**KOTA** : `{result['city']}`\n**TimeZone** : `{result['timezone']}`\n\n`[STATUS : {result['status']}]` ")
-    except Exception as e:  # pylint:disable=C0103,W0703
-        return await event.edit(f"{str(type(e)): {str(e)}}")
-         #   await event.edit("Salah Noob wkwkwk!!!\nya masa make http://")
-    
+    if result['status'] != 'success':
+        await event.edit("Salah Noob wkwkwk!!!\nya masa make http://")
+        return
 
+    await event.edit(f"Hasil dari {Query}\n\n**IP** : `{result['query']}`\n**ISP** : `{result['isp']}`\n**ORG** : `{result['org']}`\n**NEGARA** : `{result['country']}`\n**KOTA** : `{result['city']}`\n**TimeZone** : `{result['timezone']}`\n\n`[STATUS : {result['status']}]` ")
+    
 
 
 
