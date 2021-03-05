@@ -56,15 +56,17 @@ async def device_info(request):
     else:
         await request.edit("`Usage: .device <Query> `")
         return
-    url = get(f"http://ip-api.com/json/{Query}/")
-    if url.status_code == 404:
-        reply = f"`Couldn't find twrp downloads for {Query}!`\n"
-        await request.edit(reply)
-        return
-    
-    reply = (
-        f"**Latest TWRP for {Query}:**\n"
-    )
+    data = get(f"http://ip-api.com/json/{Query}/")
+    if data:
+         reply = (f"**Latest TWRP for {Query}:**\n")
+         for item in data:
+             reply += (
+                 f"**Brand**: {item['brand']}\n"
+                 f"**Name**: {item['name']}\n"
+                 f"**Model**: {item['model']}\n\n"
+             )       
+    else:
+        reply = f"`Couldn't find info about {Query}!`\n"
     await request.edit(reply)
 
 
