@@ -49,29 +49,22 @@ async def device_info(request):
 async def device_info(request):
     textx = await request.get_reply_message()
     codename = request.pattern_match.group(1)
-    if codename:
+    if Query:
         pass
     elif textx:
-        codename = textx.text
+        Query = textx.text
     else:
-        await request.edit("`Usage: .device <codename> / <model>`")
+        await request.edit("`Usage: .device <Query> `")
         return
-    data = json.loads(
-        get(
-            "http://ip-api.com/json/{codename}"
-        ).text
+    url = get(f"http://ip-api.com/json/{Query}/")
+    if url.status_code == 404:
+        reply = f"`Couldn't find twrp downloads for {Query}!`\n"
+        await request.edit(reply)
+        return
+    
+    reply = (
+        f"**Latest TWRP for {device}:**\n"
     )
-    results = data.get(codename)
-    if results:
-        reply = f"**Search results for {codename}**:\n\n"
-        for item in results:
-            reply += (
-                f"**Brand**: {item['query']}\n"
-                f"**Name**: {item['status']}\n"
-                f"**Model**: {item['country']}\n\n"
-            )
-    else:
-        reply = f"`Couldn't find info about {codename}!`\n"
     await request.edit(reply)
 
 
