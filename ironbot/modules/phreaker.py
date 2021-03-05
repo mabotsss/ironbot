@@ -45,9 +45,9 @@ async def _(event):
     org = result['org']
     
     if result['status'] != 'success': 
+        await event.edit("Salah Noob wkwkwk!!!\nya masa make http://")
+    else:      
         await event.edit(f"Hasil dari {Query}\n\n**IP** : `{qry}`\n**ISP** : `{iespe}`\n**NEGARA** : `{ngra}`\n**KOTA** : `{kta}`\n**BENUA** : `{bnua}`\n")
-    else:
-        await event.edit("Salah Noob")
     
 
 
