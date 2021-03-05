@@ -13,7 +13,34 @@ from telethon import events
 import asyncio
 from ironbot.cmdhelp import CmdHelp
 
-
+@register(outgoing=True, pattern=r"^\.twrp(?: |$)(\S*)")
+async def twrp(request):
+    textx = await request.get_reply_message()
+    device = request.pattern_match.group(1)
+    if device:
+        pass
+    elif textx:
+        device = textx.text.split(" ")[0]
+    else:
+        await request.edit("`Usage: .twrp <codename>`")
+        return
+    url = get(f"https://dl.twrp.me/{device}/")
+    if url.status_code == 404:
+        reply = f"`Couldn't find twrp downloads for {device}!`\n"
+        await request.edit(reply)
+        return
+    page = BeautifulSoup(url.content, "lxml")
+    download = page.find("table").find("tr").find("a")
+    dl_link = f"https://dl.twrp.me{download['href']}"
+    dl_file = download.text
+    size = page.find("span", {"class": "filesize"}).text
+    date = page.find("em").text.strip()
+    reply = (
+        f"**Latest TWRP for {device}:**\n"
+        f"[{dl_file}]({dl_link}) - __{size}__\n"
+        f"**Updated:** __{date}__\n"
+    )
+    await request.edit(reply)
 
 @register(outgoing=True, pattern=r"^\.magisk$")
 async def magisk(request):
