@@ -7,7 +7,7 @@ from asyncio.exceptions import TimeoutError
 
 import emoji
 from googletrans import Translator
-from ironbot.events import register, edit_or_replay, edit_delete
+from ironbot.events import register
 from ironbot.cmdhelp import CmdHelp
 
 @register(outgoing=True, pattern="^.tr$")
