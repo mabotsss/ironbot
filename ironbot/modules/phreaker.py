@@ -32,19 +32,9 @@ async def _(event):
     if request.status_code != 200:
         await event.edit("`Invalid link.`")
         return
-    stts = result['status']
-    qry = result['query']
-    ngra = result['country']
-    kta = result['city']
-    latd = result['lat']
-    lond = result['lon']
-    tmzn = result['timezone']
-    crncy = result['currency']
-    iespe = result['isp']
-    org = result['org']
     
     try:
-        return await event.edit(f"Hasil dari {Query}\n\n**IP** : `{qry}`\n**ISP** : `{iespe}`\n**ORG** : `{org}`\n**NEGARA** : `{ngra}`\n**KOTA** : `{kta}`\n")
+        return await event.edit(f"Hasil dari {Query}\n\n**IP** : `{result['query']}`\n**ISP** : `{result['isp']}`\n**ORG** : `{result['org']}`\n**NEGARA** : `{result['country']}`\n**KOTA** : `{result['city']}`\n**TimeZone** : `{result['timezone']}`\n")
     except Exception as e:  # pylint:disable=C0103,W0703
         return await event.edit(f"{str(type(e)): {str(e)}}")
        # await event.edit(str(e))
