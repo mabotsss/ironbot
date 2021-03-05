@@ -34,7 +34,6 @@ async def _(event):
         return
     stts = result['status']
     qry = result['query']
-    bnua = result['continent']
     ngra = result['country']
     kta = result['city']
     latd = result['lat']
