@@ -9,7 +9,7 @@ import emoji
 from googletrans import Translator
 from ironbot.events import register
 from ironbot.cmdhelp import CmdHelp
-from ironbot import edit_or_replay, edit_delete
+from ironbot.modules.eoreod import edit_or_replay, edit_delete
 
 @register(outgoing=True, pattern="^.tr$")
 async def _(event):
