@@ -4,7 +4,7 @@ import math
 import os
 import re
 import time
-
+from bs4 import BeautifulSoup
 from requests import get
 import urllib.request
 from ironbot import CMD_HELP, bot
