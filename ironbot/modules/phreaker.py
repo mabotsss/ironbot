@@ -61,7 +61,7 @@ async def device_info(request):
              "http://ip-api.com/json/{Query}/"
          ).text
     )
-    if data:
+    if results:
          reply = (f"**Latest TWRP for {Query}:**\n")
          for item in data:
              reply += (
@@ -71,6 +71,28 @@ async def device_info(request):
     else:
         reply = f"`Couldn't find info about {Query}!`\n"
     await request.edit(reply)
+    
+    
+@register(outgoing=True, pattern=r"^\.cok(?: |$)(\S*)")
+async def device_info(request): 
+    textx = await request.get_reply_message()
+    Query = request.pattern_match.group(1)
+    if Query:
+        pass
+    elif textx:
+        Query = textx.text
+    else:
+        await request.edit("`Usage: .device <Query> `")
+        return
+     magisk_dict = {
+        "http://ip-api.com/json/{Query}/"
+     }
+     releases = "Latest Magisk Releases:\n"
+     for release_url in magisk_dict.items():
+         data = get(release_url).json()
+         releases += (
+             f' ZIP v{data["query"]}'
+     await request.edit(releases)
 
 
 
