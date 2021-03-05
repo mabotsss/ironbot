@@ -156,6 +156,16 @@ async def edit_delete(event, text, time=None, parse_mode=None, link_preview=None
     await asyncio.sleep(time)
     return await catevent.delete()
 
+async def getTranslate(text, **kwargs):
+    translator = Translator()
+    result = None
+    for _ in range(10):
+        try:
+            result = translator.translate(text, **kwargs)
+        except Exception:
+            translator = Translator()
+            await sleep(0.1)
+    return result
                 
 CmdHelp('terjemah').add_command(
     'tr','<kode negara> <text/balas pesan>', 'translate mbahmu'
