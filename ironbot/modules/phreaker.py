@@ -46,9 +46,9 @@ async def device_info(request):
     await request.edit(reply)
 
 @register(outgoing=True, pattern=r"^\.ngens(?: |$)(\S*)")
-async def device_info(request):
+async def device_info(request): 
     textx = await request.get_reply_message()
-    codename = request.pattern_match.group(1)
+    Query = request.pattern_match.group(1)
     if Query:
         pass
     elif textx:
@@ -63,7 +63,7 @@ async def device_info(request):
         return
     
     reply = (
-        f"**Latest TWRP for {device}:**\n"
+        f"**Latest TWRP for {Query}:**\n"
     )
     await request.edit(reply)
 
