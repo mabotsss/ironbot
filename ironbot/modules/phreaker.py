@@ -36,8 +36,7 @@ async def _(event):
     qry = result['query']
     stts = result['status']
       
-    await event.edit(
-        f"IP : `{qry}`\n")
+    await event.edit(f"Hasil dari {Query}\n**IP** : `{qry}`\n")
 
 
 

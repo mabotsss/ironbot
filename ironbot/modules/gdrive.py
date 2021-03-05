@@ -135,7 +135,7 @@ async def generate_credentials(gdrive):
     async with gdrive.client.conversation(BOTLOG_CHATID) as conv:
         url_msg = await conv.send_message(
             "Pliss pergi ke URL:\n"
-            f"{auth_url}\nPliss authentikasi lalu copy disini kodenya"
+            f"{auth_url}\nPliss authentikasi lalu paste disini kodenya / balas ke pesan log group ini"
         )
         r = conv.wait_event(
             events.NewMessage(outgoing=True, chats=BOTLOG_CHATID))
