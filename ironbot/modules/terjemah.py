@@ -6,10 +6,12 @@ import requests
 import time
 import traceback
 from asyncio.exceptions import TimeoutError
+from asyncio import sleep
+
+from googletrans import LANGUAGES, Translator
 
 import emoji
 from ironbot import SUDO_USER, bot
-from googletrans import Translator
 from ironbot.events import register
 from ironbot.cmdhelp import CmdHelp
 #from ironbot.modules.eoreod import edit_or_reply, edit_delete
