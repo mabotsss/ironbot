@@ -13,7 +13,7 @@ from telethon import events
 import asyncio
 from ironbot.cmdhelp import CmdHelp
 
-@register(outgoing=True, pattern=r"^\.h2p(?: |$)(\S*)")
+@register(outgoing=True, pattern=r"^\.hostinfo(?: |$)(\S*)")
 async def _(event):
     textx = await event.get_reply_message()
     Query = event.pattern_match.group(1)
@@ -25,7 +25,7 @@ async def _(event):
         await request.edit("`Pemakaian: .h2p <host>`")
         return
 
-    url = f'http://ip-api.com/json/{Query}'
+    url = f'http://ip-api.com/json/{Query}?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,zip,lat,lon,timezone,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query'
     request = get(url)
     result = json.loads(request.text)
 
@@ -36,7 +36,9 @@ async def _(event):
     qry = result['query']
     stts = result['status']
       
-    await event.edit(f"Hasil dari {Query}\n**IP** : `{qry}`\n")
+    await event.edit(f"Hasil dari {Query}\n\n**IP** : `{qry}`\n")
+    
+
 
 
 
