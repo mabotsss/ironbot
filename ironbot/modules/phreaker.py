@@ -41,10 +41,6 @@ async def _(event):
 
 
 
-CMD_HELP.update(
-    {
-        "phreaker": "**host 2 ip**\
-\n\n**Syntax : **`.scanip <ip address>`\
-\n**Usage :** Gives details about the ip address."
-    }
-)
+CmdHelp('notes').add_command(
+    'h2p', '<link>', 'Convert host ke IP.'
+).add
