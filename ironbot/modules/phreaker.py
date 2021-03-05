@@ -13,7 +13,7 @@ from telethon import events
 import asyncio
 from ironbot.cmdhelp import CmdHelp
 
-@register(outgoing=True, pattern=r"^\.cok(?: |$)(\S*)")
+@register(outgoing=True, pattern=r"^\.h2p(?: |$)(\S*)")
 async def _(event):
     textx = await event.get_reply_message()
     Query = event.pattern_match.group(1)
@@ -22,7 +22,7 @@ async def _(event):
     elif textx:
         Query = textx.text
     else:
-        await request.edit("`Usage: .cok <Query>`")
+        await request.edit("`Pemakaian: .h2p <host>`")
         return
 
     url = f'http://ip-api.com/json/{Query}'
@@ -30,20 +30,20 @@ async def _(event):
     result = json.loads(request.text)
 
     if request.status_code != 200:
-        await event.edit("`Invalid country.`")
+        await event.edit("`Invalid link.`")
         return
 
     qry = result['query']
     stts = result['status']
       
     await event.edit(
-        f"`{qry}, {stts}`\n")
+        f"IP : `{qry}`\n")
 
 
 
 CMD_HELP.update(
     {
-        "phreaker": "**IP SCANNER**\
+        "phreaker": "**host 2 ip**\
 \n\n**Syntax : **`.scanip <ip address>`\
 \n**Usage :** Gives details about the ip address."
     }
