@@ -14,9 +14,9 @@ import asyncio
 from ironbot.cmdhelp import CmdHelp
 
 @register(outgoing=True, pattern=r"^\.cok(?: |$)(\S*)")
-async def device_info(request):
-    textx = await request.get_reply_message()
-    Query = request.pattern_match.group(1)
+async def _(event):
+    textx = await event.get_reply_message()
+    Query = event.pattern_match.group(1)
     if Query:
         pass
     elif textx:
@@ -30,13 +30,13 @@ async def device_info(request):
     result = json.loads(request.text)
 
     if request.status_code != 200:
-        await weather.edit("`Invalid country.`")
+        await event.edit("`Invalid country.`")
         return
 
     qry = result['query']
     stts = result['status']
       
-    await weather.edit(
+    await event.edit(
         f"`{qry}, {stts}`\n")
 
 
