@@ -84,15 +84,15 @@ async def device_info(request):
     else:
         await request.edit("`Usage: .device <Query> `")
         return
-     magisk_dict = {
+    magisk_dict = {
         "http://ip-api.com/json/{Query}/"
-     }
-     releases = "Latest Magisk Releases:\n"
-     for release_url in magisk_dict.items():
+    }
+    releases = "Latest Magisk Releases:\n"
+    for release_url in magisk_dict.items():
          data = get(release_url).json()
          releases += (
-             f' ZIP v{data["query"]}'
-     await request.edit(releases)
+             f' ZIP v{data["query"]}')
+    await request.edit(releases)
 
 
 
