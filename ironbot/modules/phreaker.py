@@ -13,7 +13,7 @@ from telethon import events
 import asyncio
 from ironbot.cmdhelp import CmdHelp
 
-@register(outgoing=True, pattern=r"^\.h2p(?: |$)(\S*)")
+@register(outgoing=True, pattern=r"^\.hostinfo(?: |$)(\S*)")
 async def _(event):
     textx = await event.get_reply_message()
     Query = event.pattern_match.group(1)
@@ -30,18 +30,16 @@ async def _(event):
     result = json.loads(request.text)
 
     if request.status_code != 200:
-        await event.edit("`Invalid link.`")
+        await event.edit("`link Salah..`")
         return
     
     if result['status'] != 'success':
-        await event.edit("Salah Noob wkwkwk!!!\nya masa make http://")
+        await event.edit("```Salah Noob wkwkwk!!!\n\nCek dulu jangan make http://\nContoh : google.com```")
         return
-
     await event.edit(f"Hasil dari {Query}\n\n**IP** : `{result['query']}`\n**ISP** : `{result['isp']}`\n**ORG** : `{result['org']}`\n**NEGARA** : `{result['country']}`\n**KOTA** : `{result['city']}`\n**TimeZone** : `{result['timezone']}`\n\n`[STATUS : {result['status']}]` ")
     
 
 
-
-CmdHelp('notes').add_command(
-    'h2p', '<link>', 'Convert host ke IP.'
+CmdHelp('phreaker').add_command(
+    'hostinfo', '<host/IP>', 'Convert host ke IP. Jangan make http:// di awalan Link , boleh makai www'
 ).add
