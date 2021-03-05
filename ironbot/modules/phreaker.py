@@ -13,6 +13,39 @@ from telethon import events
 import asyncio
 from ironbot.cmdhelp import CmdHelp
 
+
+
+@register(outgoing=True, pattern=r"^\.device(?: |$)(\S*)")
+async def device_info(request):
+    textx = await request.get_reply_message()
+    codename = request.pattern_match.group(1)
+    if codename:
+        pass
+    elif textx:
+        codename = textx.text
+    else:
+        await request.edit("`Usage: .device <codename> / <model>`")
+        return
+    data = json.loads(
+        get(
+            "https://raw.githubusercontent.com/androidtrackers/"
+            "certified-android-devices/master/by_device.json"
+        ).text
+    )
+    results = data.get(codename)
+    if results:
+        reply = f"**Search results for {codename}**:\n\n"
+        for item in results:
+            reply += (
+                f"**Brand**: {item['brand']}\n"
+                f"**Name**: {item['name']}\n"
+                f"**Model**: {item['model']}\n\n"
+            )
+    else:
+        reply = f"`Couldn't find info about {codename}!`\n"
+    await request.edit(reply)
+
+
 @register(outgoing=True, pattern=r"^\.twrp(?: |$)(\S*)")
 async def twrp(request):
     textx = await request.get_reply_message()
