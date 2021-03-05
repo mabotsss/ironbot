@@ -27,7 +27,7 @@ async def _(event):
         text = txt
         lan = input or "en"
     else:
-        return await edit_delete(xx, f"`{hndlr}tr LanguageCode` as reply to a message", time=5)
+        return await edit_delete(xx, f"`tr LanguageCode` as reply to a message", time=5)
     text = emoji.demojize(text.strip())
     lan = lan.strip()
     translator = Translator()
