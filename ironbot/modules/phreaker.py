@@ -64,7 +64,7 @@ async def device_info(request):
     results = data.get(Query)
     if results:
          reply = (f"**Latest TWRP for {Query}:**\n")
-         for item in data:
+         for item in results:
              reply += (
                  f"**Brand**: {item['query']}\n"
                  f"**Name**: {item['status']}\n"
